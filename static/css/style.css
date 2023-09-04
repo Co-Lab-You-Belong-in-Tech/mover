@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+/* Reset some default styles for better consistency */
+body, h1, h2, h3, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the Inter font for the entire document */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Define some basic styles for common HTML elements */
+h1 {
+    font-size: 64px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: bold;
+}
+h3{
+    font-size: 24px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 22.4px;
+    margin-bottom: 16px;
+}
+
+
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+}
+
+li {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+input, textarea{
+    outline: none;
+    background: linear-gradient(0deg, #FAF8F3, #FAF8F3),
+    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+    border: 1px solid #0E0E2C59;
+    box-shadow: 0px 2px 2px -1px #4A4A681A inset;
+    width: 320px;
+    height: 40px;
+    border-radius: 100px;
+    padding: 0px 16px;
+    font-size: 16px;
+}
+input:focus, textarea:focus{
+    border: 1px solid #104333;
+    box-shadow: 0px 0px 0px 4px #23897480;
+    outline: none;
+}
+input::placeholder{
+    color: #8C8CA1;
+    font-size: 16px;
+}
+
+label{
+    font-weight: bold;
+}
+
+button{
+    background-color: #104333;
+    color: white;
+    box-shadow: 0px 6px 2px -4px #0E0E2C1A;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    padding: 10px 16px;
+}
+
+/* Add more styles as needed for your specific project */
+
+.small-text{
+    font-size: 14px;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+.lowercase{
+    text-transform: lowercase;
+}
+.capitalize{
+    text-transform: capitalize;
+}
+
+/* All colors */
+
+.color-primary{
+    background-color: #104333;
+    color: white;
+}
+.color-primary:hover{
+    background-color: #196e53;
+    color: white;
+}
+.color-secondary{
+    background-color: #421020;
+    color: white;
+}
+.color-secondary:hover{
+    background-color: #691b34;
+    color: white;
+}
+.color-tertiary{
+    background-color: #F3D9DA;
+}
+.color-dark{
+    background-color: #0E0E2C;
+}
+.color-success{
+    background-color: #ED4B9E;
+}
+
+/* Buttons */
+
+.mover-input-default{
+    background: linear-gradient(0deg, #FAF8F3, #FAF8F3),
+    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+    border: 1px solid #0E0E2C59;
+    box-shadow: 0px 2px 2px -1px #4A4A681A inset;
+    width: 320px;
+    height: 40px;
+    border-radius: 100px;
+    padding: 0px 16px;
+}
+.mover-input-default:focus{
+    border: 1px solid #104333;
+    box-shadow: 0px 0px 0px 4px #23897480;
+    outline: none;
+}
+.mover-input-valid{
+    border: 1px solid #12B76A;
+    box-shadow: 0px 0px 0px 4px #31D0AA33;
+    font-weight: 500;
+}
+.mover-input-valid:focus{
+    border: 1px solid #12B76A;
+    box-shadow: 0px 0px 0px 4px #31D0AA33;
+    font-weight: 500;
+}
+.mover-input-error{
+    border: 1px solid #F04438;
+    box-shadow: 0px 0px 0px 4px #ED4B9E33;
+    font-weight: 500;
+
+}
+
+/* Text area */
+
+.mover-textarea-default{
+    resize: none;
+    width: 320px;
+    height: 117px;
+    border: 1px solid #0E0E2C59;
+    border: linear-gradient(0deg, #FAF8F3, #FAF8F3),
+    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+}
+
