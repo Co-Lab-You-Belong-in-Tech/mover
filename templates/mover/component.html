@@ -1,0 +1,54 @@
+{% extends "mover/index.html" %}
+{% load static %}
+
+{% block content %}
+    <input type="text" name="search" class="mover-input-default" placeholder="Enter Search"/>
+    <input type="email" name="search" class="mover-input-valid" placeholder="Enter Something"/>
+    <input type="email" name="search" class="mover-input-error" placeholder="Enter Something"/>
+    <textarea name="text" rows="5" id="" placeholder="Enter text" class="form-control mover-textarea-default">
+    </textarea>
+    <label for="">Username</label>
+    <button>Register</button>
+    <button class="btn color-primary rounded-lg">Register</button>
+
+    <div class="mover-card new-card mt-2" id="m-card">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Quae in, ratione enim quibusdam magni veritatis maiores nostrum 
+        sit beatae omnis eaque ipsam sequi iusto. Rem voluptates quisquam itaque pariatur quod?
+        <p>Some content in here...</p>
+    </div>
+    <div class="my-2">
+        {% include "mover/request-mover.html" %}
+    </div>
+    <div>
+        {% include "mover/driver-onboarding.html" %}
+    </div>
+    <input id="basicExample" type="text" class="time" />
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $(function() {
+        $('#basicExample').timepicker({
+
+            });
+        });
+         const monthSelect = document.getElementById('monthSelect');
+         const daySelect = document.getElementById('daySelect');
+         const yearSelect = document.getElementById('yearSelect');
+
+        // Loop to generate and populate the options with month numbers
+        for (let i = 1; i <= 12; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            monthSelect.appendChild(option);
+        }
+        for (let i = 1; i <= 30; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            daySelect.appendChild(option);
+        }
+    </script>
+{% endblock script %}

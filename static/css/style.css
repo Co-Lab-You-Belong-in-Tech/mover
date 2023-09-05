@@ -43,7 +43,7 @@ li {
     line-height: 1.5;
     margin-bottom: 8px;
 }
-input, textarea{
+input, textarea, select{
     outline: none;
     background: linear-gradient(0deg, #FAF8F3, #FAF8F3),
     linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
@@ -55,6 +55,7 @@ input, textarea{
     padding: 0px 16px;
     font-size: 16px;
 }
+
 input:focus, textarea:focus{
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
@@ -99,6 +100,10 @@ button{
 
 .color-primary{
     background-color: #104333;
+    color: white;
+}
+.color-primary-50{
+    background-color: #E0F0EE;
     color: white;
 }
 .color-primary:hover{
@@ -168,3 +173,40 @@ button{
     linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
 }
 
+/* Select button */
+
+.mover-btn-default{
+    background-color: #104333;
+    color: white;
+    box-shadow: 0px 6px 2px -4px #0E0E2C1A;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    padding: 10px 16px;
+}
+
+/* Mover card */
+
+.mover-card {
+    border: 2px solid #10433359;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px 0px #00000040;
+    padding: 14px;
+}
+
+
+/* Check button */
+
+.mover-btn-group label{
+    background-color: #E0F0EE;
+}
+.mover-btn-group label:checked{
+    background-color: #0E0E2C;
+}
+.mover-btn-group label:last-child{
+    border-radius: 0 100px 100px 0;
+}
+.mover-btn-group label:first-child{
+    border-radius: 100px 0 0 100px;
+    padding: 100px;
+}
