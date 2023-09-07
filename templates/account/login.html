@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Hello world</p>
-</body>
-</html>
+{% extends "mover/index.html" %}
+
+{% block content %}
+<div class="container m-4 d-flex justify-content-center">
+    <form class="mover-card" style="width: 500px;">
+        {% csrf_token %}
+        <h2 style="font-size: 30px; margin-bottom: 10px;">Welcome Back!!</h2>
+        <div class="form-fields">
+            {% for field in form %}
+                <div class="form-group d-flex flex-column mb-4 mover-login">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="w-100">Login</button>
+    </form>
+</div>
+
+{% endblock content %}

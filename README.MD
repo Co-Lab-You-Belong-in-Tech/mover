@@ -20,7 +20,7 @@ Below are routes to the user auth:
 - Sign up: http://127.0.0.1:8000/accounts/signup/
 
 ### TODO Production
-- Debug Microsoft Map not showing
+- Debug Microsoft Map not showing [DONE]
 - Set up file upload (NEDIA ROOT)
 
 ### TODO DEV
