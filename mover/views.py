@@ -10,3 +10,9 @@ def component(request):
 
 def accept_request(request):
     return render(request, "mover/accept_request.html", {})
+
+def request_mover(request):
+    return render(request, "mover/request_mover.html", {})
+
+def mover_details(request):
+    return render(request, "mover/mover_details.html", {})

@@ -42,7 +42,7 @@ class Vehicle(models.Model):
 
 class VehiclePhoto(models.Model):
     photo = models.ImageField(upload_to="images")
-    vehicle_photo = models.ForeignKey(Vehicle, on_delete = models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE)
 
 
 class Booking(models.Model):
