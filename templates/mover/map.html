@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .bm_LocateMeControl{
+            visibility: hidden;
+            display: none;
+        }
+        .main{
+            display: flex;
+        }
+    </style>
+	<script type='text/javascript'>
+        var map;
+        var directionsManager;
+        let val;
+        let dropoffLocation;
+        let isLoading;
+        // const dropoff = document.getElementById("dropoff");
+        // const sendBtn = document.getElementById("sendBtn");
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const pickup = document.getElementById("pickup");
+            const dropoff= document.getElementById("dropoff");
+            var button = document.getElementById("sendBtn");
+
+            if (isLoading){
+                button.innerHTML = "Loading..."
+                button.disabled = true;
+
+            }
+            button.innerHTML = "Show Map"
+
+            button.addEventListener("click", function() {
+                val = pickup.value;
+                dropoffLocation = dropoff.value;
+                console.log(val);
+                
+                
+                GetMap();
+                
+            });
+        });
+
+
+        function GetMap()
+
+        {
+            console.log("This now true")
+            isLoading = true;
+
+            map = new Microsoft.Maps.Map('#myMap', {});
+
+            //Load the directions module.
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                //Create an instance of the directions manager.
+                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+                //Create waypoints to route between.
+                var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: val });
+                directionsManager.addWaypoint(seattleWaypoint);
+
+                var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: dropoffLocation });
+                directionsManager.addWaypoint(workWaypoint);
+
+                //Specify the element in which the itinerary will be rendered.
+                directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+
+                //Calculate directions.
+                directionsManager.calculateDirections();
+                isLoading = false;
+                console.log("This now false")
+            });
+        }
+    </script>
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR' async defer></script>
+</head>
+<body>
+    <div class="main">
+        <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+        <div>
+            <input type="text" name="pickup" id="pickup" placeholder="Pick up Location">
+            <input type="text" name="dropoff" id="dropoff" placeholder="Drop Off Location">
+            <button id="sendBtn" class="mover-btn-default">Show Map</button>
+        </div>
+    </div>
+</body>
+Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR
+</html>
