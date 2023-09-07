@@ -29,3 +29,6 @@ Below are routes to the user auth:
 - Create Request a mover screen [DONE]
 - Create before you get going screen
 - Create select a mover screen
+- Link the Navbar Login, Sign Up, Find a driver to their respective views
+- Make the login page work.
+- Make the driver sign up page work
