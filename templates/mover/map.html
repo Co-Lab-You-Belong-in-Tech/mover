@@ -20,6 +20,7 @@
         let val;
         let dropoffLocation;
         let isLoading;
+        let testBtn;
         // const dropoff = document.getElementById("dropoff");
         // const sendBtn = document.getElementById("sendBtn");
         
@@ -28,6 +29,10 @@
             const pickup = document.getElementById("pickup");
             const dropoff= document.getElementById("dropoff");
             var button = document.getElementById("sendBtn");
+
+            testBtn = document.getElementById("testBtn");
+
+            testBtn.addEventListener("click", ()=> alert("You clicked on a button"))
 
             if (isLoading){
                 button.innerHTML = "Loading..."
@@ -87,6 +92,7 @@
             <input type="text" name="pickup" id="pickup" placeholder="Pick up Location">
             <input type="text" name="dropoff" id="dropoff" placeholder="Drop Off Location">
             <button id="sendBtn" class="mover-btn-default">Show Map</button>
+            <button id="testBtn" class="mover-btn-default">Test Inline javascript</button>
         </div>
     </div>
 </body>

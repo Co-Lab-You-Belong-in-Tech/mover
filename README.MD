@@ -18,3 +18,11 @@ An app that connects people with local vehicle movers!
 Below are routes to the user auth:
 - Login: http://127.0.0.1:8000/accounts/login/
 - Sign up: http://127.0.0.1:8000/accounts/signup/
+
+### TODO Production
+- Debug Microsoft Map not showing
+- Set up file upload (NEDIA ROOT)
+
+### TODO DEV
+- Create Driver Onboarding Screen
+- Create Driver Log In Screen
