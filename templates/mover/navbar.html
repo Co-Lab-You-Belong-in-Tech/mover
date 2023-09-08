@@ -7,16 +7,19 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarBasic">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">FIND A DRIVER</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'component' %}">COMPONENTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'request_mover' %}">FIND A DRIVER</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">BECOME A DRIVER</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">LOGIN</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}">LOGIN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">SIGN UP </a>
+          <a class="nav-link active" aria-current="page" href="{% url 'account_signup' %}">SIGN UP </a>
         </li>
       </ul>
     </div>

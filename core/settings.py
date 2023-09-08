@@ -156,6 +156,9 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
+ACCOUNT_FORMS = {'sign_up' : 'mover.forms.CustomSignupForm'}
+
+
 # https://django-jazzmin.readthedocs.io/configuration/
 
 JAZZMIN_SETTINGS = {
