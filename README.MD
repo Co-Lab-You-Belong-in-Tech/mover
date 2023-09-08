@@ -24,8 +24,9 @@ Below are routes to the user auth:
 - Set up file upload (NEDIA ROOT)
 
 ### TODO DEV
+- Create/ReFactor the Customer Request A Mover Screen[IMPORTANT]
 - Create Driver Log In Screen [DONE]
-- Create Driver Onboarding Screen
+- Create Driver Onboarding Screen [DONE]
 - Create Request a mover screen [DONE]
 - Create before you get going screen
 - Create select a mover screen

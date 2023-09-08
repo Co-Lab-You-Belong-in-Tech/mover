@@ -16,3 +16,6 @@ def request_mover(request):
 
 def mover_details(request):
     return render(request, "mover/mover_details.html", {})
+
+def driver_onboarding(request):
+    return render(request, "mover/driver_onboarding.html", {})

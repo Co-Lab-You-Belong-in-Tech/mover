@@ -1,0 +1,225 @@
+{% extends "mover/index.html" %}
+{% load static %}
+{% block title %}
+    <style>
+        /* div.driver-onboarding-panel > div{
+            margin-bottom: 1em;
+        } */
+    </style>
+{% endblock title %}
+
+{% block content %}
+
+<!-- Step 1 -->
+
+<div style="margin: 100px;" class="driver-onboarding-panel d-flex flex-lg-row flex-sm-column gap-4">
+    <div class="driver-onboard-left bg-red">
+        <div class="progress mb-4">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" style="width: 10%; background-color: #104333;" 
+            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <p class="fw-bold">Step 1: Create account</p>
+        <p>Step 2. Document Verification</p>
+        <p>Step 3. Vehicle Information</p>
+        <p>Step 4. Application Status</p>
+    </div>
+    <div class="driver-onboard-right d-flex flex-column gap-4">
+        <h3>Step 1: Create account</h3>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">First Name</label>
+                <input type="text" name="firstname" id="" placeholder="First Name">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Last Name</label>
+                    <input type="text" name="firstname" id="" placeholder="Last Name">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">Email Address</label>
+                <input type="email" name="firstname" id="" placeholder="Email Address">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Phone Number</label>
+                    <input type="tel" name="firstname" id="" placeholder="Phone Number">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex flex-column">
+                    <label for="">Password</label>
+                    <input type="password" name="" id="" placeholder="Password">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex flex-column">
+                    <label for="">Upload a Profile Photo</label>
+                    <input type="file" name="" id="">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="w-100">Continue</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin: 100px;" class="driver-onboarding-panel d-flex flex-lg-row flex-sm-column gap-4">
+    <div class="driver-onboard-left">
+        <div class="progress mb-4">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" style="width: 50%; background-color: #104333;" 
+            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">50%</div>
+        </div>
+        <p>Step 1: Create account</p>
+        <p class="fw-bold">Step 2. Document Verification</p>
+        <p>Step 3. Vehicle Information</p>
+        <p>Step 4. Application Status</p>
+    </div>
+    <div class="driver-onboard-right d-flex flex-column gap-4">
+        <h3>Step 2. Document Verification</h3>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">Driver's License #</label>
+                <input type="text" name="firstname" id="" placeholder="First Name">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Expiration Date</label>
+                    <input type="date" name="firstname" id="" placeholder="Last Name">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">State</label>
+                <input type="email" name="firstname" id="" placeholder="Email Address">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Zip Code</label>
+                    <input type="tel" name="firstname" id="" placeholder="Phone Number">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex flex-column">
+                    <label for="">Upload a photo of your Driver's License</label>
+                    <input type="file" name="" id="">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="w-100">Continue</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin: 100px;" class="driver-onboarding-panel d-flex flex-lg-row flex-sm-column gap-4">
+    <div class="driver-onboard-left">
+        <div class="progress mb-4">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" style="width: 80%; background-color: #104333;" 
+            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">80%</div>
+        </div>
+        <p>Step 1: Create account</p>
+        <p>Step 2. Document Verification</p>
+        <p class="fw-bold">Step 3. Vehicle Information</p>
+        <p>Step 4. Application Status</p>
+    </div>
+    <div class="driver-onboard-right d-flex flex-column gap-4">
+        <h3>Step 3: Vehicle Information</h3>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">License Plate #</label>
+                <input type="text" name="firstname" id="" placeholder="License Plate #">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Year</label>
+                    <input type="text" name="firstname" id="" placeholder="Year">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">Make</label>
+                <input type="text" name="firstname" id="" placeholder="Email Address">
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for="">Model</label>
+                    <input type="text" name="firstname" id="" placeholder="Phone Number">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex flex-column">
+                    <label for="">Upload a photo of your vehicle</label>
+                    <input type="file" name="" id="">
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="w-100">Submit For Verification</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin: 100px;" class="driver-onboarding-panel d-flex flex-lg-row flex-sm-column gap-4">
+    <div class="driver-onboard-left">
+        <div class="progress mb-4">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" style="width: 100%; background-color: #104333;"
+            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">100% - Pending...</div>
+        </div>
+        <p>Step 1: Create account</p>
+        <p>Step 2. Document Verification</p>
+        <p>Step 3. Vehicle Information</p>
+        <p class="fw-bold">Step 4. Application Status</p>
+    </div>
+    <div class="driver-onboard-right d-flex flex-column gap-4">
+        <h3>Step 3: Vehicle Information</h3>
+        <div class="row">
+            <div class="col">
+                <p>Status: Pending</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--  -->
+{% endblock content %}

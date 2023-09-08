@@ -50,7 +50,7 @@ input, textarea, select{
     border: 1px solid #0E0E2C59;
     box-shadow: 0px 2px 2px -1px #4A4A681A inset;
     width: 100%;
-    height: 35px;
+    height: 34px;
     border-radius: 100px;
     padding: 0px 16px;
     font-size: 16px;
@@ -60,6 +60,9 @@ input:focus, textarea:focus{
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
     outline: none;
+}
+button:hover{
+    background-color: forestgreen;
 }
 input::placeholder{
     color: #8C8CA1;

@@ -1,5 +1,21 @@
 {% extends "mover/index.html" %}
 {% load static %}
+{% block title %}
+    <style>
+        input[type=file]::file-selector-button {
+  border: 2px solid #6c5ce7;
+  padding: .2em .4em;
+  border-radius: .2em;
+  background-color: #a29bfe;
+  transition: 1s;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #81ecec;
+  border: 2px solid #00cec9;
+}
+    </style>
+{% endblock title %}
 
 {% block content %}
     <input type="text" name="search" class="mover-input-default" placeholder="Enter Search"/>
@@ -22,31 +38,18 @@
     <div>
     </div>
     <input id="basicExample" type="text" class="time" />
+    <div class="mover-input-file">
+        <input type="file" name="" id="">
+    </div>
+    <form>
+        <label for="fileUpload">Upload file</label>
+        <input type="file" id="fileUpload">
+    </form>
+
 {% endblock content %}
 
 {% block script %}
     <script>
-        $(function() {
-        $('#basicExample').timepicker({
-
-            });
-        });
-         const monthSelect = document.getElementById('monthSelect');
-         const daySelect = document.getElementById('daySelect');
-         const yearSelect = document.getElementById('yearSelect');
-
-        // Loop to generate and populate the options with month numbers
-        for (let i = 1; i <= 12; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.text = i;
-            monthSelect.appendChild(option);
-        }
-        for (let i = 1; i <= 30; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.text = i;
-            daySelect.appendChild(option);
-        }
+        
     </script>
 {% endblock script %}

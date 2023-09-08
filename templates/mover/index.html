@@ -31,6 +31,39 @@
    {% block script %}
    {% endblock script %}
    
+   <script type='text/javascript'>
+    var map;
+    var directionsManager;
+    
+    function GetMap()
+    
+    {
+        
+        map = new Microsoft.Maps.Map('#myMap', {});
+        
+
+        //Load the directions module.
+        Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+            //Create an instance of the directions manager.
+            directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+            //Create waypoints to route between.
+            var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: "California" });
+            directionsManager.addWaypoint(seattleWaypoint);
+            
+            var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: "New York" });
+            directionsManager.addWaypoint(workWaypoint);
+            
+            //Specify the element in which the itinerary will be rendered.
+            directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+
+            //Calculate directions.
+            directionsManager.calculateDirections();
+        });
+    }
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR' async defer></script>
+
     
 </body>
 </html>
