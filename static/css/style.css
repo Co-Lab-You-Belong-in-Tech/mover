@@ -61,8 +61,7 @@ input:focus, textarea:focus{
     box-shadow: 0px 0px 0px 4px #23897480;
     outline: none;
 }
-button:hover{
-    background-color: forestgreen;
+ border: 2px solid gold;
 }
 input::placeholder{
     color: #8C8CA1;
@@ -78,6 +77,12 @@ button{
     border-radius: 100px;
     padding: 10px 16px;
 }
+button:hover{
+    background-color: forestgreen;
+}
+button:active{
+    background-color: rgb(19, 75, 19);
+   
 
 /* Add more styles as needed for your specific project */
 
@@ -98,6 +103,9 @@ button{
 }
 
 /* All colors */
+.mover-bg-50{
+    background-color: #E0F0EE;
+}
 
 .color-primary{
     background-color: #104333;

@@ -8,14 +8,14 @@
 {% endblock style %}
 
 {% block content %}
-<div class="container m-4">
+<div class="">
     <div class="row">
-        <div class="col-lg-6 col-sm-12 mb-sm-2 mover-card">
+        <div class="col-lg-6 col-sm-12 mb-sm-2 col-md-12 pt-3">
             {% block cardRight %}
             {% endblock cardRight %}   
         </div>
-        <div class="col-lg-6 col-sm-12" >
-            <div class="main">
+        <div class="col-lg-6 col-sm-12 col-md-12" style="min-height: 600px;">
+            <div class="main" style="width: 500px;">
                 <div id="myMap" style="position:relative;width:100%;height:100%;"></div>
             </div>
         </div>
