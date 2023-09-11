@@ -13,14 +13,21 @@
           <a class="nav-link active" aria-current="page" href="{% url 'request_mover' %}">FIND A DRIVER</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">BECOME A DRIVER</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">BECOME A DRIVER</a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}">LOGIN</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'logout_view' %}">LOG OUT </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'account_signup' %}">SIGN UP </a>
-        </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">LOGIN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">SIGN UP </a>
+          </li>
+        {% endif %}
+
       </ul>
     </div>
   </div>

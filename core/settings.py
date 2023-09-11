@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'mover',
 
     # third party apps
-    "allauth",
-    "allauth.account",
     'django_browser_reload',
 
 ]
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
-
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -79,12 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Django allauth
 
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
-)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -149,14 +141,6 @@ AUTH_USER_MODEL = 'mover.CustomUser'
 
 # Django allauth
 
-ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-
-ACCOUNT_FORMS = {'sign_up' : 'mover.forms.CustomSignupForm'}
 
 
 # https://django-jazzmin.readthedocs.io/configuration/
@@ -167,3 +151,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "Mover 2023",
     "site_brand": "Mover",
 }
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'

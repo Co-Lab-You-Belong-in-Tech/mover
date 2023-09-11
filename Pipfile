@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-allauth = "*"
 django-jazzmin = "*"
 django-browser-reload = "*"
 pillow = "*"

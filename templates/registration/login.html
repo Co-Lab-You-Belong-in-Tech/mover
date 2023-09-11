@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container m-4 d-flex justify-content-center">
-    <form class="mover-card" style="width: 500px;">
+    <form class="mover-card" style="width: 500px;" method="post">
         {% csrf_token %}
         <h2 style="font-size: 30px; margin-bottom: 10px;">Welcome Back!!</h2>
         <div class="form-fields">
@@ -14,7 +14,7 @@
                         <small class="form-text text-muted">{{ field.help_text }}</small>
                     {% endif %}
                 </div>
-            {% endfor %}
+        {% endfor %}
         </div>
         <button class="w-100">Login</button>
     </form>

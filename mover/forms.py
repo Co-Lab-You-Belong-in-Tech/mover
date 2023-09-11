@@ -1,15 +1,21 @@
-from allauth.account.forms import SignupForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+
 from .models import CustomUser
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+class CustomUserCreationForm(UserCreationForm):
 
-class CustomSignupForm(SignupForm):
-    
-    pass
-    
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     user.generate_tracking_id()  # Call the method to generate the tracking ID
-    #     if commit:
-    #         user.save()
-    #     return user
+    class Meta:
+        model = CustomUser
+        fields = ('first_name', 'last_name', 'email', 'password1', 'password2', 'profie_picture')
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('email', "last_name")
+        
+        
+class CustomAuthenticationForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'password') 

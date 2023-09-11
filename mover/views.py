@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from .forms import CustomAuthenticationForm, CustomUserCreationForm
+from django.contrib.auth import login as auth_login, authenticate, logout
 # Create your views here.
 
 def index(request):
@@ -22,3 +24,38 @@ def mover_details(request):
 
 def driver_onboarding(request):
     return render(request, "mover/driver_onboarding.html", {})
+
+
+def signup(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect("/")
+    
+    form = CustomUserCreationForm()
+    
+    return render(request, "registration/signup.html", {"form": form})
+
+def login(request):
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(request, request.POST)
+        if form.is_valid():
+            email = request.POST["email"]
+            password = request.POST["password"]
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                user = form.get_user()
+                auth_login(request, user)
+                return redirect('/')  # Redirect to a success page
+    else:
+        form = CustomAuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("/")
+    
+    
+    

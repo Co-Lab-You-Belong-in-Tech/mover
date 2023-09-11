@@ -1,0 +1,22 @@
+{% extends "mover/index.html" %}
+
+{% block content %}
+
+    <div class="container m-4 d-flex justify-content-center">
+        <form class="mover-card" style="width: 500px;" method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <h2 style="font-size: 30px; margin-bottom: 10px;">Sign Up</h2>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <div class="form-fields">
+                {% for field in form %}
+                    <div class="form-group d-flex flex-column mb-4 mover-login">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+            {% endfor %}
+            </div>
+            <button class="w-100" type="submit">Sign Up</button>
+        </form>
+    </div>
+
+{% endblock content %}

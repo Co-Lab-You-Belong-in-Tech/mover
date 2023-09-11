@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import component, driver_onboarding, index, accept_request, mover_details, ready_to_move, request_mover
+from .views import (component, driver_onboarding, login, logout_view,
+                    index, accept_request, signup, 
+                    mover_details, ready_to_move, request_mover)
 
 urlpatterns = [
     path('', index, name = "index"),
@@ -9,4 +11,7 @@ urlpatterns = [
     path('ready-to-move/', ready_to_move, name = "ready_to_move"),
     path('mover-details/', mover_details, name = "mover_details"),
     path('driver-onboarding/', driver_onboarding, name = "driver_onboarding"),
+    path("signup/", signup, name = "signup"),
+    path("login/", login, name = "login"),
+    path("logout_view/", logout_view, name = "logout_view"),
 ]
