@@ -28,7 +28,7 @@ def driver_onboarding(request):
 
 def signup(request):
     if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
@@ -40,7 +40,7 @@ def signup(request):
 
 def login(request):
     if request.method == 'POST':
-        form = CustomAuthenticationForm(request, request.POST)
+        form = CustomAuthenticationForm(request.POST)
         if form.is_valid():
             email = request.POST["email"]
             password = request.POST["password"]

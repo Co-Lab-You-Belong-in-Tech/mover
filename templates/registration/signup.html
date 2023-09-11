@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container m-4 d-flex justify-content-center">
-        <form class="mover-card" style="width: 500px;" method="POST" action="{% url 'signup' %}">
+        <form class="mover-card" style="width: 500px;" method="POST" action="{% url 'signup' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <h2 style="font-size: 30px; margin-bottom: 10px;">Sign Up</h2>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

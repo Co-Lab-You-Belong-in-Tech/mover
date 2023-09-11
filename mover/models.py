@@ -54,7 +54,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=True, blank=True)
     address = models.CharField(max_length=300, null=True, blank=True)
-    profie_picture = models.ImageField(upload_to="images", null=True, blank=True)
+    profile_picture = models.ImageField(upload_to="images/", null=True, blank=True)
     phone_number = models.CharField(max_length=200)  # Not nullable and not blank
     is_verified = models.BooleanField(default=False, null=True, blank=True)
     rate_of_service = models.CharField(max_length=100, choices=charging_rate, null=True, blank=True)
