@@ -1,0 +1,40 @@
+
+{% extends "mover/index.html" %}
+{% load static %}
+{% block title %}
+    <style>
+        /* div.driver-onboarding-panel > div{
+            margin-bottom: 1em;
+        } */
+    </style>
+    <title>Application Status</title>
+{% endblock title %}
+
+{% block content %}
+<div style="margin: 100px;" class="driver-onboarding-panel d-flex flex-lg-row flex-sm-column gap-4">
+    <div class="driver-onboard-left">
+        <div class="progress mb-4">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" style="width: 100%; background-color: #104333;"
+            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">100% - Pending...</div>
+        </div>
+        <p>Step 1: Create account</p>
+        <p>Step 2. Document Verification</p>
+        <p>Step 3. Vehicle Information</p>
+        <p class="fw-bold">Step 4. Application Status</p>
+    </div>
+    <div class="driver-onboard-right d-flex flex-column gap-4">
+        <h3>Step 4. Application Status</h3>
+        <div class="row">
+            <div class="col">
+                <p><b>Status:</b> Pending</p>
+                <button><a href="{% url 'index' %}" 
+                    class="text-white text-decoration-none text-uppercase">
+                    Go to Dashboard
+                </a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
