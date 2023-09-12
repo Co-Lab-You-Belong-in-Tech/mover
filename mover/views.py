@@ -1,11 +1,14 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from .forms import CustomAuthenticationForm, CustomUserCreationForm
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, DocumentVerificationForm, VehicleInformationForm
 from django.contrib.auth import login as auth_login, authenticate, logout
+from django.urls import reverse
 # Create your views here.
 
 def index(request):
-    return render(request, "mover/index.html", {})
+    return render(request, "mover/landing_page.html", {})
+
+def mapview(request):
+    return render(request, "mover/components/map.html", {})
 
 def component(request):
     return render(request, "mover/component.html", {})
@@ -29,14 +32,18 @@ def driver_onboarding(request):
 def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST, request.FILES)
+        print(f"file: {request.FILES} post data: {request.POST}")
         if form.is_valid():
             user = form.save()
+            print("valid user: ", user)
             auth_login(request, user)
-            return redirect("/")
+            print("Redirecting to homepage")
+            # Move to the next step of vehicle verification
+            return redirect(reverse("document_verification"))
     
     form = CustomUserCreationForm()
     
-    return render(request, "registration/signup.html", {"form": form})
+    return render(request, "mover/driver_pages/create_account.html", {"form": form})
 
 def login(request):
     if request.method == 'POST':
@@ -57,5 +64,40 @@ def logout_view(request):
     logout(request)
     return redirect("/")
     
+def document_verification(request):
+    if request.method == "POST":
+        print(f"file: {request.FILES} post data: {request.POST}")
+        print("Current user: ", request.user)
+        form = DocumentVerificationForm(request.POST, request.FILES, instance = request.user)
+        print(f"Form valid: {form.is_valid}")
+        
+        if form.is_valid():
+            print("Updated the db!!")
+            form.save()
+            return redirect(reverse("vehicle_information"))
     
+    form = DocumentVerificationForm()
+    return render(request, "mover/driver_pages/document_verification.html", {"form": form})
     
+def vehicle_information(request):
+    
+    if request.method == "POST":
+        print(f"file: {request.FILES} post data: {request.POST}")
+        print("Current user: ", request.user)
+        form = VehicleInformationForm(request.POST, request.FILES)
+        
+        print(f"Form valid: {form.is_valid}")
+        
+        if form.is_valid():
+            # update the form model instance to be the current logged in user
+            form.instance.driver = request.user
+            form.save()
+            print(f"Updated the db!! Driver: {form.instance.driver}")
+            
+            return redirect(reverse("application_status"))
+    
+    form = VehicleInformationForm()
+    return render(request, "mover/driver_pages/vehicle_information.html", {"form": form})
+    
+def application_status(request):
+    return render(request, "mover/driver_pages/application_status.html")

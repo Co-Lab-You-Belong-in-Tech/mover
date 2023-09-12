@@ -18,9 +18,15 @@
             aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">80%</div>
         </div>
         <p>Step 1: Create account</p>
-        <p>Step 2. Document Verification</p>
-        <p class="fw-bold">Step 3. Vehicle Information</p>
-        <p>Step 4. Application Status</p>
+        <p><a href="{% url 'document_verification' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 2. Document Verification</a>
+        </p>
+        <p class="fw-bold"><a href="{% url 'vehicle_information' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 3. Vehicle Information </a>
+        </p>
+        <p><a href="{% url 'application_status' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 4. Application Status </a>
+        </p>
     </div>
     <form class="driver-onboard-right d-flex flex-column gap-4" method="POST" 
         enctype="multipart/form-data" action="{% url 'vehicle_information' %}">
@@ -59,10 +65,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-6 col-sm-12">
+              <div class="d-flex flex-column">
+                <label for="">Vehicle Photo</label>
+                <!-- <input type="text" name="firstname" id="" placeholder="Email Address"> -->
+                {{ form.vehicle_photo }}
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-12">
                 <div class="d-flex flex-column">
-                    <label for="">Upload a photo of your vehicle</label>
-                    <!-- <input type="file" name="" id=""> -->
+                    <label for="">Vehicle Insurance</label>
+                    <!-- <input type="text" name="firstname" id="" placeholder="Phone Number"> -->
                     {{ form.vehicle_insurance }}
                   </div>
             </div>

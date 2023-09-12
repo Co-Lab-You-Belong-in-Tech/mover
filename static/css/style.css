@@ -92,6 +92,12 @@ button:active{
 
 }
 
+button a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+
 .uppercase{
     text-transform: uppercase;
 }

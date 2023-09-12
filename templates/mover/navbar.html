@@ -6,26 +6,32 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarBasic">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'component' %}">COMPONENTS</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'request_mover' %}">FIND A DRIVER</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">BECOME A DRIVER</a>
-        </li>
         {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="">
+            <i class="fas fa-user"></i>
+            {{ user.first_name }} 
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'logout_view' %}">LOG OUT </a>
         </li>
         {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">LOGIN</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">SIGN UP </a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">BECOME A DRIVER</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'login' %}">LOGIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">SIGN UP </a>
+        </li>
         {% endif %}
 
       </ul>

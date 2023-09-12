@@ -80,7 +80,9 @@ class Vehicle(models.Model):
     model = models.CharField(max_length=200)
     is_available = models.BooleanField(default=True)
     is_loading = models.BooleanField(default=True)
-    vehicle_insurance = models.FileField()
+    is_unloading = models.BooleanField(default=True)
+    vehicle_insurance = models.FileField(upload_to="documents/")
+    vehicle_photo = models.ImageField(upload_to="images/")
     driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):

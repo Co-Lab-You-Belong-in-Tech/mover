@@ -19,9 +19,15 @@
             aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">100% - Pending...</div>
         </div>
         <p>Step 1: Create account</p>
-        <p>Step 2. Document Verification</p>
-        <p>Step 3. Vehicle Information</p>
-        <p class="fw-bold">Step 4. Application Status</p>
+        <p><a href="{% url 'document_verification' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 2. Document Verification</a>
+        </p>
+        <p ><a href="{% url 'vehicle_information' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 3. Vehicle Information </a>
+        </p>
+        <p class="fw-bold"><a href="{% url 'application_status' %}" 
+            class="text-decoration-none text-dark mover-onboarding-links">Step 4. Application Status </a>
+        </p>
     </div>
     <div class="driver-onboard-right d-flex flex-column gap-4">
         <h3>Step 4. Application Status</h3>
