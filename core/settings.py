@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ptbs@=cuehdu4lkk$erga8j&)2d)+4s+pbfo9ma3e8uglrhpa)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["sparkle6.pythonanywhere.com", "localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -156,3 +156,5 @@ JAZZMIN_SETTINGS = {
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_SIGNUP_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
