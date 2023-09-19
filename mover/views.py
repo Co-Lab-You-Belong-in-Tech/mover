@@ -5,14 +5,26 @@ from .forms import (CustomAuthenticationForm, CustomUserCreationForm, BookingFor
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.urls import reverse
 from .models import CustomUser, Vehicle, Booking
+import uuid
 # Create your views here.
 
 
 def index(request):
-
+    """For anonyomous user once they land on the root url, set a cookie of unique id.
+    This will allow to track all the bookings that they make.
+    """
     form = BookingForm()
-
-    print(F"The user: {request.user}")
+    print(f"session: {request.session.session_key}")
+    
+    # user_id = request.COOKIES.get('user_id')
+    # # Check if there is user id for anonymous user
+    # if not user_id:
+    #     # Generate a new unique ID using uuid4
+    #     user_id = str(uuid.uuid4())
+    #     # Set the 'user_id' cookie with the generated ID
+    #     response = render(request, "mover/landing_page.html", {"form": BookingForm()})
+    #     response.set_cookie('user_id', user_id, max_age=3600)  # Set a 'user_id' cookie that expires in 1 hour
+    #     return response
 
     if request.method == "POST":
         form = BookingForm(request.POST, request.FILES)
@@ -53,8 +65,10 @@ def select_mover(request):
 def ready_to_move(request):
     return render(request, "mover/driver_pages/ready_to_move.html", {})
 
+
 def ready_to_move_customer(request):
     return render(request, "mover/customer_pages/ready_to_move.html", {})
+
 
 def request_mover(request):
     return render(request, "mover/request_mover.html", {})

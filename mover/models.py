@@ -98,7 +98,7 @@ class VehiclePhoto(models.Model):
 
 
 class Booking(models.Model):
-    # name = models.CharField(max_length=300)
+
     ITEM_CHOICES = (
         ('1-2', '1 - 2 items'),
         ('3-5', '3 - 5 items'),
@@ -127,9 +127,7 @@ class Booking(models.Model):
         CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True,)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
-    # goods_name = models.CharField(max_length=225)
-    # total_weight = models.IntegerField()
-    # total_fee = models.IntegerField()
+
     # is_fufuilled = models.BooleanField(default=False)
     selected_item = models.CharField(
         max_length=5,
