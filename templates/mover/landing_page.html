@@ -5,43 +5,39 @@
 {% endblock title %}
 
 {% block cardRight %}
-<form action="" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
-    {{ form.errors }}
-    <div>
-        <label for="">Pick Location</label>
-        <!-- <input type="text" placeholder="Enter Location"> -->
-        {{ form.pickup_location }}
-    </div>
-    <div>
-        <label for="">Drop Off Location</label>
-        <!-- <input type="text" placeholder="Enter Location"> -->
-        {{ form.dropoff_location }}
-    </div>
-    <div>
-        <label for="">Vehicle Type</label>
-        <!-- <div class="select-wrapper">
-            <select name="select-car" id="" class="mover-input-default">
-                <option value="mini van">Mini Van</option>
-                <option value="big van">Big Van</option>
-                <option value="mini van">Luxury Van</option>
-            </select> -->
-        {{ form.vehicle_type }}
-    </div>
-    </div>
-    <div>
-        <label for="">Select Rate Type</label>
+<div>
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ form.errors }}
         <div>
-            {{ form.rate_type }}
+            <label for="">Pick Location</label>
+            <!-- <input type="text" placeholder="Enter Location"> -->
+            {{ form.pickup_location }}
         </div>
-    </div>
-    <div class="">
-        <label for="">Select Service Type</label>
         <div>
-            {{ form.service_type }}
+            <label for="">Drop Off Location</label>
+            <!-- <input type="text" placeholder="Enter Location"> -->
+            {{ form.dropoff_location }}
         </div>
-    </div>
-    <button type="submit">Submit</button>
-</form>
+        <div>
+            <label for="">Vehicle Type</label>
+            {{ form.vehicle_type }}
+        </div>
+
+        <div>
+            <label for="">Select Rate Type</label>
+            <div>
+                {{ form.rate_type }}
+            </div>
+        </div>
+        <div class="">
+            <label for="">Select Service Type</label>
+            <div>
+                {{ form.service_type }}
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
 {% endblock cardRight %}

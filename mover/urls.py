@@ -1,12 +1,13 @@
 from django.urls import path
 from .views import (component, document_verification, driver_onboarding, login, logout_view,
-                    index, accept_request, signup, application_status, mapview,
+                    index, accept_request, select_mover, signup, application_status, mapview,
                     mover_details, ready_to_move, request_mover, vehicle_information)
 
 urlpatterns = [
     path('', index, name = "index"),
     path('component/', component, name = "component"),
     path('mapview/', mapview, name = "mapview"),
+    path('select-mover/', select_mover, name = "select_mover"),
     path('accept-request/', accept_request, name = "accept_request"),
     path('request-mover/', request_mover, name = "request_mover"),
     path('ready-to-move/', ready_to_move, name = "ready_to_move"),

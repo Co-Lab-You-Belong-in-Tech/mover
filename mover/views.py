@@ -8,21 +8,22 @@ from django.urls import reverse
 
 
 def index(request):
+
     form = BookingForm()
+
     print(F"The user: {request.user}")
-    
+
     if request.method == "POST":
         form = BookingForm(request.POST, request.FILES)
         print(f"file: {request.FILES} post data: {request.POST}")
         if form.is_valid():
             print("form is valid")
-            form_instance = form.save(commit=False)
-            form_instance.owner = request.user
-            print(f"Form: {form_instance} dropoff_location: {form_instance.dropoff_location}")
-            form_instance.save()
+            print(
+                f"Form: {form}")
+            form.save()
 
             return HttpResponse(f"Received and saved")
-        
+
     return render(request, "mover/landing_page.html", {"form": form})
 
 
@@ -37,6 +38,8 @@ def component(request):
 def accept_request(request):
     return render(request, "mover/driver_pages/accept_request.html", {})
 
+def select_mover(request):
+    return render(request, "mover/customer_pages/select_mover.html", {})
 
 def ready_to_move(request):
     return render(request, "mover/driver_pages/ready_to_move.html", {})
