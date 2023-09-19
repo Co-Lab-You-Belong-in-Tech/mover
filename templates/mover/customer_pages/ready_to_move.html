@@ -2,26 +2,43 @@
 {% load static %}
 
 {% block title %}
-    <title>Ready to Move</title>
-    <style>
-        div.driver-item-list p{
-            line-height: 0.5em;
-            font-size: 14px;
-            color: #333333;
-        }
-        div.driver-detail-card{
-            padding: 50px;
-        }
-    </style>
+<title>Ready to Move</title>
+<style>
+    div.driver-item-list p {
+        line-height: 0.5em;
+        font-size: 14px;
+        color: #333333;
+    }
+
+    div.hoverable:hover {
+        background-color: #E0F0EE;
+        padding: 2px;
+    }
+
+    div.driver-detail-card {
+        padding: 50px;
+    }
+</style>
 {% endblock title %}
 
 {% block cardRight %}
 <div class="driver-detail-card">
-    <h3 class="fw-900">Get ready to move!</h3>
-    <p class="fw-bold">You'll earn <span style="color: #12B76A;">$25</span> moving 3-5 items.</p>
-    <div class="driver-item-list p-2" style="background-color: #E0F0EE;">
-        <div><img src="{% static 'images/hotel1.jpg' %}" 
-            alt="" width="100%" height = "236px" class="rounded"></div>
+    <h3 class="fw-900" style="font-size: 40px;font-weight: 800;">Get ready to move!</h3>
+    <p class="fw-bold">Your driver is arriving in <span style="color: #12B76A;">4 minutes.</span></p>
+    <div class="d-flex flex-row gap-2">
+        <img src="{% static 'images/man1.jpg' %}" alt="" width="64px" height="64px" class="rounded-circle">
+        <div class="driver-item-list">
+            <p><b>John Doe </b>
+                <i class="fas fa-check-circle" style="color: #24f061;"></i>
+            </p>
+            <p>Ford Ranger </p>
+            <p style="color: #104333;" class="fw-bold">$25/Total</p>
+        </div>
+    </div>
+    <div class="driver-item-list p-2 hoverable">
+        <div>
+            <img src="{% static 'images/hotel1.jpg' %}" alt="" width="100%" height="236px" class="rounded">
+        </div>
         <p class="mt-2"><b>Details</b></p>
         <p><b>Pick-up location: </b>1234 Haight Street, San Francisco, CA</p>
         <p><b>Destination: </b>9876 Barry Circle, Richmond, CA</p>
@@ -29,7 +46,7 @@
         <p><b>Service: </b>Loading and Unloading, Curbside</p>
         <p class="text-sm" style="font-size: 12px;"><b>Note: </b>Items will be in a box</p>
     </div>
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center mt-3">
         <button class="btn btn-outline fw-bold text-uppercase" style="color: #104333;">Cancel Trip</button>
     </div>
 </div>
