@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_list_or_404, redirect, render
 from .forms import (CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
                     DocumentVerificationForm, VehicleInformationForm)
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.urls import reverse
+from .models import CustomUser, Vehicle, Booking
 # Create your views here.
 
 
@@ -38,12 +39,22 @@ def component(request):
 def accept_request(request):
     return render(request, "mover/driver_pages/accept_request.html", {})
 
+
 def select_mover(request):
-    return render(request, "mover/customer_pages/select_mover.html", {})
+    # Get a list of all the vehicles that are currently set to available
+    available_vehicles = get_list_or_404(Vehicle, is_available=True)
+
+    context = {
+        'available_vehicles': available_vehicles
+    }
+    return render(request, "mover/customer_pages/select_mover.html", context)
+
 
 def ready_to_move(request):
     return render(request, "mover/driver_pages/ready_to_move.html", {})
 
+def ready_to_move_customer(request):
+    return render(request, "mover/customer_pages/ready_to_move.html", {})
 
 def request_mover(request):
     return render(request, "mover/request_mover.html", {})

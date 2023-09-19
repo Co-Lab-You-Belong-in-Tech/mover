@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Request Mover</title>
+<title>Select Mover</title>
 <style>
     .mover-request-list p {
         line-height: 0.5em;
@@ -21,48 +21,30 @@
 <div>
     <h3>Select Mover</h3>
     <div class="row mb-4">
-        <div class="col driver-accept-list py-2">
-            <div class="d-flex flex-row gap-2">
+        {% for vehicle in available_vehicles %}
+
+        <div class="col driver-accept-list mover-card-variant py-2">
+            <div class="d-flex flex-row gap-2 justify-content-between">
                 <div class="d-flex flex-row gap-2">
                     <div>
-                        <img src="{% static 'images/hotel1.jpg' %}" alt="" width="174px" height="106px" class="rounded">
+                        <img src="{% static 'images/truck1.jpg' %}" alt="" width="174px" height="106px" class="rounded">
                     </div>
-                    <div class="mover-request-list">
-                        <p><b>2019 Ford Ranger</b></p>
-                        <p><b style="color: #4A4A68;">$25.00/Total</p>
-                        <p>Note: Items will be in a box</p>
+
+                    <div class="mover-card-para">
+                        <p><b> {{ vehicle.make }} {{ vehicle.model }} {{ vehicle.year }}</b></p>
+                        <p style="color: #104333;"><b>$25.00/Total</b></p>
+                        <p style="color: #4A4A68;">4 minutes away</p>
                     </div>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <button class="">Accept</button>
+                    <button class="">Select Mover</button>
                 </div>
             </div>
-
+        </div>
+        {% empty %}
+        <div>There are currently no available vehicles. Please bear with us.../div>
+            {% endfor %}
         </div>
     </div>
-    <div class="row">
-        <div class="col driver-accept-list py-2">
-            <div class="d-flex flex-row gap-2">
-                <div class="d-flex flex-row gap-2">
-                    <div>
-                        <img src="{% static 'images/hotel1.jpg' %}" alt="" width="174px" height="106px" class="rounded">
-                    </div>
-                    <div class="mover-request-list">
-                        <p><b>3-5 items</b></p>
-                        <p style="color: #104333;" class="text-uppercase fw-bold">Loading and unloading</p>
-                        <p><b style="color: #4A4A68;">Pick-up location:</b> 4 min away</p>
-                        <p><b style="color: #4A4A68;">Est. driving distance:</b> 20 min</p>
-                        <p>Note: Items will be in a box</p>
-                    </div>
-                </div>
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <p class="mb-2">$25.00</p>
-                    <button>Accept</button>
-                </div>
-            </div>
 
-        </div>
-    </div>
-</div>
-
-{% endblock cardRight %}
+    {% endblock cardRight %}

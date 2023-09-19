@@ -89,7 +89,7 @@ class Vehicle(models.Model):
     driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.first_name
+        return f"{self.make} - {self.model}"
 
 
 class VehiclePhoto(models.Model):
@@ -124,7 +124,7 @@ class Booking(models.Model):
         ('Pick Up Truck', 'Pick Up Truck'),
     )
     owner = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null = True,)
+        CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True,)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
     # goods_name = models.CharField(max_length=225)
@@ -135,7 +135,7 @@ class Booking(models.Model):
         max_length=5,
         choices=ITEM_CHOICES,
         default='1-2',
-        null = True,
+        null=True,
     )
     vehicle_type = models.CharField(
         max_length=50,
@@ -143,8 +143,9 @@ class Booking(models.Model):
         default="Truck"
     )
     service_type = models.CharField(
-        max_length=100, choices=SERVICE_TYPE, null=True, default = "LOAD")
-    rate_type = models.CharField(max_length=100, choices=RATE_TYPE, null=True, default = "FX")
+        max_length=100, choices=SERVICE_TYPE, null=True, default="LOAD")
+    rate_type = models.CharField(
+        max_length=100, choices=RATE_TYPE, null=True, default="FX")
     photo = models.ImageField(upload_to="images", null=True)
     note = models.CharField(max_length=400, null=True)
 

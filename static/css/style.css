@@ -2,7 +2,14 @@
 
 
 /* Reset some default styles for better consistency */
-body, h1, h2, h3, p, ul, ol, li {
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+li {
     margin: 0;
     padding: 0;
 }
@@ -22,7 +29,8 @@ h2 {
     font-size: 40px;
     font-weight: bold;
 }
-h3{
+
+h3 {
     font-size: 24px;
 }
 
@@ -33,7 +41,8 @@ p {
 }
 
 
-ul, ol {
+ul,
+ol {
     margin-left: 20px;
     margin-bottom: 16px;
 }
@@ -43,10 +52,13 @@ li {
     line-height: 1.5;
     margin-bottom: 8px;
 }
-input, textarea, select{
+
+input,
+textarea,
+select {
     outline: none;
     background: linear-gradient(0deg, #FAF8F3, #FAF8F3),
-    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+        linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
     border: 1px solid #0E0E2C59;
     box-shadow: 0px 2px 2px -1px #4A4A681A inset;
     width: 100%;
@@ -56,18 +68,19 @@ input, textarea, select{
     font-size: 16px;
 }
 
-input:focus, textarea:focus{
+input:focus,
+textarea:focus {
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
     outline: none;
 }
 
-input::placeholder{
+input::placeholder {
     color: #8C8CA1;
     font-size: 16px;
 }
 
-button{
+button {
     background-color: #104333;
     color: white;
     box-shadow: 0px 6px 2px -4px #0E0E2C1A;
@@ -76,16 +89,19 @@ button{
     border-radius: 100px;
     padding: 10px 16px;
 }
-button:hover{
+
+button:hover {
     background-color: forestgreen;
 }
-button:active{
+
+button:active {
     background-color: rgb(19, 75, 19);
-   
+
+}
 
 /* Add more styles as needed for your specific project */
 
-.small-text{
+.small-text {
     font-size: 14px;
     color: #333333;
 
@@ -97,56 +113,65 @@ button a {
     text-transform: uppercase;
 }
 
-.uppercase{
+.uppercase {
     text-transform: uppercase;
 }
-.lowercase{
+
+.lowercase {
     text-transform: lowercase;
 }
-.capitalize{
+
+.capitalize {
     text-transform: capitalize;
 }
 
 /* All colors */
-.mover-bg-50{
+.mover-bg-50 {
     background-color: #E0F0EE;
 }
 
-.color-primary{
+.color-primary {
     background-color: #104333;
     color: white;
 }
-.color-primary-50{
+
+.color-primary-50 {
     background-color: #E0F0EE;
     color: white;
 }
-.color-primary:hover{
+
+.color-primary:hover {
     background-color: #196e53;
     color: white;
 }
-.color-secondary{
+
+.color-secondary {
     background-color: #421020;
     color: white;
 }
-.color-secondary:hover{
+
+.color-secondary:hover {
     background-color: #691b34;
     color: white;
 }
-.color-tertiary{
+
+.color-tertiary {
     background-color: #F3D9DA;
 }
-.color-dark{
+
+.color-dark {
     background-color: #0E0E2C;
 }
-.color-success{
+
+.color-success {
     background-color: #ED4B9E;
 }
 
 /* Buttons */
 
-.mover-input-default{
+.mover-input-default {
     background: linear-gradient(0deg, #FAF8F3, #FAF8F3),
-    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+        linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
     border: 1px solid #0E0E2C59;
     box-shadow: 0px 2px 2px -1px #4A4A681A inset;
     width: 320px;
@@ -154,22 +179,26 @@ button a {
     border-radius: 100px;
     padding: 0px 16px;
 }
-.mover-input-default:focus{
+
+.mover-input-default:focus {
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
     outline: none;
 }
-.mover-input-valid{
+
+.mover-input-valid {
     border: 1px solid #12B76A;
     box-shadow: 0px 0px 0px 4px #31D0AA33;
     font-weight: 500;
 }
-.mover-input-valid:focus{
+
+.mover-input-valid:focus {
     border: 1px solid #12B76A;
     box-shadow: 0px 0px 0px 4px #31D0AA33;
     font-weight: 500;
 }
-.mover-input-error{
+
+.mover-input-error {
     border: 1px solid #F04438;
     box-shadow: 0px 0px 0px 4px #ED4B9E33;
     font-weight: 500;
@@ -178,18 +207,18 @@ button a {
 
 /* Text area */
 
-.mover-textarea-default{
+.mover-textarea-default {
     resize: none;
     width: 320px;
     height: 117px;
     border: 1px solid #0E0E2C59;
     border: linear-gradient(0deg, #FAF8F3, #FAF8F3),
-    linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
+        linear-gradient(0deg, rgba(14, 14, 44, 0.35), rgba(14, 14, 44, 0.35));
 }
 
 /* Select button */
 
-.mover-btn-default{
+.mover-btn-default {
     background-color: #104333;
     color: white;
     box-shadow: 0px 6px 2px -4px #0E0E2C1A;
@@ -208,19 +237,30 @@ button a {
     padding: 14px;
 }
 
+.mover-card-variant:hover {
+    background-color: #E0F0EE;
+    padding: 2px
+}
+
+div.mover-card-para p {
+    line-height: 10px;
+}
 
 /* Check button */
 
-.mover-btn-group label{
+.mover-btn-group label {
     background-color: #E0F0EE;
 }
-.mover-btn-group label:checked{
+
+.mover-btn-group label:checked {
     background-color: #0E0E2C;
 }
-.mover-btn-group label:last-child{
+
+.mover-btn-group label:last-child {
     border-radius: 0 100px 100px 0;
 }
-.mover-btn-group label:first-child{
+
+.mover-btn-group label:first-child {
     border-radius: 100px 0 0 100px;
     padding: 100px;
 }
@@ -230,22 +270,25 @@ button a {
 .form-fields label {
     font-weight: 500;
 }
-.form-fields label, input {
+
+.form-fields label,
+input {
     width: 100%;
 }
 
-.mover-login > label{
+.mover-login>label {
     margin-bottom: 10px;
     width: 100%;
 }
 
 /* Map div */
-div.main{
+div.main {
     width: 100%;
     height: 100%;
 }
 
 /* Utility */
 
-.w-100{
-    width: 100%; }
+.w-100 {
+    width: 100%;
+}
