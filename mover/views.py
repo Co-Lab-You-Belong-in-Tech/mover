@@ -14,7 +14,8 @@ def index(request):
     This will allow to track all the bookings that they make.
     """
     form = BookingForm()
-    print(f"session: {request.session.session_key}")
+
+    tracking_id = str(uuid.uuid4())
 
     if request.method == "POST":
         form = BookingForm(request.POST, request.FILES)
@@ -22,13 +23,13 @@ def index(request):
         if form.is_valid():
 
             booking = form.save(commit=False)
-            tracking_id = str(uuid.uuid4())
             booking.tracking_id = tracking_id
             form.save()
 
-            return redirect("before_moving", tracking_id = tracking_id)
+            return redirect("before_moving", tracking_id=tracking_id)
 
-    return render(request, "mover/landing_page.html", {"form": form})
+    return render(request, "mover/landing_page.html", {"form": form, "tracking_id": tracking_id})
+
 
 def before_moving(request, tracking_id):
     """
@@ -41,16 +42,36 @@ def before_moving(request, tracking_id):
     print(booking_instance)
 
     if request.method == "POST":
-        form = BookingUpdateForm(request.POST, request.FILES, instance=booking_instance)
+        form = BookingUpdateForm(
+            request.POST, request.FILES, instance=booking_instance)
 
         if form.is_valid():
             print("form is valid")
             form.save()
-            return redirect("select_mover")
+            return redirect("select_mover", tracking_id = tracking_id)
     context = {
         "form": form
     }
     return render(request, "mover/customer_pages/before_moving.html", context)
+
+
+def select_mover(request, tracking_id):
+    # Get a list of all the vehicles that are currently set to available
+    available_vehicles = get_list_or_404(Vehicle, is_available=True)
+
+    context = {
+        'available_vehicles': available_vehicles,
+        "tracking_id": tracking_id
+    }
+    return render(request, "mover/customer_pages/select_mover.html", context)
+
+def ready_to_move_customer(request, pk, tracking_id):
+    context = {
+        "tracking_id": tracking_id,
+        "pk": pk,
+    }
+    return render(request, "mover/customer_pages/ready_to_move.html", context)
+
 
 def mapview(request):
     return render(request, "mover/components/map.html", {})
@@ -64,22 +85,9 @@ def accept_request(request):
     return render(request, "mover/driver_pages/accept_request.html", {})
 
 
-def select_mover(request):
-    # Get a list of all the vehicles that are currently set to available
-    available_vehicles = get_list_or_404(Vehicle, is_available=True)
-
-    context = {
-        'available_vehicles': available_vehicles
-    }
-    return render(request, "mover/customer_pages/select_mover.html", context)
-
 
 def ready_to_move(request):
     return render(request, "mover/driver_pages/ready_to_move.html", {})
-
-
-def ready_to_move_customer(request):
-    return render(request, "mover/customer_pages/ready_to_move.html", {})
 
 
 

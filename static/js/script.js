@@ -30,10 +30,25 @@ document.addEventListener('DOMContentLoaded', function () {
     // Now, you can send this data to your server using AJAX or perform any desired actions.
     // });
     // Get the tracking id of each booking and store in the localstorage
-    const tracking_id = document.getElementById("tracking_id")
-    console.log(tracking_id.innerHTML)
-    const trackingIdValue = tracking_id.innerHTML;
-    localStorage.setItem("tracking_id", trackingIdValue);
+    // const tracking_id = document.getElementById("tracking_id")
+    // console.log(tracking_id.innerHTML)
+    // const trackingIdValue = tracking_id.innerHTML;
+    // localStorage.setItem("tracking_id", trackingIdValue);
+    // localStorage.setItem("new": [2, 3, 4])
 
+    const bookingForm = document.getElementById("booking-form")
+    const trackingID = document.getElementById("tracking").innerHTML
+
+    bookingForm.addEventListener("submit", (e) => {
+        const tracking_id = localStorage.get("tracking_id")
+        if (tracking_id !== null) {
+            e.preventDefault()
+            alert("You already placed a service.")
+        }
+        else {
+            localStorage.setItem("tracking_id", trackingID)
+            console.log("Set a tracking id..")
+        }
+    })
 
 });
