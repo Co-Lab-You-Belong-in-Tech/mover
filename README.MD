@@ -34,3 +34,6 @@ Below are routes to the user auth:
 - Create get ready to move screen for mover
 - Make the login page work.
 - Make the driver sign up page work
+
+First once a user submits first form, create a tracking to be saved on both the
+db and the frontend local storage.

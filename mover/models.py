@@ -123,12 +123,19 @@ class Booking(models.Model):
         ('Mini Van', 'Mini Van'),
         ('Pick Up Truck', 'Pick Up Truck'),
     )
+    HANDLE_LOADING = (
+        ("1", "Carry up/down stairs"),
+        ("2", "Curbside pick-up/drop-off"),
+        ("3", "Elevator"),
+        ("4", "None of the Above"),
+    )
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True,)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
-
-    # is_fufuilled = models.BooleanField(default=False)
+    tracking_id = models.CharField(
+        max_length=200, null=True, blank=True, unique=True)
+    is_fufuilled = models.BooleanField(default=False, null=True)
     selected_item = models.CharField(
         max_length=5,
         choices=ITEM_CHOICES,
@@ -144,6 +151,8 @@ class Booking(models.Model):
         max_length=100, choices=SERVICE_TYPE, null=True, default="LOAD")
     rate_type = models.CharField(
         max_length=100, choices=RATE_TYPE, null=True, default="FX")
+    handle_loading = models.CharField(
+        max_length=100, choices=HANDLE_LOADING, null=True, default="4")
     photo = models.ImageField(upload_to="images", null=True)
     note = models.CharField(max_length=400, null=True)
 

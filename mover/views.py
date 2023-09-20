@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import get_list_or_404, redirect, render
-from .forms import (CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from .forms import (BookingUpdateForm, CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
                     DocumentVerificationForm, VehicleInformationForm)
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.urls import reverse
@@ -15,30 +15,42 @@ def index(request):
     """
     form = BookingForm()
     print(f"session: {request.session.session_key}")
-    
-    # user_id = request.COOKIES.get('user_id')
-    # # Check if there is user id for anonymous user
-    # if not user_id:
-    #     # Generate a new unique ID using uuid4
-    #     user_id = str(uuid.uuid4())
-    #     # Set the 'user_id' cookie with the generated ID
-    #     response = render(request, "mover/landing_page.html", {"form": BookingForm()})
-    #     response.set_cookie('user_id', user_id, max_age=3600)  # Set a 'user_id' cookie that expires in 1 hour
-    #     return response
 
     if request.method == "POST":
         form = BookingForm(request.POST, request.FILES)
-        print(f"file: {request.FILES} post data: {request.POST}")
+
         if form.is_valid():
-            print("form is valid")
-            print(
-                f"Form: {form}")
+
+            booking = form.save(commit=False)
+            tracking_id = str(uuid.uuid4())
+            booking.tracking_id = tracking_id
             form.save()
 
-            return HttpResponse(f"Received and saved")
+            return redirect("before_moving", tracking_id = tracking_id)
 
     return render(request, "mover/landing_page.html", {"form": form})
 
+def before_moving(request, tracking_id):
+    """
+    This handles the customer before moving page 2. Where the items details and note to driver is
+    entered
+    """
+    form = BookingUpdateForm()
+
+    booking_instance = get_object_or_404(Booking, tracking_id=tracking_id)
+    print(booking_instance)
+
+    if request.method == "POST":
+        form = BookingUpdateForm(request.POST, request.FILES, instance=booking_instance)
+
+        if form.is_valid():
+            print("form is valid")
+            form.save()
+            return redirect("select_mover")
+    context = {
+        "form": form
+    }
+    return render(request, "mover/customer_pages/before_moving.html", context)
 
 def mapview(request):
     return render(request, "mover/components/map.html", {})
@@ -68,6 +80,8 @@ def ready_to_move(request):
 
 def ready_to_move_customer(request):
     return render(request, "mover/customer_pages/ready_to_move.html", {})
+
+
 
 
 def request_mover(request):

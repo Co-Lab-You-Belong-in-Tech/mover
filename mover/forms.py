@@ -52,9 +52,20 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ("pickup_location", "dropoff_location",
-                  "service_type", "rate_type", "vehicle_type")
+                  "service_type", "rate_type", "vehicle_type",
+                  )
         widgets = {
             # 'selected_item': forms.RadioSelect,
             'service_type': forms.RadioSelect,
             'rate_type': forms.RadioSelect,
+        }
+
+class BookingUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Booking
+        fields = ("selected_item", "handle_loading", "photo", "note")
+        widgets = {
+            'selected_item': forms.RadioSelect,
+            'handle_loading': forms.RadioSelect,
         }

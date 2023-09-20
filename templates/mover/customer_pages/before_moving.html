@@ -1,0 +1,41 @@
+{% extends "mover/map_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Before Moving</title>
+<style>
+
+</style>
+{% endblock title %}
+
+{% block cardRight %}
+<div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.errors }}
+        <span id="tracking_id" style="display: none;">{{ tracking_id }}</span>
+        <h3 class="display-header my-3">Before you get movin'</h3>
+        <div class="d-flex flex-row">
+            <div class="moving-item-left">
+                <p>Number of Large Items (over 4 feet)</p>
+                {{ form.selected_item }}
+            </div>
+            <div class="moving-item-right">
+                <p>How would you like your mover to handle loading and unloading?</p>
+                {{ form.handle_loading }}
+            </div>
+        </div>
+        <div>
+            <p>Upload photo of items</p>
+            <!-- <input type="file" name="" id=""> -->
+            {{ form.photo }}
+
+        </div>
+        <div>
+            <label for="">Note to Driver</label>
+            {{ form.note }}
+        </div>
+        <button type="submit" class="w-100 my-3">Submit</button>
+    </form>
+</div>
+{% endblock cardRight %}
