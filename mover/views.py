@@ -66,9 +66,16 @@ def select_mover(request, tracking_id):
     return render(request, "mover/customer_pages/select_mover.html", context)
 
 def ready_to_move_customer(request, pk, tracking_id):
+    """Get a the mover vehicle that was passed in and then query the db for it."""
+    
+    vehicle = get_object_or_404(Vehicle, pk = pk)
+    booking = get_object_or_404(Booking, tracking_id = tracking_id)
+    
     context = {
         "tracking_id": tracking_id,
         "pk": pk,
+        "vehicle": vehicle,
+        "booking": booking,
     }
     return render(request, "mover/customer_pages/ready_to_move.html", context)
 
