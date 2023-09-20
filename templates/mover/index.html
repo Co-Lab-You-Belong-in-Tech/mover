@@ -15,31 +15,75 @@
 
     <!-- script -->
     <script type='text/javascript'>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Loaded DOM content...");
+            const pickupInput = document.getElementById("id_pickup_location");
+            const dropoffInput = document.getElementById("id_dropoff_location");
+
+            const location = { pickup_location: "", dropoff_location: "" }
+
+            pickupInput.addEventListener("change", (e) => {
+                console.log("Changed pickup location", e.target.value);
+                localStorage.setItem("pickup_location", e.target.value);
+                updateWaypoints();
+            });
+
+            dropoffInput.addEventListener("change", (e) => {
+                console.log("Changed dropoff location", e.target.value);
+                localStorage.setItem("dropoff_location", e.target.value);
+                updateWaypoints();
+            });
+
+            // Function to update waypoints and recalculate directions
+            function updateWaypoints() {
+                var pickup = localStorage.getItem("pickup_location");
+                var dropoff = localStorage.getItem("dropoff_location");
+
+                // Check if both pickup and dropoff are set before updating waypoints
+                if (pickup && dropoff) {
+                    // Dispose of the existing directions manager
+                    if (directionsManager) {
+                        directionsManager.dispose();
+                    }
+
+                    // Create a new instance of the directions manager
+                    directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+                    var wayPoint1 = new Microsoft.Maps.Directions.Waypoint({ address: pickup });
+                    var wayPoint2 = new Microsoft.Maps.Directions.Waypoint({ address: dropoff });
+
+                    // Add the new waypoints
+                    directionsManager.addWaypoint(wayPoint1);
+                    directionsManager.addWaypoint(wayPoint2);
+
+                    // Set render options and calculate directions
+                    directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+                    directionsManager.calculateDirections();
+                }
+            }
+
+            // Initialize the map and directions manager
+            GetMap();
+        });
+
         var map;
         var directionsManager;
 
         function GetMap() {
             map = new Microsoft.Maps.Map('#myMap', {});
 
-            //Load the directions module.
+            // Load the directions module.
             Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
-                //Create an instance of the directions manager.
+                // Create an instance of the directions manager.
                 directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
 
-                //Create waypoints to route between.
-                var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Seattle, WA' });
-                directionsManager.addWaypoint(seattleWaypoint);
-
-                var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Work', location: new Microsoft.Maps.Location(47.64, -122.1297) });
-                directionsManager.addWaypoint(workWaypoint);
-
-                //Specify the element in which the itinerary will be rendered.
+                // Set render options and calculate directions.
                 directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
-
-                //Calculate directions.
                 directionsManager.calculateDirections();
             });
         }
+
+
     </script>
     <script type='text/javascript'
         src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR'

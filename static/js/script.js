@@ -51,4 +51,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
+    //  Get the pick up and drop off location and save to local storage
+    // Get references to the input elements
+    
+
+    // Add change event listeners
+    // console.log("Hello")
+    // pickupInput.addEventListener("change", () => console.log(pickupInput.value));
+    // dropoffInput.addEventListener("change", saveToLocalStorage);
+
+    // Define the saveToLocalStorage function
+    // function saveToLocalStorage() {
+    // // Get the input values
+    // const pickupValue = pickupInput.value;
+    // const dropoffValue = dropoffInput.value;
+
+    // // Check if both values are not empty before saving to local storage
+    // if (pickupValue.trim() !== "" && dropoffValue.trim() !== "") {
+    //     // Save the values to local storage
+    //     localStorage.setItem("pickup_location", pickupValue);
+    //     localStorage.setItem("dropoff_location", dropoffValue);
+    // }
+    // }
+
+
+
+
 });
