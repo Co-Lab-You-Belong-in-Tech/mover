@@ -122,6 +122,7 @@ def ready_to_move(request):
         context = {
             "booking": booking
         }
+        # Send an email to both the customer and the driver
         return render(request, "mover/driver_pages/ready_to_move.html", context)
 
     return reverse("accept_request")
