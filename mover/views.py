@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from .forms import (BookingUpdateForm, CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
@@ -79,6 +80,16 @@ def ready_to_move_customer(request, pk, tracking_id):
     }
     return render(request, "mover/customer_pages/ready_to_move.html", context)
 
+def accept_request(request):
+    """Get all current unfuifuilled orders and present to the driver"""
+    
+    bookings = Booking.objects.filter(is_fufuilled = False)
+    
+    context = {
+        "bookings": bookings
+    }
+    return render(request, "mover/driver_pages/accept_request.html", context)
+
 
 def mapview(request):
     return render(request, "mover/components/map.html", {})
@@ -88,14 +99,9 @@ def component(request):
     return render(request, "mover/component.html", {})
 
 
-def accept_request(request):
-    return render(request, "mover/driver_pages/accept_request.html", {})
-
-
 
 def ready_to_move(request):
     return render(request, "mover/driver_pages/ready_to_move.html", {})
-
 
 
 
