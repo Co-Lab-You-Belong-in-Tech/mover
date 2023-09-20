@@ -14,6 +14,11 @@ def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
     """
+
+    if request.user.is_authenticated:
+        print(request.user.is_authenticated)
+        return redirect("accept_request")
+
     form = BookingForm()
 
     tracking_id = str(uuid.uuid4())
@@ -49,7 +54,7 @@ def before_moving(request, tracking_id):
         if form.is_valid():
             print("form is valid")
             form.save()
-            return redirect("select_mover", tracking_id = tracking_id)
+            return redirect("select_mover", tracking_id=tracking_id)
     context = {
         "form": form
     }
@@ -66,12 +71,13 @@ def select_mover(request, tracking_id):
     }
     return render(request, "mover/customer_pages/select_mover.html", context)
 
+
 def ready_to_move_customer(request, pk, tracking_id):
     """Get a the mover vehicle that was passed in and then query the db for it."""
-    
-    vehicle = get_object_or_404(Vehicle, pk = pk)
-    booking = get_object_or_404(Booking, tracking_id = tracking_id)
-    
+
+    vehicle = get_object_or_404(Vehicle, pk=pk)
+    booking = get_object_or_404(Booking, tracking_id=tracking_id)
+
     context = {
         "tracking_id": tracking_id,
         "pk": pk,
@@ -80,15 +86,45 @@ def ready_to_move_customer(request, pk, tracking_id):
     }
     return render(request, "mover/customer_pages/ready_to_move.html", context)
 
+
 def accept_request(request):
-    """Get all current unfuifuilled orders and present to the driver"""
-    
-    bookings = Booking.objects.filter(is_fufuilled = False)
-    
+    """Get all current orders with no drivers yet and present to the driver"""
+
+    bookings = get_list_or_404(Booking, owner=None)
+    # Check if current user has unfufuilled requests
+    query = get_list_or_404(Booking.objects.filter(
+        is_fufuilled=False, owner=request.user))
+
     context = {
-        "bookings": bookings
+        "bookings": bookings,
+        "can_accept_request": True
     }
+    # Add a context of false to avoid accepting multiple unfuifuiled orders
+    if query:
+        context["can_accept_request"] = False
+        context["unfufuilled_booking"] = query
+
     return render(request, "mover/driver_pages/accept_request.html", context)
+
+
+def ready_to_move(request):
+    if request.method == "POST":
+        tracking_id = request.POST.get("tracking_id")
+
+        print("Tracking ID: ", tracking_id)
+
+        booking = get_object_or_404(Booking, tracking_id=tracking_id)
+
+        print(booking)
+
+        booking.owner = request.user
+        booking.save()
+        context = {
+            "booking": booking
+        }
+        return render(request, "mover/driver_pages/ready_to_move.html", context)
+
+    return reverse("accept_request")
 
 
 def mapview(request):
@@ -97,12 +133,6 @@ def mapview(request):
 
 def component(request):
     return render(request, "mover/component.html", {})
-
-
-
-def ready_to_move(request):
-    return render(request, "mover/driver_pages/ready_to_move.html", {})
-
 
 
 def request_mover(request):

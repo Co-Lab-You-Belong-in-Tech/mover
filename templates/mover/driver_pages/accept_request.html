@@ -21,6 +21,8 @@
 <div>
     <h3>Available nearby requests</h3>
     <p class="text-small">Move items that work best for you!</p>
+    <!-- If driver can accept request show all bookings wihtout a driver asigned -->
+    {% if can_accept_request %}
     <div class="row mb-4">
         {% for booking in bookings %}
         <div class="col driver-accept-list py-2">
@@ -46,13 +48,62 @@
                     {% else %}
                     <p class="mb-2">${{ user.hourly_amount }} / Hourly</p>
                     {% endif %}
-                    <button class="">Accept</button>
+                    <form action="{% url 'ready_to_move' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="tracking_id" value="{{ booking.tracking_id }}">
+                        <button type="submit">Accept</button>
+                    </form>
                 </div>
             </div>
+        </div>
+        <!-- If the bookings s empty show below -->
+        {% empty %}
+        <div>There are currently no available orders...</div>
+        {% endfor %}
+    </div>
 
+    {% else %}
+    <!-- Else, the driver already accepted a request so cant accept another. Show show the unfufuilled order -->
+    <p>You can't accept new requests. You still have unfufuilled requests.</p>
+
+    <div class="row mb-4">
+        <!-- Loop throught the unfufuilled query set -->
+        {% for booking in unfufuilled_booking %}
+        <div class="col driver-accept-list py-2">
+            <div class="d-flex flex-row gap-2">
+                <div class="d-flex flex-row gap-2">
+                    <div>
+                        <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
+                    </div>
+                    <div class="mover-request-list">
+                        <p><b>{{ booking.selected_item }} Items </b></p>
+                        <p style="color: #104333;" class="text-uppercase fw-bold">{{ booking.service_type }}</p>
+                        <p>
+                            <b style="color: #4A4A68;">Pick-up location:</b>
+                            {{ booking.pickup_location }}
+                        </p>
+                        <p><b style="color: #4A4A68;">Est. driving distance:</b> 20 min</p>
+                        <p>Note: {{ booking.note|truncatechars:28 }} </p>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <p><span class="badge bg-danger" style="font-weight: 500;">Unfufuilled
+                        </span></p>
+                    {% if booking.rate_type == "FX" %}
+                    <p class="mb-2">${{ user.fixed_amount }} / Fixed</p>
+                    {% else %}
+                    <p class="mb-2">${{ user.hourly_amount }} / Hourly</p>
+                    {% endif %}
+                    <form action="{% url 'ready_to_move' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="tracking_id" value="{{ booking.tracking_id }}">
+                        <button type="submit">Fufuilled?</button>
+                    </form>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
-</div>
+    {% endif %}
 
-{% endblock cardRight %}
+    {% endblock cardRight %}

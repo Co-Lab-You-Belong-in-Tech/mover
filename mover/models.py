@@ -137,6 +137,7 @@ class Booking(models.Model):
         CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True, blank = True)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
+    email = models.CharField(max_length=300, null = True)
     tracking_id = models.CharField(
         max_length=200, null=True, blank=True, unique=True)
     is_fufuilled = models.BooleanField(default=False, null=True)

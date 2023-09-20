@@ -20,6 +20,11 @@
             {{ form.dropoff_location }}
         </div>
         <div>
+            <label for="">Email</label>
+            <!-- <input type="text" placeholder="Enter Location"> -->
+            {{ form.email }}
+        </div>
+        <div>
             <label for="">Vehicle Type</label>
             {{ form.vehicle_type }}
         </div>
@@ -36,7 +41,7 @@
                 {{ form.service_type }}
             </div>
         </div>
-        <span id="tracking">{{ tracking_id }}</span>
+        <span id="tracking" value="{{ tracking_id }}"></span>
         <button type="submit" class="w-100" id="bookingSubmit">Submit</button>
     </form>
 </div>

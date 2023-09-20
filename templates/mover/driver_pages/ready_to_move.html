@@ -19,15 +19,29 @@
 {% block cardRight %}
 <div class="driver-detail-card">
     <h3 class="fw-900">Get ready to move!</h3>
-    <p class="fw-bold">You'll earn <span style="color: #12B76A;">$25</span> moving 3-5 items.</p>
+    {% if booking.rate_type == "FX" %}
+    <p class="fw-bold">
+        You'll earn
+        <span style="color: #12B76A;">
+            ${{ user.fixed_amount }} fixed
+        </span> moving {{ booking.selected_item }} items.
+    </p>
+    {% else %}
+    <p class="fw-bold">
+        You'll earn
+        <span style="color: #12B76A;">
+            ${{ user.hourly_amount }} / hour
+        </span> moving {{ booking.selected_item }} items.
+    </p>
+    {% endif %}
     <div class="driver-item-list p-2" style="background-color: #E0F0EE;">
-        <div><img src="{% static 'images/hotel1.jpg' %}" alt="" width="100%" height="236px" class="rounded"></div>
+        <div><img src="{{ booking.photo.url }}" alt="" width="100%" height="236px" class="rounded"></div>
         <p class="mt-2"><b>Details</b></p>
-        <p><b>Pick-up location: </b>1234 Haight Street, San Francisco, CA</p>
-        <p><b>Destination: </b>9876 Barry Circle, Richmond, CA</p>
-        <p><b>Items: </b>3-5 items</p>
+        <p><b>Pick-up location: </b>{{ booking.pickup_location }}</p>
+        <p><b>Destination: </b> {{ booking.dropoff_location }} </p>
+        <p><b>Items: </b>{{ booking.selected_item }} items</p>
         <p><b>Service: </b>Loading and Unloading, Curbside</p>
-        <p class="text-sm" style="font-size: 12px;"><b>Note: </b>Items will be in a box</p>
+        <p class="text-sm" style="font-size: 12px;"><b>Note: </b> {{ booking.note }} </p>
     </div>
     <div class="d-flex justify-content-center align-items-center">
         <button class="btn btn-outline fw-bold text-uppercase" style="color: #104333;">Cancel Trip</button>
