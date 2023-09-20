@@ -28,12 +28,16 @@ Below are routes to the user auth:
 - Create Driver Log In Screen [DONE]
 - Create Driver Onboarding Screen [DONE]
 - Create Request a mover screen [DONE]
-- Create before you get moving screen []
+- Create before you get moving screen [DONE]
 - Link the Navbar Login, Sign Up, Find a driver to their respective views [DONE]
-- Create select a mover screen
+- Create select a mover screen [DONE]
 - Create get ready to move screen for mover
-- Make the login page work.
-- Make the driver sign up page work
+- Make the login page work. [DONE]
+- Make the driver sign up page work [DONE]
+
+## TODO DEV DEBUG
+- Fix Driver Accept Request CSS making map not to appear
+- Fix Styling of Radio Buttons for Customer side
 
 First once a user submits first form, create a tracking to be saved on both the
 db and the frontend local storage.

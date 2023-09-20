@@ -23,9 +23,9 @@
     <p class="text-small">Move items that work best for you!</p>
     <!-- If driver can accept request show all bookings wihtout a driver asigned -->
     {% if can_accept_request %}
-    <div class="row mb-4">
+    <div class=" mb-4">
         {% for booking in bookings %}
-        <div class="col driver-accept-list py-2">
+        <div class="driver-accept-list py-2">
             <div class="d-flex flex-row gap-2">
                 <div class="d-flex flex-row gap-2">
                     <div>
@@ -66,10 +66,10 @@
     <!-- Else, the driver already accepted a request so cant accept another. Show show the unfufuilled order -->
     <p>You can't accept new requests. You still have unfufuilled requests.</p>
 
-    <div class="row mb-4">
+    <div class="mb-4">
         <!-- Loop throught the unfufuilled query set -->
         {% for booking in unfufuilled_booking %}
-        <div class="col driver-accept-list py-2">
+        <div class="driver-accept-list py-2">
             <div class="d-flex flex-row gap-2">
                 <div class="d-flex flex-row gap-2">
                     <div>
