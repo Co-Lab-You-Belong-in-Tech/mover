@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+
 from .forms import (BookingUpdateForm, CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
                     DocumentVerificationForm, VehicleInformationForm)
 from django.contrib.auth import login as auth_login, authenticate, logout
@@ -70,6 +71,9 @@ def before_moving(request, tracking_id):
 
 
 def select_mover(request, tracking_id):
+    """
+        This gets all drivers and list for the customer so they can select one to move with.
+    """
     # Get a list of all the vehicles that are currently set to available
     available_vehicles = get_list_or_404(Vehicle, is_available=True)
 
@@ -81,7 +85,9 @@ def select_mover(request, tracking_id):
 
 
 def ready_to_move_customer(request, pk, tracking_id):
-    """Get a the mover vehicle that was passed in and then query the db for it."""
+    """Get a the mover vehicle that was passed in and then query the db for it. After the customer
+    selects a mover an email is sent to the both the driver and customer. This will serve as a notification
+    for the driver to accept the request."""
 
     vehicle = get_object_or_404(Vehicle, pk=pk)
     booking = get_object_or_404(Booking, tracking_id=tracking_id)
@@ -102,7 +108,7 @@ def ready_to_move_customer(request, pk, tracking_id):
 
     send_mail(subject, message, from_email,
               recipient_list, html_message=email_html)
-    
+
     print("Sent mail to customer")
 
     # Send email to driver
@@ -123,7 +129,7 @@ def ready_to_move_customer(request, pk, tracking_id):
     send_mail(subject, message, from_email,
               recipient_list, html_message=email_html_driver)
     print("Sent mail to driver")
-    
+
     context = {
         "tracking_id": tracking_id,
         "pk": pk,
@@ -157,10 +163,9 @@ def send_email(request):
 def accept_request(request):
     """Get all current orders with no drivers yet and present to the driver"""
 
-    bookings = get_list_or_404(Booking, owner=None)
+    bookings = Booking.objects.filter(owner=None)
     # Check if current user has unfufuilled requests
-    query = get_list_or_404(Booking.objects.filter(
-        is_fufuilled=False, owner=request.user))
+    query = Booking.objects.filter(is_fufuilled=False, owner=request.user)
 
     context = {
         "bookings": bookings,
@@ -175,6 +180,8 @@ def accept_request(request):
 
 
 def ready_to_move(request):
+    """This handles when the driver accepts a request that a customer chose thier vehicle for.
+    Once they accept, a text will be sent to the user that they have accepted."""
     if request.method == "POST":
         tracking_id = request.POST.get("tracking_id")
 
@@ -189,10 +196,36 @@ def ready_to_move(request):
         context = {
             "booking": booking
         }
-        # Send an email to both the customer and the driver
+        # Send another email to both the customer and the driver, saying the driver accepted the request.
         return render(request, "mover/driver_pages/ready_to_move.html", context)
 
     return reverse("accept_request")
+
+
+def list_fulfilled_requests(request):
+    """
+        Get all the fulfilled orders for that particular driver and display. Serves as a history.
+    """
+    fulfilled_bookings = Booking.objects.filter(
+        owner=request.user, is_fufuilled=True)
+
+    context = {
+        "fulfilled_bookings": fulfilled_bookings
+    }
+    return render(request, "mover/driver_pages/fulfilled_requests.html", context)
+
+
+def fulfill_request(request, id):
+    """
+        This is will get the booking of given id and set it to fulfilled then redirect the user to
+        list fulfilled requests view.
+    """
+    if request.method == "POST":
+        booking = get_object_or_404(Booking, id=id)
+        booking.is_fufuilled = True
+        booking.save()
+
+    return redirect("list_fulfilled_requests")
 
 
 def signup(request):

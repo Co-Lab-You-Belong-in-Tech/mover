@@ -22,6 +22,8 @@ Below are routes to the user auth:
 ### TODO Production
 - Debug Microsoft Map not showing [DONE]
 - Set up file upload (MEDIA ROOT)
+- Redeploy to moveritems.pythonanywhere.com and confirm everything is working.
+
 
 ### TODO DEV
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
@@ -41,6 +43,10 @@ Below are routes to the user auth:
 - Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
 - Add form errors to all forms so users can know what they did wrong.
 - Enable messages to show notifications on the front end:
+- Style the email templates to be better
+- Add placeholders to the input in customer and driver pages.
+- Fix the fulfuilled typos both in the model and template. [FUTURE]
+- Driver Dashboard to update their contact details [FUTURE]
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]

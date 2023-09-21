@@ -25,8 +25,8 @@
     {% if can_accept_request %}
     <div class=" mb-4">
         {% for booking in bookings %}
-        <div class="driver-accept-list py-2">
-            <div class="d-flex flex-row gap-2">
+        <div class="driver-accept-list p-2">
+            <div class="d-flex flex-row gap-2 justify-content-between">
                 <div class="d-flex flex-row gap-2">
                     <div>
                         <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
@@ -64,14 +64,15 @@
 
     {% else %}
     <!-- Else, the driver already accepted a request so cant accept another. Show show the unfufuilled order -->
-    <p>You can't accept new requests. You still have unfufuilled requests.</p>
+    <p class="p-3" style="background-color: #E0F0EE;">You can't accept new requests. You still have unfulfilled
+        requests.</p>
 
     <div class="mb-4">
         <!-- Loop throught the unfufuilled query set -->
         {% for booking in unfufuilled_booking %}
-        <div class="driver-accept-list py-2">
-            <div class="d-flex flex-row gap-2">
-                <div class="d-flex flex-row gap-2">
+        <div class="driver-accept-list p-2">
+            <div class="d-flex flex-row gap-2 justify-content-between">
+                <div class="d-flex flex-row gap-2 ">
                     <div>
                         <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
                     </div>
@@ -87,17 +88,17 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <p><span class="badge bg-danger" style="font-weight: 500;">Unfufuilled
+                    <p><span class="badge bg-danger" style="font-weight: 500;">Unfulfilled
                         </span></p>
                     {% if booking.rate_type == "FX" %}
                     <p class="mb-2">${{ user.fixed_amount }} / Fixed</p>
                     {% else %}
                     <p class="mb-2">${{ user.hourly_amount }} / Hourly</p>
                     {% endif %}
-                    <form action="{% url 'ready_to_move' %}" method="POST">
+                    <form action="{% url 'fulfill_request' booking.id %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="tracking_id" value="{{ booking.tracking_id }}">
-                        <button type="submit">Fufuilled?</button>
+                        <button type="submit">Fulfilled?</button>
                     </form>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import (document_verification, login, logout_view,
+from .views import (document_verification, login, logout_view, fulfill_request,
                     index, accept_request, select_mover, signup, application_status,
-                    ready_to_move, vehicle_information,
+                    ready_to_move, vehicle_information, list_fulfilled_requests,
                     ready_to_move_customer, before_moving, send_email)
 
 urlpatterns = [
@@ -14,6 +14,8 @@ urlpatterns = [
          ready_to_move, name="ready_to_move"),
     path('ready-to-move/customer/<int:pk>/<str:tracking_id>/', ready_to_move_customer,
          name="ready_to_move_customer"),
+    path("fulfilled-requests/", list_fulfilled_requests, name="list_fulfilled_requests"),
+    path("fulfill-request/<int:id>/", fulfill_request, name="fulfill_request"),
     path("signup/", signup, name="signup"),
     path("login/", login, name="login"),
     path("logout_view/", logout_view, name="logout_view"),
