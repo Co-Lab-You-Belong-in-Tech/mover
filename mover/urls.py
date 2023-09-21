@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (component, document_verification, driver_onboarding, login, logout_view,
                     index, accept_request, select_mover, signup, application_status, mapview,
                     mover_details, ready_to_move, request_mover, vehicle_information,
-                    ready_to_move_customer, before_moving)
+                    ready_to_move_customer, before_moving, send_email)
 
 urlpatterns = [
     path('', index, name="index"),
@@ -15,8 +15,8 @@ urlpatterns = [
          before_moving, name="before_moving"),
     path('ready-to-move/',
          ready_to_move, name="ready_to_move"),
-#     path('ready-to-move/str:tracking_id>/',
-#          ready_to_move, name="ready_to_move"),
+    #     path('ready-to-move/str:tracking_id>/',
+    #          ready_to_move, name="ready_to_move"),
     path('ready-to-move/customer/<int:pk>/<str:tracking_id>/', ready_to_move_customer,
          name="ready_to_move_customer"),
     path('mover-details/', mover_details, name="mover_details"),
@@ -28,4 +28,5 @@ urlpatterns = [
          name="document_verification"),
     path("vehicle/information", vehicle_information, name="vehicle_information"),
     path("application/status", application_status, name="application_status"),
+    path('send-email/', send_email, name="send_email"),
 ]

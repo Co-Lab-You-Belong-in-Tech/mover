@@ -35,8 +35,8 @@ Below are routes to the user auth:
 - Make the login page work. [DONE]
 - Make the driver sign up page work [DONE]
 - Add a view to toggle fufuilled is the driver confirms it.
-- Send an email to driver and customer after accepting a request withe the booking details
-- Add JS to save pick up and drop off location to localstorage and persist it in map.
+- Send an email to driver and customer after accepting a request withe the booking details [DONE]
+- Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]

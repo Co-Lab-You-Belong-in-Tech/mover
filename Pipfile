@@ -8,6 +8,7 @@ django = "*"
 django-jazzmin = "*"
 django-browser-reload = "*"
 pillow = "*"
+django-environ = "*"
 
 [dev-packages]
 

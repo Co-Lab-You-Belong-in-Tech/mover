@@ -7,6 +7,14 @@ from django.contrib.auth import login as auth_login, authenticate, logout
 from django.urls import reverse
 from .models import CustomUser, Vehicle, Booking
 import uuid
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from environ import Env
+
+# Load environment variables
+env = Env()
+env.read_env()
+
 # Create your views here.
 
 
@@ -77,7 +85,45 @@ def ready_to_move_customer(request, pk, tracking_id):
 
     vehicle = get_object_or_404(Vehicle, pk=pk)
     booking = get_object_or_404(Booking, tracking_id=tracking_id)
+    booking_email = booking.email
+    # Send email of success to the user.
+    email_context = {
+        "pickup": booking.pickup_location,
+        "dropoff": booking.dropoff_location,
+        "driver": vehicle.driver.get_full_name(),
+    }
+    email_html = render_to_string(
+        "mover/emails/email_template_customer.html", email_context)
 
+    subject = 'Hello, You have Successfully Booked A Service'
+    from_email = env("EMAIL_HOST_USER")
+    recipient_list = [booking_email]  # Recipient's email address
+    message = "Booked A Service!"
+
+    send_mail(subject, message, from_email,
+              recipient_list, html_message=email_html)
+    
+    print("Sent mail to customer")
+
+    # Send email to driver
+    email_context_driver = {
+        "pickup": booking.pickup_location,
+        "dropoff": booking.dropoff_location,
+        "customer_email": booking_email,
+    }
+    email_html_driver = render_to_string(
+        "mover/emails/email_template_driver.html", email_context_driver)
+
+    subject = 'Hello, You have a customer request!!'
+
+    from_email = env("EMAIL_HOST_USER")
+    recipient_list = [vehicle.driver.email]  # Recipient's email address
+    message = "Someone Booked A Service!"
+
+    send_mail(subject, message, from_email,
+              recipient_list, html_message=email_html_driver)
+    print("Sent mail to driver")
+    
     context = {
         "tracking_id": tracking_id,
         "pk": pk,
@@ -85,6 +131,27 @@ def ready_to_move_customer(request, pk, tracking_id):
         "booking": booking,
     }
     return render(request, "mover/customer_pages/ready_to_move.html", context)
+
+
+def send_email(request):
+    email_context = {
+        "pickup": "Utah",
+        "dropoff": "San Jose",
+        "driver": "Sixtus",
+    }
+    email_html = render_to_string(
+        "mover/emails/email_template.html", email_context)
+
+    subject = 'HTML Email Example'
+    message = 'This is a plain text email message.'
+    # Sender's email (should match EMAIL_HOST_USER)
+    from_email = 'sparkdkiller@gmail.com'
+    recipient_list = ['sikky606@gmail.com']  # Recipient's email address
+
+    # Send the email with the HTML content
+    send_mail(subject, message, from_email,
+              recipient_list, html_message=email_html)
+    return HttpResponse("Sent Email")
 
 
 def accept_request(request):
