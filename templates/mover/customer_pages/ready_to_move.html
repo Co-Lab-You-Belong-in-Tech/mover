@@ -22,19 +22,22 @@
 {% endblock title %}
 
 {% block cardRight %}
-{{ tracking_id }}
-{{ pk }}
 <div class="driver-detail-card">
     <h3 class="fw-900" style="font-size: 40px;font-weight: 800;">Get ready to move!</h3>
     <p class="fw-bold">Your driver is arriving in <span style="color: #12B76A;">4 minutes.</span></p>
     <div class="d-flex flex-row gap-2">
-        <img src="{% static 'images/man1.jpg' %}" alt="" width="64px" height="64px" class="rounded-circle">
+        <img src="{{ profile_picture.url }}" alt="" width="64px" height="64px" class="rounded-circle">
         <div class="driver-item-list">
-            <p><b>John Doe {{ vehicle.driver.first_name }} </b>
+            <p><b>{{ vehicle.driver.get_full_name }} </b>
                 <i class="fas fa-check-circle" style="color: #24f061;"></i>
             </p>
-            <p>Ford Ranger {{ vehicle.make }} </p>
-            <p style="color: #104333;" class="fw-bold">$25/Total</p>
+            <p>{{ vehicle.get_vehicle_full_name }} </p>
+
+            {% if booking.rate_type == "FX" %}
+                <p style="color: #104333;" class="fw-bold">${{ user.fixed_amount }} / Fixed</p>
+                {% else %}
+                <p style="color: #104333;" class="fw-bold">${{ user.hourly_amount }} / Hour</p>
+            {% endif %}
         </div>
     </div>
     <div class="driver-item-list p-2 hoverable">
@@ -43,9 +46,9 @@
         </div>
         <p class="mt-2"><b>Details</b></p>
         <p><b>Pick-up location: </b>{{ booking.pickup_location }} </p>
-        <p><b>Destination: </b>9876 Barry Circle, Richmond, CA</p>
-        <p><b>Items: </b>3-5 items</p>
-        <p><b>Service: </b>Loading and Unloading, Curbside</p>
+        <p><b>Destination: </b>{{ booking.pickup_location }} </p>
+        <p><b>Items: </b>{{ booking.selected_item }}  items</p>
+        <p><b>Service: </b>{{ booking.service_type }}, {{ booking.handle_loading }} </p>
         <p class="text-sm" style="font-size: 12px;"><b>Note: </b> {{ booking.note }} </p>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3">

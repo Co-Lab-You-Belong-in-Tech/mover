@@ -1,27 +1,64 @@
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from environ import Env
+
+# Load environment variables
+env = Env()
+env.read_env()
 
 
-def send_email(subject, message, from_email, recipient_list, html_email):
+def custom_send_mail(email_context: dict, recipient_list: list, email_type) -> bool:
+    """
+        Send mail using the template in email.
+    """
     try:
-        # email_context = {
-        #     "pickup": "Utah",
-        #     "dropoff": "San Jose",
-        #     "driver": "Sixtus",
-        # }
-        # email_html = render_to_string(
-        #     "mover/emails/email_template.html", email_context)
+        from_email = env("EMAIL_HOST_USER")
 
-        # subject = 'HTML Email Example'
-        # message = 'This is a plain text email message.'
-        # # Sender's email (should match EMAIL_HOST_USER)
-        # from_email = 'sparkdkiller@gmail.com'
-        # recipient_list = ['sikky606@gmail.com']  # Recipient's email address
+        if email_type.lower() == "driver":
 
-        # # Send the email with the HTML content
-        send_mail(subject, message, from_email,
-                  recipient_list, html_message=html_email)
-        return True
-    except:
-        print("Error sending mail...")
+            email_html_driver = render_to_string(
+                "mover/emails/email_template_driver.html", email_context)
+
+            subject = 'Hello, You have a customer request!!'
+            message = "Someone Booked A Service!"
+
+            send_mail(subject, message, from_email,
+                      recipient_list, html_message=email_html_driver)
+
+            return True
+
+        elif email_type.lower() == "customer":
+
+            email_html_customer = render_to_string(
+                "mover/emails/email_template_customer.html", email_context)
+
+            subject = 'Hello, You have Successfully Booked A Service'
+            message = "You just Booked A Service!!"
+
+            print(subject, message, from_email,
+                  recipient_list, email_html_customer)
+
+            send_mail(subject, message, from_email,
+                      recipient_list, html_message=email_html_customer)
+
+            return True
+
+        elif email_type.lower() == "driver_accept":
+
+            email_html_driver_accept = render_to_string(
+                "mover/emails/driver_accept.html", email_context)
+
+            subject = 'Hello, Your Driver is On The Way'
+            message = "Driver accepted your request!!"
+
+            send_mail(subject, message, from_email,
+                      recipient_list, html_message=email_html_driver_accept)
+
+            return True
+
+        else:
+            return False
+
+    except Exception as e:
+        print("Error sending mail...", e)
         return False

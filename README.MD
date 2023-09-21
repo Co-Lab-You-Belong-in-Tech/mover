@@ -22,7 +22,7 @@ Below are routes to the user auth:
 ### TODO Production
 - Debug Microsoft Map not showing [DONE]
 - Set up file upload (MEDIA ROOT)
-- Redeploy to moveritems.pythonanywhere.com and confirm everything is working.
+- Redeploy to moveritems.pythonanywhere.com and confirm everything is working. [IMPORTANT]
 
 
 ### TODO DEV
@@ -47,6 +47,7 @@ Below are routes to the user auth:
 - Add placeholders to the input in customer and driver pages.
 - Fix the fulfuilled typos both in the model and template. [FUTURE]
 - Driver Dashboard to update their contact details [FUTURE]
+- If authenticated the location of the map should be cleared.
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]

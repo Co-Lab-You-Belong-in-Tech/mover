@@ -64,8 +64,8 @@
 
     {% else %}
     <!-- Else, the driver already accepted a request so cant accept another. Show show the unfufuilled order -->
-    <p class="p-3" style="background-color: #E0F0EE;">You can't accept new requests. You still have unfulfilled
-        requests.</p>
+    <p class="p-3" style="background-color: #E0F0EE;">You can't accept new requests.
+        You still have unfulfilled requests.</p>
 
     <div class="mb-4">
         <!-- Loop throught the unfufuilled query set -->
@@ -82,6 +82,10 @@
                         <p>
                             <b style="color: #4A4A68;">Pick-up location:</b>
                             {{ booking.pickup_location }}
+                        </p>
+                        <p>
+                            <b style="color: #4A4A68;">Pick-up location:</b>
+                            {{ booking.dropoff_location }}
                         </p>
                         <p><b style="color: #4A4A68;">Est. driving distance:</b> 20 min</p>
                         <p>Note: {{ booking.note|truncatechars:28 }} </p>

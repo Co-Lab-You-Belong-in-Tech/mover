@@ -11,6 +11,7 @@ import uuid
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from environ import Env
+from .utils import custom_send_mail
 
 # Load environment variables
 env = Env()
@@ -145,19 +146,22 @@ def send_email(request):
         "dropoff": "San Jose",
         "driver": "Sixtus",
     }
-    email_html = render_to_string(
-        "mover/emails/email_template.html", email_context)
+    email_html_driver = render_to_string(
+        "mover/emails/email_template_customer.html", email_context)
 
-    subject = 'HTML Email Example'
-    message = 'This is a plain text email message.'
-    # Sender's email (should match EMAIL_HOST_USER)
-    from_email = 'sparkdkiller@gmail.com'
-    recipient_list = ['sikky606@gmail.com']  # Recipient's email address
+    subject = 'Hello, You have Successfully Booked A Service'
+    message = "You just Booked A Service!!"
+    from_email = env("EMAIL_HOST_USER")
+    recipient_list = ["proghostwriter666@gmail.com",]
+    message = "Someone Booked A Service!"
 
-    # Send the email with the HTML content
+    
     send_mail(subject, message, from_email,
-              recipient_list, html_message=email_html)
-    return HttpResponse("Sent Email")
+              recipient_list)
+    # if is_sent:
+    #     return HttpResponse("Sent Email")
+
+    return HttpResponse("Email sent...")
 
 
 def accept_request(request):
@@ -185,11 +189,7 @@ def ready_to_move(request):
     if request.method == "POST":
         tracking_id = request.POST.get("tracking_id")
 
-        print("Tracking ID: ", tracking_id)
-
         booking = get_object_or_404(Booking, tracking_id=tracking_id)
-
-        print(booking)
 
         booking.owner = request.user
         booking.save()
