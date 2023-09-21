@@ -195,26 +195,6 @@ def ready_to_move(request):
     return reverse("accept_request")
 
 
-def mapview(request):
-    return render(request, "mover/components/map.html", {})
-
-
-def component(request):
-    return render(request, "mover/component.html", {})
-
-
-def request_mover(request):
-    return render(request, "mover/request_mover.html", {})
-
-
-def mover_details(request):
-    return render(request, "mover/mover_details.html", {})
-
-
-def driver_onboarding(request):
-    return render(request, "mover/driver_onboarding.html", {})
-
-
 def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST, request.FILES)

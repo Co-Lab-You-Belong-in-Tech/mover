@@ -21,7 +21,7 @@ Below are routes to the user auth:
 
 ### TODO Production
 - Debug Microsoft Map not showing [DONE]
-- Set up file upload (NEDIA ROOT)
+- Set up file upload (MEDIA ROOT)
 
 ### TODO DEV
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
@@ -35,12 +35,13 @@ Below are routes to the user auth:
 - Make the login page work. [DONE]
 - Make the driver sign up page work [DONE]
 - Add a view to toggle fufuilled is the driver confirms it.
+- Add a sreen to show all of a driver's fufuilled orders history.
+- Add filter functionality to the select mover page.
 - Send an email to driver and customer after accepting a request withe the booking details [DONE]
 - Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
+- Add form errors to all forms so users can know what they did wrong.
+- Enable messages to show notifications on the front end:
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]
 - Fix Styling of Radio Buttons for Customer side
-
-First once a user submits first form, create a tracking to be saved on both the
-db and the frontend local storage.
