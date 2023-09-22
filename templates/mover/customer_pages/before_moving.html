@@ -15,7 +15,7 @@
         {% csrf_token %}
         {{ form.errors }}
         <h3 class="display-header my-3">Before you get movin'</h3>
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row justify-content-evenly gap-5">
             <div class="moving-item-left">
                 <p>Number of Large Items (over 4 feet)</p>
                 {{ form.selected_item }}
@@ -26,10 +26,8 @@
             </div>
         </div>
         <div>
-            <p>Upload photo of items</p>
-            <!-- <input type="file" name="" id=""> -->
+            <label>Upload photo of items</label>
             {{ form.photo }}
-
         </div>
         <div>
             <label for="">Note to Driver</label>
@@ -39,4 +37,3 @@
     </form>
 </div>
 {% endblock cardRight %}
-

@@ -17,6 +17,7 @@ li {
 /* Set the Inter font for the entire document */
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #FAF8F3;
 }
 
 /* Define some basic styles for common HTML elements */
@@ -83,14 +84,13 @@ input::placeholder {
     font-size: 16px;
 }
 
-label{
+label {
     margin-bottom: 8px;
 }
 
 /* File field */
 
 input[type="file"] {
-    margin-top: 1rem;
     background-color: #E0F0EE;
     padding: 10px;
     border-radius: 4px;
@@ -313,7 +313,6 @@ div.mover-card-para p {
 /* Custom fields for bootstrap */
 .form-fields label {
     font-weight: 500;
-    margin-bottom: 8px;
 }
 
 .form-fields label,

@@ -34,6 +34,7 @@
         enctype="multipart/form-data" action="{% url 'document_verification' %}">
         {% csrf_token %}
         <h3>Step 2. Document Verification</h3>
+        {{ form.errors }}
         <div class="row">
             <div class="col-lg-6 col-sm-12">
               <div class="d-flex flex-column">

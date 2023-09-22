@@ -5,6 +5,7 @@
     <form class="mover-card" style="width: 500px;" method="post">
         {% csrf_token %}
         <h2 style="font-size: 30px; margin-bottom: 10px;">Welcome Back!!</h2>
+        {{ form.errors }}
         <div class="form-fields">
             {% for field in form %}
                 <div class="form-group d-flex flex-column mb-4 mover-login">

@@ -32,6 +32,7 @@
         enctype="multipart/form-data" action="{% url 'vehicle_information' %}">
         {% csrf_token %}
         <h3>Step 3: Vehicle Information</h3>
+        {{ form.errors }}
         <div class="row">
             <div class="col-lg-6 col-sm-12">
               <div class="d-flex flex-column">

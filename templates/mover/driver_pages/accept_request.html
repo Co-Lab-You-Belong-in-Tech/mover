@@ -50,6 +50,7 @@
                     {% endif %}
                     <form action="{% url 'ready_to_move' %}" method="POST">
                         {% csrf_token %}
+                        {{ form.errors }}
                         <input type="hidden" name="tracking_id" value="{{ booking.tracking_id }}">
                         <button type="submit">Accept</button>
                     </form>
@@ -101,6 +102,7 @@
                     {% endif %}
                     <form action="{% url 'fulfill_request' booking.id %}" method="POST">
                         {% csrf_token %}
+                        {{ form.errors }}
                         <input type="hidden" name="tracking_id" value="{{ booking.tracking_id }}">
                         <button type="submit">Fulfilled?</button>
                     </form>
