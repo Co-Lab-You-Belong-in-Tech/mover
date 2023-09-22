@@ -6,7 +6,7 @@
 
 {% block cardRight %}
 <div>
-    <form enctype="multipart/form-data" method="post" id="booking-form">
+    <form enctype="multipart/form-data" method="post" id="booking-form" class="d-flex flex-column gap-3">
         {% csrf_token %}
         {{ form.errors }}
         <div>

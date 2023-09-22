@@ -53,7 +53,9 @@ li {
     margin-bottom: 8px;
 }
 
-input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
 textarea,
 select {
     outline: none;
@@ -68,7 +70,8 @@ select {
     font-size: 16px;
 }
 
-input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
@@ -79,6 +82,23 @@ input::placeholder {
     color: #8C8CA1;
     font-size: 16px;
 }
+
+/* File field */
+
+input[type="file"] {
+    margin-top: 1rem;
+    background-color: #E0F0EE;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
+
 
 button {
     background-color: #104333;
@@ -97,6 +117,10 @@ button:hover {
 button:active {
     background-color: rgb(19, 75, 19);
 
+}
+
+form>button {
+    margin-top: 1em;
 }
 
 /* Add more styles as needed for your specific project */
@@ -272,7 +296,7 @@ div.mover-card-para p {
 }
 
 .form-fields label,
-input {
+input[type="text"] {
     width: 100%;
 }
 
@@ -293,7 +317,7 @@ div.main {
     width: 100%;
 }
 
-.display-header{
+.display-header {
     font-size: 40px;
     font-weight: 800;
 }

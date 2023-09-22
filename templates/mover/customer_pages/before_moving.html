@@ -10,10 +10,10 @@
 
 {% block cardRight %}
 <div>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <span id="tracking_id" style="display: none;">{{ tracking_id }}</span>
+    <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-3">
         {% csrf_token %}
         {{ form.errors }}
-        <span id="tracking_id" style="display: none;">{{ tracking_id }}</span>
         <h3 class="display-header my-3">Before you get movin'</h3>
         <div class="d-flex flex-row">
             <div class="moving-item-left">

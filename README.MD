@@ -34,11 +34,11 @@ Below are routes to the user auth:
 - Create before you get moving screen [DONE]
 - Link the Navbar Login, Sign Up, Find a driver to their respective views [DONE]
 - Create select a mover screen [DONE]
-- Create get ready to move screen for mover
+- Create get ready to move screen for mover [DONE]
 - Make the login page work. [DONE]
 - Make the driver sign up page work [DONE]
-- Add a view to toggle fufuilled is the driver confirms it.
-- Add a sreen to show all of a driver's fufuilled orders history.
+- Add a view to toggle fufuilled is the driver confirms it. [DONE]
+- Add a sreen to show all of a driver's fufuilled orders history. [DONE]
 - Add filter functionality to the select mover page.
 - Send an email to driver and customer after accepting a request withe the booking details [DONE]
 - Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
@@ -53,4 +53,4 @@ ey did wrong.
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]
-- Fix Styling of Radio Buttons for Customer side
+- Fix Styling of Radio Buttons for Customer side [DONE]

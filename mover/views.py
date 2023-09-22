@@ -19,6 +19,8 @@ load_dotenv()
 
 # Create your views here.
 
+HOST_EMAIL = os.getenv("EMAIL_HOST_USER")
+
 
 def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
@@ -150,11 +152,10 @@ def send_email(request):
     email_html_driver = render_to_string(
         "mover/emails/email_template_customer.html", email_context)
 
-    subject = 'Hello, You have Successfully Booked A Service'
+    subject = 'Again Hello, You have Successfully Booked A Service'
     message = "You just Booked A Service!!"
     from_email = "sparkdkiller@gmail.com"
-    recipient_list = ["proghostwriter666@gmail.com",]
-    message = "Someone Booked A Service!"
+    recipient_list = ["sikky606@gmail.com",]
 
     send_mail(subject, message, from_email,
               recipient_list)
