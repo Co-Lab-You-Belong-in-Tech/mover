@@ -26,6 +26,7 @@ Below are routes to the user auth:
 
 
 ### TODO DEV
+- Debug email not sending [IMPORTANT]
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
 - Create Driver Log In Screen [DONE]
 - Create Driver Onboarding Screen [DONE]
@@ -41,7 +42,8 @@ Below are routes to the user auth:
 - Add filter functionality to the select mover page.
 - Send an email to driver and customer after accepting a request withe the booking details [DONE]
 - Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
-- Add form errors to all forms so users can know what they did wrong.
+- Add form errors to all forms so users can know what th
+ey did wrong.
 - Enable messages to show notifications on the front end:
 - Style the email templates to be better
 - Add placeholders to the input in customer and driver pages.

@@ -151,7 +151,7 @@ def send_email(request):
 
     subject = 'Hello, You have Successfully Booked A Service'
     message = "You just Booked A Service!!"
-    from_email = env("EMAIL_HOST_USER")
+    from_email = "sparkdkiller@gmail.com"
     recipient_list = ["proghostwriter666@gmail.com",]
     message = "Someone Booked A Service!"
 
