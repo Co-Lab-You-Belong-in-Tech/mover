@@ -76,7 +76,8 @@ def select_mover(request, tracking_id):
         This gets all drivers and list for the customer so they can select one to move with.
     """
     # Get a list of all the vehicles that are currently set to available
-    available_vehicles = get_list_or_404(Vehicle, is_available=True)
+    # available_vehicles = get_list_or_404(Vehicle, is_available=True)
+    available_vehicles = Vehicle.objects.filter(is_available=True)
 
     context = {
         'available_vehicles': available_vehicles,
