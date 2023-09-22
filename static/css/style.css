@@ -83,6 +83,10 @@ input::placeholder {
     font-size: 16px;
 }
 
+label{
+    margin-bottom: 8px;
+}
+
 /* File field */
 
 input[type="file"] {
@@ -99,6 +103,22 @@ input[type="file"]::file-selector-button {
     border-radius: 3px;
 }
 
+/* For radio */
+input[type="radio"] {
+    appearance: none;
+    border: 2px solid #12B76A;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+input[type="radio"]:checked {
+    border: 6px solid #12B76A;
+}
 
 button {
     background-color: #104333;
@@ -293,6 +313,7 @@ div.mover-card-para p {
 /* Custom fields for bootstrap */
 .form-fields label {
     font-weight: 500;
+    margin-bottom: 8px;
 }
 
 .form-fields label,
@@ -320,4 +341,12 @@ div.main {
 .display-header {
     font-size: 40px;
     font-weight: 800;
+}
+
+/* Radio buttons */
+
+div#id_rate_type,
+div#id_service_type {
+    display: flex;
+    gap: 1em;
 }
