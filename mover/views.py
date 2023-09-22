@@ -10,12 +10,12 @@ from .models import CustomUser, Vehicle, Booking
 import uuid
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from environ import Env
 from .utils import custom_send_mail
+import os
+from dotenv import load_dotenv
 
-# Load environment variables
-env = Env()
-env.read_env()
+# Load environment variables from the .env file
+load_dotenv()
 
 # Create your views here.
 
@@ -103,7 +103,7 @@ def ready_to_move_customer(request, pk, tracking_id):
         "mover/emails/email_template_customer.html", email_context)
 
     subject = 'Hello, You have Successfully Booked A Service'
-    from_email = env("EMAIL_HOST_USER")
+    from_email = os.getenv("EMAIL_HOST_USER")
     recipient_list = [booking_email]  # Recipient's email address
     message = "Booked A Service!"
 
@@ -123,7 +123,7 @@ def ready_to_move_customer(request, pk, tracking_id):
 
     subject = 'Hello, You have a customer request!!'
 
-    from_email = env("EMAIL_HOST_USER")
+    from_email = os.getenv("EMAIL_HOST_USER")
     recipient_list = [vehicle.driver.email]  # Recipient's email address
     message = "Someone Booked A Service!"
 
@@ -155,7 +155,6 @@ def send_email(request):
     recipient_list = ["proghostwriter666@gmail.com",]
     message = "Someone Booked A Service!"
 
-    
     send_mail(subject, message, from_email,
               recipient_list)
     # if is_sent:

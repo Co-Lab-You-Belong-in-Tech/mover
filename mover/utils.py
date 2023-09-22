@@ -1,10 +1,9 @@
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from environ import Env
+import os
+from dotenv import load_dotenv
 
-# Load environment variables
-env = Env()
-env.read_env()
+load_dotenv()
 
 
 def custom_send_mail(email_context: dict, recipient_list: list, email_type) -> bool:
@@ -12,7 +11,7 @@ def custom_send_mail(email_context: dict, recipient_list: list, email_type) -> b
         Send mail using the template in email.
     """
     try:
-        from_email = env("EMAIL_HOST_USER")
+        from_email = os.getenv("EMAIL_HOST_USER")
 
         if email_type.lower() == "driver":
 
