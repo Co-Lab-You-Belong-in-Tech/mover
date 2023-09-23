@@ -30,6 +30,7 @@ Below are routes to the user auth:
 - Only authenticated users should be able to see the document verification and document upload views [IMPORTANT]
 - Handle Cancel Trip on the ready to move screen
 - Fix the per hour issue on the move screen
+- Debug user selecting a mover and acept a request conflict [IMPORTANT]
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
 - Create Driver Log In Screen [DONE]
 - Create Driver Onboarding Screen [DONE]

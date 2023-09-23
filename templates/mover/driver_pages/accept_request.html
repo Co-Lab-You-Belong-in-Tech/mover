@@ -29,7 +29,12 @@
             <div class="d-flex flex-row gap-2 justify-content-between">
                 <div class="d-flex flex-row gap-2">
                     <div>
+                        {% if booking.photo %}
                         <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
+                        {% else %}
+                        <img src="{% static 'images/no-image.png' %}" alt="" width=" 174px" height="106px"
+                            class="rounded">
+                        {% endif %}
                     </div>
                     <div class="mover-request-list">
                         <p><b>{{ booking.selected_item }} Items </b></p>
