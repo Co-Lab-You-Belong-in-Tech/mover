@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.http import HttpResponse
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
-
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import (BookingUpdateForm, CustomAuthenticationForm, CustomUserCreationForm, BookingForm,
                     DocumentVerificationForm, VehicleInformationForm)
 from django.contrib.auth import login as auth_login, authenticate, logout
@@ -20,6 +20,11 @@ load_dotenv()
 # Create your views here.
 
 HOST_EMAIL = os.getenv("EMAIL_HOST_USER")
+
+
+def is_auth(user):
+    """Decorator to handle views specific for drivers"""
+    return user.is_authenticated
 
 
 def index(request):
@@ -165,6 +170,7 @@ def send_email(request):
     return HttpResponse("Email sent...")
 
 
+@user_passes_test(is_auth, login_url='login')
 def accept_request(request):
     """Get all current orders with no drivers yet and present to the driver"""
 
@@ -183,7 +189,7 @@ def accept_request(request):
 
     return render(request, "mover/driver_pages/accept_request.html", context)
 
-
+@user_passes_test(is_auth, login_url='login')
 def ready_to_move(request):
     """This handles when the driver accepts a request that a customer chose thier vehicle for.
     Once they accept, a text will be sent to the user that they have accepted."""
@@ -202,7 +208,7 @@ def ready_to_move(request):
 
     return reverse("accept_request")
 
-
+@user_passes_test(is_auth, login_url='login')
 def list_fulfilled_requests(request):
     """
         Get all the fulfilled orders for that particular driver and display. Serves as a history.
@@ -215,7 +221,7 @@ def list_fulfilled_requests(request):
     }
     return render(request, "mover/driver_pages/fulfilled_requests.html", context)
 
-
+@user_passes_test(is_auth, login_url='login')
 def fulfill_request(request, id):
     """
         This is will get the booking of given id and set it to fulfilled then redirect the user to
@@ -266,7 +272,7 @@ def logout_view(request):
     logout(request)
     return redirect("/")
 
-
+@user_passes_test(is_auth, login_url='login')
 def document_verification(request):
     if request.method == "POST":
         print(f"file: {request.FILES} post data: {request.POST}")
@@ -283,7 +289,7 @@ def document_verification(request):
     form = DocumentVerificationForm()
     return render(request, "mover/driver_pages/document_verification.html", {"form": form})
 
-
+@user_passes_test(is_auth, login_url='login')
 def vehicle_information(request):
 
     if request.method == "POST":
@@ -304,6 +310,6 @@ def vehicle_information(request):
     form = VehicleInformationForm()
     return render(request, "mover/driver_pages/vehicle_information.html", {"form": form})
 
-
+@user_passes_test(is_auth, login_url='login')
 def application_status(request):
     return render(request, "mover/driver_pages/application_status.html")

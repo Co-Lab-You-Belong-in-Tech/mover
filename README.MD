@@ -27,6 +27,7 @@ Below are routes to the user auth:
 
 ### TODO DEV
 - Debug email not sending [IMPORTANT]
+- Only authenticated users should be able to see the document verification and document upload views [IMPORTANT]
 - Handle Cancel Trip on the ready to move screen
 - Fix the per hour issue on the move screen
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
