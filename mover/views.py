@@ -239,7 +239,7 @@ def signup(request):
             auth_login(request, user)
             print("Redirecting to homepage")
             # Move to the next step of vehicle verification
-            return redirect(reverse("document_verification"))
+            return redirect("document_verification")
 
     form = CustomUserCreationForm()
 
@@ -273,12 +273,12 @@ def document_verification(request):
         print("Current user: ", request.user)
         form = DocumentVerificationForm(
             request.POST, request.FILES, instance=request.user)
-        print(f"Form valid: {form.is_valid}")
+        print(f"Form valid: Not yet")
 
         if form.is_valid():
             print("Updated the db!!")
             form.save()
-            return redirect(reverse("vehicle_information"))
+            return redirect("vehicle_information")
 
     form = DocumentVerificationForm()
     return render(request, "mover/driver_pages/document_verification.html", {"form": form})
@@ -299,7 +299,7 @@ def vehicle_information(request):
             form.save()
             print(f"Updated the db!! Driver: {form.instance.driver}")
 
-            return redirect(reverse("application_status"))
+            return redirect("application_status")
 
     form = VehicleInformationForm()
     return render(request, "mover/driver_pages/vehicle_information.html", {"form": form})

@@ -54,9 +54,7 @@ li {
     margin-bottom: 8px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
+input[type],
 textarea,
 select {
     outline: none;
@@ -71,8 +69,7 @@ select {
     font-size: 16px;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
+input[type]:focus,
 textarea:focus {
     border: 1px solid #104333;
     box-shadow: 0px 0px 0px 4px #23897480;
@@ -91,10 +88,12 @@ label {
 /* File field */
 
 input[type="file"] {
+    background: none;
     background-color: #E0F0EE;
     padding: 10px;
     border-radius: 4px;
     width: 100%;
+    height: inherit;
 }
 
 input[type="file"]::file-selector-button {
@@ -114,6 +113,7 @@ input[type="radio"] {
     margin-right: 5px;
     position: relative;
     top: 4px;
+    padding: 0;
 }
 
 input[type="radio"]:checked {
