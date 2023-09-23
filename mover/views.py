@@ -97,42 +97,42 @@ def ready_to_move_customer(request, pk, tracking_id):
     booking = get_object_or_404(Booking, tracking_id=tracking_id)
     booking_email = booking.email
     # Send email of success to the user.
-    email_context = {
-        "pickup": booking.pickup_location,
-        "dropoff": booking.dropoff_location,
-        "driver": vehicle.driver.get_full_name(),
-    }
-    email_html = render_to_string(
-        "mover/emails/email_template_customer.html", email_context)
+    # email_context = {
+    #     "pickup": booking.pickup_location,
+    #     "dropoff": booking.dropoff_location,
+    #     "driver": vehicle.driver.get_full_name(),
+    # }
+    # email_html = render_to_string(
+    #     "mover/emails/email_template_customer.html", email_context)
 
-    subject = 'Hello, You have Successfully Booked A Service'
-    from_email = os.getenv("EMAIL_HOST_USER")
-    recipient_list = [booking_email]  # Recipient's email address
-    message = "Booked A Service!"
+    # subject = 'Hello, You have Successfully Booked A Service'
+    # from_email = os.getenv("EMAIL_HOST_USER")
+    # recipient_list = [booking_email]  # Recipient's email address
+    # message = "Booked A Service!"
 
-    send_mail(subject, message, from_email,
-              recipient_list, html_message=email_html)
+    # send_mail(subject, message, from_email,
+    #           recipient_list, html_message=email_html)
 
-    print("Sent mail to customer")
+    # print("Sent mail to customer")
 
-    # Send email to driver
-    email_context_driver = {
-        "pickup": booking.pickup_location,
-        "dropoff": booking.dropoff_location,
-        "customer_email": booking_email,
-    }
-    email_html_driver = render_to_string(
-        "mover/emails/email_template_driver.html", email_context_driver)
+    # # Send email to driver
+    # email_context_driver = {
+    #     "pickup": booking.pickup_location,
+    #     "dropoff": booking.dropoff_location,
+    #     "customer_email": booking_email,
+    # }
+    # email_html_driver = render_to_string(
+    #     "mover/emails/email_template_driver.html", email_context_driver)
 
-    subject = 'Hello, You have a customer request!!'
+    # subject = 'Hello, You have a customer request!!'
 
-    from_email = os.getenv("EMAIL_HOST_USER")
-    recipient_list = [vehicle.driver.email]  # Recipient's email address
-    message = "Someone Booked A Service!"
+    # from_email = os.getenv("EMAIL_HOST_USER")
+    # recipient_list = [vehicle.driver.email]  # Recipient's email address
+    # message = "Someone Booked A Service!"
 
-    send_mail(subject, message, from_email,
-              recipient_list, html_message=email_html_driver)
-    print("Sent mail to driver")
+    # send_mail(subject, message, from_email,
+    #           recipient_list, html_message=email_html_driver)
+    # print("Sent mail to driver")
 
     context = {
         "tracking_id": tracking_id,

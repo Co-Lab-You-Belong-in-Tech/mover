@@ -27,6 +27,8 @@ Below are routes to the user auth:
 
 ### TODO DEV
 - Debug email not sending [IMPORTANT]
+- Handle Cancel Trip on the ready to move screen
+- Fix the per hour issue on the move screen
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
 - Create Driver Log In Screen [DONE]
 - Create Driver Onboarding Screen [DONE]
