@@ -27,17 +27,14 @@ def is_auth(user):
     return user.is_authenticated
 
 
+@user_passes_test(is_auth, login_url='login')
 def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
     """
 
-    if request.user.is_authenticated:
-        print(request.user.is_authenticated)
-        return redirect("accept_request")
-
     form = BookingForm()
-
+    # TODO: Make a model function to automatically generate this instead of making it manually.
     tracking_id = str(uuid.uuid4())
 
     if request.method == "POST":
@@ -100,6 +97,13 @@ def ready_to_move_customer(request, pk, tracking_id):
 
     vehicle = get_object_or_404(Vehicle, pk=pk)
     booking = get_object_or_404(Booking, tracking_id=tracking_id)
+    # Set the selected vehicle to the booking.
+    booking.vehicle = vehicle
+    booking.save()
+    # Set the vehicle availablity to False, so it won't apear for customer to select again.
+    vehicle.is_available = False
+    vehicle.save()
+
     booking_email = booking.email
     # Send email of success to the user.
     # email_context = {
@@ -189,6 +193,7 @@ def accept_request(request):
 
     return render(request, "mover/driver_pages/accept_request.html", context)
 
+
 @user_passes_test(is_auth, login_url='login')
 def ready_to_move(request):
     """This handles when the driver accepts a request that a customer chose thier vehicle for.
@@ -208,6 +213,7 @@ def ready_to_move(request):
 
     return reverse("accept_request")
 
+
 @user_passes_test(is_auth, login_url='login')
 def list_fulfilled_requests(request):
     """
@@ -220,6 +226,7 @@ def list_fulfilled_requests(request):
         "fulfilled_bookings": fulfilled_bookings
     }
     return render(request, "mover/driver_pages/fulfilled_requests.html", context)
+
 
 @user_passes_test(is_auth, login_url='login')
 def fulfill_request(request, id):
@@ -272,6 +279,7 @@ def logout_view(request):
     logout(request)
     return redirect("/")
 
+
 @user_passes_test(is_auth, login_url='login')
 def document_verification(request):
     if request.method == "POST":
@@ -288,6 +296,7 @@ def document_verification(request):
 
     form = DocumentVerificationForm()
     return render(request, "mover/driver_pages/document_verification.html", {"form": form})
+
 
 @user_passes_test(is_auth, login_url='login')
 def vehicle_information(request):
@@ -309,6 +318,7 @@ def vehicle_information(request):
 
     form = VehicleInformationForm()
     return render(request, "mover/driver_pages/vehicle_information.html", {"form": form})
+
 
 @user_passes_test(is_auth, login_url='login')
 def application_status(request):

@@ -26,8 +26,8 @@
     <h3 class="fw-900" style="font-size: 40px;font-weight: 800;">Get ready to move!</h3>
     <p class="fw-bold">Your driver is arriving in <span style="color: #12B76A;">4 minutes.</span></p>
     <div class="d-flex flex-row gap-2">
-        {% if user.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" alt="" width="64px" height="64px" class="rounded-circle">
+        {% if vehicle.driver.profile_picture %}
+        <img src="{{ vehicle.driver.profile_picture.url }}" alt="" width="64px" height="64px" class="rounded-circle">
         {% else %}
         <img src="{% static 'images/default_profile.PNG' %}" alt="" width="64px" height="64px" class="rounded-circle">
         {% endif %}
@@ -46,7 +46,7 @@
     </div>
     <div class="driver-item-list p-2 hoverable">
         <div>
-            <img src="{{ booking.photo.url }}" alt="" width="100%" height="236px" class="rounded">
+            <img src="{{ booking.vehicle.vehicle_photo.url }}" alt="" width="100%" height="236px" class="rounded">
         </div>
         <p class="mt-2"><b>Details</b></p>
         <p><b>Pick-up location: </b>{{ booking.pickup_location }} </p>

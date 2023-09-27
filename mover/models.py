@@ -53,7 +53,7 @@ class CustomUser(AbstractUser):
 
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(
-        max_length=10, choices=ROLE_CHOICES, null=True, blank=True, default = "driver")
+        max_length=10, choices=ROLE_CHOICES, null=True, blank=True, default="driver")
     address = models.CharField(max_length=300, null=True, blank=True)
     profile_picture = models.ImageField(
         upload_to="images/", null=True, blank=True)
@@ -77,6 +77,7 @@ class CustomUser(AbstractUser):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+
 class Vehicle(models.Model):
 
     license_plate = models.CharField(max_length=200)
@@ -92,9 +93,10 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.make} - {self.model}"
-    
+
     def get_vehicle_full_name(self):
         return f"{self.year} {self.make} {self.model}"
+
 
 class VehiclePhoto(models.Model):
     photo = models.ImageField(upload_to="images")
@@ -134,10 +136,12 @@ class Booking(models.Model):
         ("4", "None of the Above"),
     )
     owner = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True, blank = True)
+        CustomUser, on_delete=models.CASCADE, related_name="driver_bookings", null=True, blank=True)
+    vehicle = models.ForeignKey(
+        Vehicle, on_delete=models.CASCADE, null=True, blank=True)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
-    email = models.CharField(max_length=300, null = True)
+    email = models.CharField(max_length=300, null=True)
     tracking_id = models.CharField(
         max_length=200, null=True, blank=True, unique=True)
     is_fufuilled = models.BooleanField(default=False, null=True)
@@ -160,10 +164,11 @@ class Booking(models.Model):
         max_length=100, choices=HANDLE_LOADING, null=True, default="4")
     photo = models.ImageField(upload_to="images/", null=True)
     note = models.CharField(max_length=400, null=True)
-    
+
     def __str__(self) -> str:
         return f"Booking - {self.tracking_id}"
-    
+
+
 class Goods(models.Model):
     # Best to use a form set for this.
     name = models.CharField(max_length=200)
