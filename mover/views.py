@@ -27,7 +27,6 @@ def is_auth(user):
     return user.is_authenticated
 
 
-@user_passes_test(is_auth, login_url='login')
 def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
@@ -187,6 +186,30 @@ def accept_request(request):
         "can_accept_request": True
     }
     # Add a context of false to avoid accepting multiple unfuifuiled orders
+    if query:
+        context["can_accept_request"] = False
+        context["unfufuilled_booking"] = query
+
+    return render(request, "mover/driver_pages/accept_request.html", context)
+
+
+@user_passes_test(is_auth, login_url='login')
+def accept_request1(request):
+    """Get all current bookings where the vehicle matches the vehicle of the request.user. If a user
+    still have an unfulfilled booking stop them from accepting another request. Then show the unfulfuilled 
+    request"""
+
+    bookings = Booking.objects.filter(vehicle__driver=request.user)
+
+    # bookings = Booking.objects.filter(owner=None)
+    # # Check if current user has unfufuilled requests
+    query = bookings.filter(is_fufuilled=False)
+
+    context = {
+        "bookings": bookings,
+        "can_accept_request": True
+    }
+    # # Add a context of false to avoid accepting multiple unfuifuiled orders
     if query:
         context["can_accept_request"] = False
         context["unfufuilled_booking"] = query

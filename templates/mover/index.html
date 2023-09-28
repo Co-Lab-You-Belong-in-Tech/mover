@@ -59,6 +59,8 @@
                     // Set render options and calculate directions
                     directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
                     directionsManager.calculateDirections();
+                    console.log("manger:", directionsManager.calculateDirections());
+
                 }
             }
 
@@ -109,8 +111,6 @@
 
     {% block script %}
     {% endblock script %}
-
-
 
 </body>
 
