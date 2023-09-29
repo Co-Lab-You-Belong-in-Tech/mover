@@ -211,9 +211,10 @@ def ready_to_move(request):
         tracking_id = request.POST.get("tracking_id")
 
         booking = get_object_or_404(Booking, tracking_id=tracking_id)
-
-        booking.owner = request.user
+        # Accept the request
+        booking.is_accepted = True
         booking.save()
+        
         context = {
             "booking": booking
         }

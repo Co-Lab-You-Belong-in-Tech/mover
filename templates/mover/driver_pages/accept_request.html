@@ -68,6 +68,7 @@
     <h3>Available nearby requests</h3>
     <p class="text-small">Move items that work best for you!</p>
     {% for booking in all_orders %}
+    {{ booking.is_accepted }}
     <div class="driver-accept-list p-2">
         <div class="d-flex flex-row gap-2 justify-content-between">
             <div class="d-flex flex-row gap-2">
