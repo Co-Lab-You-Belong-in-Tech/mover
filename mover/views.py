@@ -188,7 +188,7 @@ def accept_request(request):
     all_orders = Booking.objects.filter(owner=driver)
 
     # Check if the driver has any unfulfilled booking orders
-    can_not_accept = all_orders.filter(is_accepted=True, is_fufuilled=False)
+    can_not_accept = all_orders.filter(is_accepted=True, is_fulfilled=False)
 
     context = {}
 
@@ -246,7 +246,7 @@ def fulfill_request(request, id):
     """
     if request.method == "POST":
         booking = get_object_or_404(Booking, id=id)
-        booking.is_fufuilled = True
+        booking.is_fulfilled = True
         booking.save()
 
     return redirect("list_fulfilled_requests")

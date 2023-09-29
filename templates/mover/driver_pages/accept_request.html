@@ -25,10 +25,10 @@
     <p class="text-small">Please fufill these request before accepting more!</p>
     {% for booking in can_not_accept %}
     <div class="driver-accept-list p-2">
-        <div class="d-flex flex-row gap-2 justify-content-between">
-            <div class="d-flex flex-row gap-2 ">
-                <div>
-                    <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
+        <div class="d-flex flex-column flex-md-row gap-2 justify-content-between">
+            <div class="d-flex flex-column flex-md-row gap-2">
+                <div class="flex-grow-1">
+                    <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded img-fluid">
                 </div>
                 <div class="mover-request-list">
                     <p><b>{{ booking.selected_item }} Items </b></p>
@@ -45,7 +45,7 @@
                     <p>Note: {{ booking.note|truncatechars:28 }} </p>
                 </div>
             </div>
-            <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex flex-row flex-md-column justify-content-evenly align-items-center">
                 <p><span class="badge bg-danger" style="font-weight: 500;">Unfulfilled
                     </span></p>
                 {% if booking.rate_type == "FX" %}
@@ -70,13 +70,13 @@
     {% for booking in all_orders %}
     {{ booking.is_accepted }}
     <div class="driver-accept-list p-2">
-        <div class="d-flex flex-row gap-2 justify-content-between">
+        <div class="d-flex d-sm-block flex-row gap-2 justify-content-between">
             <div class="d-flex flex-row gap-2">
                 <div>
                     {% if booking.photo %}
-                    <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">
+                    <img src="{{ booking.photo.url }}" alt="" width=" 174px" class="rounded">
                     {% else %}
-                    <img src="{% static 'images/no-image.png' %}" alt="" width=" 174px" height="106px" class="rounded">
+                    <img src="{% static 'images/no-image.png' %}" alt="" width=" 174px" class="rounded">
                     {% endif %}
                 </div>
                 <div class="mover-request-list">

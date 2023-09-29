@@ -27,11 +27,11 @@ Below are routes to the user auth:
 
 ### TODO DEV
 - Debug email not sending [IMPORTANT]
-- Only authenticated users should be able to see the document verification and document upload views [IMPORTANT]
+- Only authenticated users should be able to see the document verification and document upload views [IMPORTANT][DONE]
 - Handle Cancel Trip on the ready to move screen. This should remove the vehicle from booking and set the
 vehicle availablity to True. So it can shown on the select mover screen again.
 - Fix the per hour issue on the move screen
-- Debug user selecting a mover and acept a request conflict [IMPORTANT]
+- Debug user selecting a mover and acept a request conflict [IMPORTANT][DONE]
 - Create/ReFactor the Customer Request A Mover Screen[IMPORTANT][DONE]
 - Create Driver Log In Screen [DONE]
 - Create Driver Onboarding Screen [DONE]
