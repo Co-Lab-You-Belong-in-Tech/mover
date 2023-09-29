@@ -31,6 +31,8 @@ def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
     """
+    if request.user.is_authenticated:
+        return redirect("accept_request")
 
     form = BookingForm()
     # TODO: Make a model function to automatically generate this instead of making it manually.
@@ -98,6 +100,8 @@ def ready_to_move_customer(request, pk, tracking_id):
     booking = get_object_or_404(Booking, tracking_id=tracking_id)
     # Set the selected vehicle to the booking.
     booking.vehicle = vehicle
+    # Set the owner to the driver of the vehicle
+    booking.owner = vehicle.driver
     booking.save()
     # Set the vehicle availablity to False, so it won't apear for customer to select again.
     vehicle.is_available = False
@@ -175,44 +179,26 @@ def send_email(request):
 
 @user_passes_test(is_auth, login_url='login')
 def accept_request(request):
-    """Get all current orders with no drivers yet and present to the driver"""
+    """
+    Check if the driver has acepted request that are not yet fufilled sends them to the template.
+    """
 
-    bookings = Booking.objects.filter(owner=None)
-    # Check if current user has unfufuilled requests
-    query = Booking.objects.filter(is_fufuilled=False, owner=request.user)
+    driver = request.user
 
-    context = {
-        "bookings": bookings,
-        "can_accept_request": True
-    }
-    # Add a context of false to avoid accepting multiple unfuifuiled orders
-    if query:
-        context["can_accept_request"] = False
-        context["unfufuilled_booking"] = query
+    all_orders = Booking.objects.filter(owner=driver)
 
-    return render(request, "mover/driver_pages/accept_request.html", context)
+    # Check if the driver has any unfulfilled booking orders
+    can_not_accept = all_orders.filter(is_accepted=True, is_fufuilled=False)
 
+    context = {}
 
-@user_passes_test(is_auth, login_url='login')
-def accept_request1(request):
-    """Get all current bookings where the vehicle matches the vehicle of the request.user. If a user
-    still have an unfulfilled booking stop them from accepting another request. Then show the unfulfuilled 
-    request"""
+    if can_not_accept.exists():
+        print("You cannot accept new orders because there unfulfilled accepted orders")
+        context["can_not_accept"] = can_not_accept
 
-    bookings = Booking.objects.filter(vehicle__driver=request.user)
+    context["all_orders"] = all_orders
 
-    # bookings = Booking.objects.filter(owner=None)
-    # # Check if current user has unfufuilled requests
-    query = bookings.filter(is_fufuilled=False)
-
-    context = {
-        "bookings": bookings,
-        "can_accept_request": True
-    }
-    # # Add a context of false to avoid accepting multiple unfuifuiled orders
-    if query:
-        context["can_accept_request"] = False
-        context["unfufuilled_booking"] = query
+    print("You can accept new orders")
 
     return render(request, "mover/driver_pages/accept_request.html", context)
 
@@ -292,7 +278,7 @@ def login(request):
             if user is not None:
                 user = form.get_user()
                 auth_login(request, user)
-                return redirect('/')  # Redirect to a success page
+                return redirect('accept-request')  # Redirect to a success page
     else:
         form = CustomAuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})

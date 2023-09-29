@@ -145,6 +145,7 @@ class Booking(models.Model):
     tracking_id = models.CharField(
         max_length=200, null=True, blank=True, unique=True)
     is_fufuilled = models.BooleanField(default=False, null=True)
+    is_accepted = models.BooleanField(default=False, null=True)
     selected_item = models.CharField(
         max_length=5,
         choices=ITEM_CHOICES,
