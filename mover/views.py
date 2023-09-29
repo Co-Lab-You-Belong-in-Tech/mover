@@ -185,16 +185,20 @@ def accept_request(request):
 
     driver = request.user
 
-    all_orders = Booking.objects.filter(owner=driver)
-
     # Check if the driver has any unfulfilled booking orders
-    can_not_accept = all_orders.filter(is_accepted=True, is_fulfilled=False)
+    can_not_accept = Booking.objects.filter(
+        owner=driver, is_accepted=True, is_fulfilled=False)
 
     context = {}
 
     if can_not_accept.exists():
         print("You cannot accept new orders because there unfulfilled accepted orders")
         context["can_not_accept"] = can_not_accept
+
+        return render(request, "mover/driver_pages/accept_request.html", context)
+
+    all_orders = Booking.objects.filter(
+        owner=driver, is_accepted=False, is_fulfilled=False)
 
     context["all_orders"] = all_orders
 
@@ -214,7 +218,7 @@ def ready_to_move(request):
         # Accept the request
         booking.is_accepted = True
         booking.save()
-        
+
         context = {
             "booking": booking
         }
@@ -230,7 +234,7 @@ def list_fulfilled_requests(request):
         Get all the fulfilled orders for that particular driver and display. Serves as a history.
     """
     fulfilled_bookings = Booking.objects.filter(
-        owner=request.user, is_fufuilled=True)
+        owner=request.user, is_fulfilled=True)
 
     context = {
         "fulfilled_bookings": fulfilled_bookings
@@ -248,6 +252,12 @@ def fulfill_request(request, id):
         booking = get_object_or_404(Booking, id=id)
         booking.is_fulfilled = True
         booking.save()
+        #  Set the vehicle to available
+        vehicle_id = booking.vehicle.id
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        vehicle.is_available = True
+
+        vehicle.save()
 
     return redirect("list_fulfilled_requests")
 

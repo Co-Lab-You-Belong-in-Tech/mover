@@ -5,12 +5,13 @@
 {% endblock title %}
 
 {% block content %}
-<div class="color-primary-50 p-3" style="margin: 7em; color: black;">
+<h3>Congrats! You have successfully completed {{ fulfilled_bookings|length }} orders!</h3>
+<div class="p-3" style="margin: 5em, 7em; color: black;">
     <div class="row">
         <div class="col">
             {% for booking in fulfilled_bookings %}
-            <div class="driver-accept-list p-2">
-                <div class="d-flex flex-sm-column flex-row gap-2 justify-content-between">
+            <div class="p-2">
+                <div class="driver-accept-list d-flex flex-sm-column flex-row gap-2 justify-content-between">
                     <div class="d-flex flex-row gap-2">
                         <div>
                             <img src="{{ booking.photo.url }}" alt="" width=" 174px" height="106px" class="rounded">

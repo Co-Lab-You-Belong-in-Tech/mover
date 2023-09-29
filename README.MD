@@ -26,6 +26,13 @@ Below are routes to the user auth:
 
 
 ### TODO DEV
+- Make Screns responsive
+- Enable messages to show notifications on the front end:
+- Style the email templates to be better
+- Add placeholders to the input in customer and driver pages.
+- Fix the fulfuilled typos both in the model and template. [FUTURE]
+- Driver Dashboard to update their contact details [FUTURE]
+- If authenticated the location of the map should be cleared.
 - Debug email not sending [IMPORTANT]
 - Only authenticated users should be able to see the document verification and document upload views [IMPORTANT][DONE]
 - Handle Cancel Trip on the ready to move screen. This should remove the vehicle from booking and set the
@@ -49,12 +56,6 @@ vehicle availablity to True. So it can shown on the select mover screen again.
 - Add JS to save pick up and drop off location to localstorage and persist it in map. [DONE]
 - Add form errors to all forms so users can know what th
 ey did wrong.
-- Enable messages to show notifications on the front end:
-- Style the email templates to be better
-- Add placeholders to the input in customer and driver pages.
-- Fix the fulfuilled typos both in the model and template. [FUTURE]
-- Driver Dashboard to update their contact details [FUTURE]
-- If authenticated the location of the map should be cleared.
 
 ## TODO DEV DEBUG
 - Fix Driver Accept Request CSS making map not to appear [DONE]
