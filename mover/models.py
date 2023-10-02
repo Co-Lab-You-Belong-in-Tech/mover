@@ -80,6 +80,13 @@ class CustomUser(AbstractUser):
 
 class Vehicle(models.Model):
 
+    VEHICLE_TYPE = (
+        ('SUV', 'SUV'),
+        ('MiniVan', 'MiniVan'),
+        ('Cargo Van', 'Cargo Van'),
+        ('Pick Up Truck', 'Pick Up Truck'),
+    )
+
     license_plate = models.CharField(max_length=200)
     year = models.CharField(max_length=200)
     make = models.CharField(max_length=200)
@@ -90,6 +97,8 @@ class Vehicle(models.Model):
     vehicle_insurance = models.FileField(upload_to="documents/")
     vehicle_photo = models.ImageField(upload_to="images/")
     driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    vehicle_type = models.CharField(
+        max_length=200, null=True, choices=VEHICLE_TYPE)
 
     def __str__(self):
         return f"{self.make} - {self.model}"
@@ -168,14 +177,3 @@ class Booking(models.Model):
 
     def __str__(self) -> str:
         return f"Booking - {self.tracking_id}"
-
-
-class Goods(models.Model):
-    # Best to use a form set for this.
-    name = models.CharField(max_length=200)
-    weight = models.IntegerField(help_text="Weight in KG")
-    owner = models.ForeignKey(CustomUser, null=True,
-                              blank=True, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return self.name
