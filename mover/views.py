@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -6,11 +5,11 @@ from .forms import (BookingUpdateForm, CustomAuthenticationForm, CustomUserCreat
                     DocumentVerificationForm, VehicleInformationForm)
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.urls import reverse
-from .models import CustomUser, Vehicle, Booking
+from .models import Vehicle, Booking
 import uuid
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from .utils import custom_send_mail
+from .utils import get_lat_long, get_driving_data
 import os
 from dotenv import load_dotenv
 
@@ -25,6 +24,34 @@ HOST_EMAIL = os.getenv("EMAIL_HOST_USER")
 def is_auth(user):
     """Decorator to handle views specific for drivers"""
     return user.is_authenticated
+
+
+def test_cordinates(request):
+
+    bookings = Booking.objects.all()
+
+    for booking in bookings:
+        (pickup_lat, pickup_long) = get_lat_long(booking.pickup_location)
+        (dropoff_lat, dropoff_long) = get_lat_long(booking.dropoff_location)
+
+        (distance, duration) = get_driving_data(
+            pickup_lat, pickup_long, dropoff_lat, dropoff_long)
+
+        # Save the cordinates to the instance
+
+        booking.pickup_latitude = pickup_lat
+        booking.pickup_longitude = pickup_long
+        booking.dropoff_latitude = dropoff_lat
+        booking.dropoff_longitude = dropoff_long
+        # Set the distance and estimated time
+        booking.total_distance = distance
+        booking.estimated_duration = duration
+
+        booking.save()
+
+        print(f"Saved booking {booking}")
+
+    return HttpResponse(f"Distance({distance}) Duration({duration})")
 
 
 def index(request):
@@ -45,7 +72,27 @@ def index(request):
 
             booking = form.save(commit=False)
             booking.tracking_id = tracking_id
-            form.save()
+            # Calc the long and lat
+            (dropoff_long, dropoff_lat) = get_lat_long(booking.dropoff_location)
+            (pickup_long, pickup_lat) = get_lat_long(booking.pickup_location)
+            # Get the driving distance and estimated time
+
+            (distance, duration) = get_driving_data(
+                dropoff_long, dropoff_lat, pickup_long, pickup_lat)
+
+            booking.pickup_longitude = pickup_long
+            booking.pickup_latitude = pickup_lat
+            booking.dropoff_longitude = dropoff_long
+            booking.dropoff_latitude = dropoff_lat
+
+            # Set the booking time and duration
+
+            booking.total_distance = distance
+            booking.estimate_duration = duration
+
+            booking.save()
+
+            print("Saved!!")
 
             return redirect("before_moving", tracking_id=tracking_id)
 
@@ -343,3 +390,5 @@ def vehicle_information(request):
 @user_passes_test(is_auth, login_url='login')
 def application_status(request):
     return render(request, "mover/driver_pages/application_status.html")
+
+# Views on distance for javascript frontend

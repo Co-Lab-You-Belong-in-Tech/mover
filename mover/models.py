@@ -150,6 +150,13 @@ class Booking(models.Model):
         Vehicle, on_delete=models.CASCADE, null=True, blank=True)
     pickup_location = models.CharField(max_length=300)
     dropoff_location = models.CharField(max_length=300)
+    pickup_longitude = models.CharField(max_length=300, null=True)
+    pickup_latitude = models.CharField(max_length=300, null=True)
+    dropoff_longitude = models.CharField(max_length=300, null=True)
+    dropoff_latitude = models.CharField(max_length=300, null=True)
+    total_distance = models.IntegerField(null=True, blank=True) # in miles
+    estimated_duration = models.IntegerField(null=True, blank=True) # in minutes
+    total_amount = models.IntegerField(null=True, blank=True)
     email = models.CharField(max_length=300, null=True)
     tracking_id = models.CharField(
         max_length=200, null=True, blank=True, unique=True)
