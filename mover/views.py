@@ -116,6 +116,8 @@ def before_moving(request, tracking_id):
         if form.is_valid():
             print("form is valid")
             form.save()
+            # Set the cordinates
+            
             return redirect("select_mover", tracking_id=tracking_id)
     context = {
         "form": form
@@ -158,7 +160,8 @@ def ready_to_move_customer(request, pk, tracking_id):
     vehicle.is_available = False
     vehicle.save()
 
-    booking_email = booking.email
+    # Get the vehicle cordinates.
+    
     # Send email of success to the user.
     # email_context = {
     #     "pickup": booking.pickup_location,

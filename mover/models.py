@@ -230,7 +230,29 @@ class Booking(models.Model):
     def __str__(self) -> str:
         return f"Booking - {self.tracking_id}"
 
-    def get_booking_cordinates(self):
+    def get_cordinates(self):
         pickup = f"{self.pickup_latitude},{self.pickup_longitude}"
         dropoff = f"{self.dropoff_latitude},{self.dropoff_longitude}"
         return (pickup, dropoff)
+
+    def set_cordinates(self):
+        if self.pickup_location is None or self.dropoff_location is None:
+            raise ValueError(
+                f"{self.tracking_id} pickup or dropff location field is empty")
+        (p_lat, p_long) = get_lat_long(self.pickup_location)
+        (d_lat, d_long) = get_lat_long(self.dropoff_location)
+
+        self.pickup_latitude = p_lat
+        self.pickup_longitude = p_long
+
+        self.dropoff_latitude = d_lat
+        self.dropoff_longitude = d_long
+
+    def set_driving_data(self, origin, destination):
+
+        (distance, duration) = get_driving_data2(origin, destination)
+        self.estimated_duration = duration
+        self.total_distance = distance
+
+    def get_driving_data(self):
+        return f"{self.estimated_duration}, {self.total_distance}"

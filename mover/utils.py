@@ -90,23 +90,27 @@ def get_driving_data2(origin: str, destination: str) -> str:
         "distanceUnit": "mi",
         "key": os.getenv("BING_KEY"),
     }
-    # Make the GET request
-    response = requests.get(url, params=params)
+    try:
+        # Make the GET request
+        response = requests.get(url, params=params)
 
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        # Parse the JSON response
-        data = response.json()
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the JSON response
+            data = response.json()
 
-        # Extract and print the distances and durations
-        results = data["resourceSets"][0]["resources"][0]["results"]
-        distance = results[0]['travelDistance']
-        duration = results[0]['travelDuration']
-        print("Distance:", distance, duration)
-        return (distance, duration)
-    else:
-        print(f"Request failed with status code {response.status_code}")
-        return False
+            # Extract and print the distances and durations
+            results = data["resourceSets"][0]["resources"][0]["results"]
+            distance = results[0]['travelDistance']
+            duration = results[0]['travelDuration']
+            print("Distance:", distance, duration)
+            return (distance, duration)
+        else:
+            print(f"Request failed with status code {response.status_code}")
+            return False
+    
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 def get_driving_data(origin1: str, origin2: str, destination1: str, destination2: str):
