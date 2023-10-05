@@ -86,7 +86,9 @@
                         <b style="color: #4A4A68;">Pick-up location:</b>
                         {{ booking.pickup_location }}
                     </p>
-                    <p><b style="color: #4A4A68;">Est. driving distance:</b> 20 min</p>
+                    <p><b style="color: #4A4A68;">Est. driving distance:</b>
+                        {{ booking.total_distance }} miles, {{ booking.estimated_duration }} mins
+                    </p>
                     <p>Note: {{ booking.note|truncatechars:20 }} </p>
                 </div>
             </div>

@@ -26,34 +26,6 @@ def is_auth(user):
     return user.is_authenticated
 
 
-def test_cordinates(request):
-
-    bookings = Booking.objects.all()
-
-    for booking in bookings:
-        (pickup_lat, pickup_long) = get_lat_long(booking.pickup_location)
-        (dropoff_lat, dropoff_long) = get_lat_long(booking.dropoff_location)
-
-        (distance, duration) = get_driving_data(
-            pickup_lat, pickup_long, dropoff_lat, dropoff_long)
-
-        # Save the cordinates to the instance
-
-        booking.pickup_latitude = pickup_lat
-        booking.pickup_longitude = pickup_long
-        booking.dropoff_latitude = dropoff_lat
-        booking.dropoff_longitude = dropoff_long
-        # Set the distance and estimated time
-        booking.total_distance = distance
-        booking.estimated_duration = duration
-
-        booking.save()
-
-        print(f"Saved booking {booking}")
-
-    return HttpResponse(f"Distance({distance}) Duration({duration})")
-
-
 def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
@@ -63,7 +35,7 @@ def index(request):
 
     form = BookingForm()
     # TODO: Make a model function to automatically generate this instead of making it manually.
-    tracking_id = str(uuid.uuid4())
+    tracking_id = ""
 
     if request.method == "POST":
         form = BookingForm(request.POST, request.FILES)
@@ -71,28 +43,18 @@ def index(request):
         if form.is_valid():
 
             booking = form.save(commit=False)
-            booking.tracking_id = tracking_id
+            booking.set_tracking_id()
             # Calc the long and lat
-            (dropoff_long, dropoff_lat) = get_lat_long(booking.dropoff_location)
-            (pickup_long, pickup_lat) = get_lat_long(booking.pickup_location)
-            # Get the driving distance and estimated time
+            booking.set_cordinates()
 
-            (distance, duration) = get_driving_data(
-                dropoff_long, dropoff_lat, pickup_long, pickup_lat)
-
-            booking.pickup_longitude = pickup_long
-            booking.pickup_latitude = pickup_lat
-            booking.dropoff_longitude = dropoff_long
-            booking.dropoff_latitude = dropoff_lat
-
-            # Set the booking time and duration
-
-            booking.total_distance = distance
-            booking.estimate_duration = duration
-
+            (pickup, dropoff) = booking.get_cordinates()
+            # Set driving data from cordinates
+            booking.set_driving_data(pickup, dropoff)
+            # Save booking
             booking.save()
 
-            print("Saved!!")
+            tracking_id = booking.tracking_id
+            print(f"Saved!!{tracking_id}")
 
             return redirect("before_moving", tracking_id=tracking_id)
 
@@ -117,7 +79,7 @@ def before_moving(request, tracking_id):
             print("form is valid")
             form.save()
             # Set the cordinates
-            
+
             return redirect("select_mover", tracking_id=tracking_id)
     context = {
         "form": form
@@ -131,10 +93,9 @@ def select_mover(request, tracking_id):
     """
     # Get a list of all the vehicles that are currently set to available
     # available_vehicles = get_list_or_404(Vehicle, is_available=True)
-    
+
     # Get the current location of the drivers of each vehicle and calculate the distance away.
-    
-    
+
     available_vehicles = Vehicle.objects.filter(is_available=True)
 
     context = {
@@ -161,7 +122,7 @@ def ready_to_move_customer(request, pk, tracking_id):
     vehicle.save()
 
     # Get the vehicle cordinates.
-    
+
     # Send email of success to the user.
     # email_context = {
     #     "pickup": booking.pickup_location,

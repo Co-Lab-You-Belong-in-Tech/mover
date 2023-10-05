@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext as _
@@ -94,9 +95,7 @@ class CustomUser(AbstractUser):
         self.address_latitude = lat
         self.address_longitude = long
 
-        self.save()
-
-    def set_minutes_away(self, pickup_cordinate: str, save: bool = True) -> int:
+    def set_minutes_away(self, pickup_cordinate: str, save: bool = False) -> int:
         """
             This sets the driver's minutes away.
             Arguments: 
@@ -230,6 +229,9 @@ class Booking(models.Model):
     def __str__(self) -> str:
         return f"Booking - {self.tracking_id}"
 
+    def set_tracking_id(self):
+        self.tracking_id = str(uuid.uuid4())
+    
     def get_cordinates(self):
         pickup = f"{self.pickup_latitude},{self.pickup_longitude}"
         dropoff = f"{self.dropoff_latitude},{self.dropoff_longitude}"

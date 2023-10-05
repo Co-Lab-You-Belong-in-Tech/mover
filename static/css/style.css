@@ -37,10 +37,9 @@ h3 {
 
 p {
     font-size: 16px;
-    line-height: 22.4px;
+    /* line-height: 22.4px; */
     margin-bottom: 16px;
 }
-
 
 ul,
 ol {
@@ -286,9 +285,9 @@ button a {
     padding: 2px
 }
 
-div.mover-card-para p {
+/* div.mover-card-para p {
     line-height: 10px;
-}
+} */
 
 /* Check button */
 
@@ -348,4 +347,14 @@ div#id_rate_type,
 div#id_service_type {
     display: flex;
     gap: 1em;
+}
+
+/* mover paragraphs */
+
+.mover-request-list p,
+.mover-card-para p,
+.driver-item-list p {
+    line-height: 1em;
+    margin: 0;
+    margin-bottom: 8px;
 }
