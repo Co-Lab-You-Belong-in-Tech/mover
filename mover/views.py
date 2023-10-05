@@ -129,6 +129,10 @@ def select_mover(request, tracking_id):
     """
     # Get a list of all the vehicles that are currently set to available
     # available_vehicles = get_list_or_404(Vehicle, is_available=True)
+    
+    # Get the current location of the drivers of each vehicle and calculate the distance away.
+    
+    
     available_vehicles = Vehicle.objects.filter(is_available=True)
 
     context = {

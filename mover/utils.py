@@ -64,7 +64,7 @@ def custom_send_mail(email_context: dict, recipient_list: list, email_type) -> b
         return False
 
 
-def get_nearby_driver(origin: str, destination: str) -> str:
+def get_driving_data2(origin: str, destination: str) -> str:
     """
         This will take two cordinates(pickup_location, driver_location) then gets the driving time taken
         for a driver to go from their current location to the pick up location.
@@ -72,13 +72,12 @@ def get_nearby_driver(origin: str, destination: str) -> str:
             origin(str): the pickup latitude and longitude seperated with ","
             destination(str): the driver latitude and longitude seperated with ","
         Returns: 
-            str: duration(minutes) away.
+            list: (distance, duration)
         Examples:
             origin = "47.6044,-122.3345"
             destination = "45.5347,-122.6231"
     """
     url = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix"
-
 
     # origin = "47.6044,-122.3345"
     # destination = "45.5347,-122.6231"
@@ -108,6 +107,7 @@ def get_nearby_driver(origin: str, destination: str) -> str:
     else:
         print(f"Request failed with status code {response.status_code}")
         return False
+
 
 def get_driving_data(origin1: str, origin2: str, destination1: str, destination2: str):
     """

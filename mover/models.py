@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext as _
 
 from django.contrib.auth.base_user import BaseUserManager
-
+from .utils import get_driving_data2, get_lat_long
 # Create your models here.
 
 
@@ -55,6 +55,8 @@ class CustomUser(AbstractUser):
     role = models.CharField(
         max_length=10, choices=ROLE_CHOICES, null=True, blank=True, default="driver")
     address = models.CharField(max_length=300, null=True, blank=True)
+    address_latitude = models.FloatField(null=True)
+    address_longitude = models.FloatField(null=True)
     profile_picture = models.ImageField(
         upload_to="images/", null=True, blank=True)
     phone_number = models.CharField(
@@ -64,6 +66,7 @@ class CustomUser(AbstractUser):
         max_length=100, choices=charging_rate, null=True, blank=True)
     hourly_amount = models.IntegerField(null=True, blank=True)
     fixed_amount = models.IntegerField(null=True, blank=True)
+    minutes_away = models.IntegerField(null=True, blank=True)
     rating = models.IntegerField(null=True, blank=True)
     drivers_license_number = models.IntegerField(null=True, blank=True)
     license_expiration = models.DateField(null=True, blank=True)
@@ -76,6 +79,45 @@ class CustomUser(AbstractUser):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_cordinates(self):
+        if self.address_latitude == None or self.address_longitude == None:
+            return None
+
+        return f"{self.address_latitude},{self.address_longitude}"
+
+    def set_cordinates(self):
+        if not self.address:
+            raise ValueError(f"{self.get_full_name()} Address field is empty")
+        (lat, long) = get_lat_long(self.address)
+
+        self.address_latitude = lat
+        self.address_longitude = long
+
+        self.save()
+
+    def set_minutes_away(self, pickup_cordinate: str, save: bool = True) -> int:
+        """
+            This sets the driver's minutes away.
+            Arguments: 
+                pickup_cordinate: str
+                save: bool
+            Example:
+                get_minutes_away("-232.3223, 232.2323", save=True)
+        """
+        driver_cordinates = self.get_cordinates()
+
+        if not driver_cordinates:
+            return None
+
+        (distance, duration) = get_driving_data2(
+            pickup_cordinate, driver_cordinates)
+
+        if save:
+            self.minutes_away = duration
+            self.save()
+
+        return (distance, duration)
 
 
 class Vehicle(models.Model):
@@ -154,8 +196,11 @@ class Booking(models.Model):
     pickup_latitude = models.CharField(max_length=300, null=True)
     dropoff_longitude = models.CharField(max_length=300, null=True)
     dropoff_latitude = models.CharField(max_length=300, null=True)
-    total_distance = models.IntegerField(null=True, blank=True) # in miles
-    estimated_duration = models.IntegerField(null=True, blank=True) # in minutes
+    total_distance = models.IntegerField(null=True, blank=True)  # in miles
+    estimated_duration = models.IntegerField(
+        null=True, blank=True)  # in minutes
+    # arrival_time = models.IntegerField(
+    #     null=True, blank=True)  # driver arrival time
     total_amount = models.IntegerField(null=True, blank=True)
     email = models.CharField(max_length=300, null=True)
     tracking_id = models.CharField(
@@ -184,3 +229,8 @@ class Booking(models.Model):
 
     def __str__(self) -> str:
         return f"Booking - {self.tracking_id}"
+
+    def get_booking_cordinates(self):
+        pickup = f"{self.pickup_latitude},{self.pickup_longitude}"
+        dropoff = f"{self.dropoff_latitude},{self.dropoff_longitude}"
+        return (pickup, dropoff)
