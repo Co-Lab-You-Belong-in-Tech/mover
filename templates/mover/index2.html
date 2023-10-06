@@ -6,65 +6,67 @@
 {% endblock title %}
 
 {% block content %}
-<div>
+<div class="d-flex flex-column flex-lg-row gap-4" style="padding: 100px 48px 0px 48px;">
     <div>
-        <p>Need help moving large items? We've got you covered.</p>
+        <p class="mover-hero">Need help <span class="mover-hero-span">moving</span> large
+            items? We've got you covered.
+        </p>
         <div>
             <button class="mover-btn-sm">FIND A MOVER</button>
             <button class="mover-btn-sm color-primary-50">BECOME A MOVER</button>
         </div>
     </div>
-    <div>
-        <img src="{% static 'images/truck.png' %}" alt="Truck Image">
+    <div class="mover-truck">
+        <img src="{% static 'images/truck.png' %}" alt="Truck Image" class="img-fluid">
     </div>
 </div>
-<div>
-    <div>
-        <div>
+<div class="mover-hero-container">
+    <div class="d-flex flex-column flex-md-row gap-4">
+        <div class="text-center mover-detail-list">
             <img src="{% static 'images/place.png' %}" alt="">
-            <p>Find nearby drivers</p>
+            <h5 class="py-2">Find nearby drivers</h5>
             <p> You can effortlessly search for nearby drivers,
                 ensuring prompt and reliable service for your moving needs.
             </p>
         </div>
-        <div>
+        <div class="text-center mover-detail-list">
             <img src="{% static 'images/HandsCash.png' %}" alt="">
-            <p>Transparent pricing</p>
+            <h5 class="py-2">Transparent pricing</h5>
             <p>You'll know exactly how much you're paying for your moving service before confirming your booking.
                 No surprises with unexpected fees!
             </p>
         </div>
-        <div>
+        <div class="text-center mover-detail-list">
             <img src="{% static 'images/Table.png' %}" alt="">
-            <p>Tailored options</p>
+            <h5 class="py-2">Tailored options</h5>
             <p> You can choose a vehicle based on the size of your item and
                 select the specific loading/unloading services you require.
             </p>
         </div>
     </div>
 </div>
-<div>
-    <h1>How it Works</h1>
+<div class="" style="padding: 0px 48px;">
+    <h3 class="fw-bold">How it Works</h3>
     <p>Moving made simple - just three easy steps!</p>
-    <div>
+    <div class="d-flex flex-column flex-md-row gap-3">
         <div>
-            <div>
-                <p>Set Your Journey</p>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Set Your Journey</h5>
                 <p>Enter your pick-up and drop-off locations to kick things off.
                     You can choose between hourly or fixed pricing, and let
                     us know if you need help with loading, unloading, or both.
                     We're here to make it easy for you!
                 </p>
             </div>
-            <div>
-                <p>Tell us about your items</p>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Tell us about your items</h5>
                 <p>How many large items do you need to move? Any special details,
                     like stairs or specific handling instructions?
                     Let us know, and we'll make sure everything goes smoothly.
                 </p>
             </div>
-            <div>
-                <p>Set Your Journey</p>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Set Your Journey</h5>
                 <p>
                     Once we process your request, you'll see a list of verified, reliable drivers.
                     Compare prices, distances, and even take a peek at their car.
@@ -72,24 +74,26 @@
                 </p>
             </div>
             <div>
-                <button>FIND A MOVER</button>
+                <button class="mover-btn-sm">FIND A MOVER</button>
             </div>
         </div>
         <div>
-            <img src="{% static 'images/iphone1.png' %}" alt="">
+            <img src="{% static 'images/iphone1.png' %}" alt="iphone mover image" class="img-fluid">
         </div>
     </div>
 </div>
 <!-- Footer page -->
 
-<div>
+<div class="mover-footer-card d-flex flex-column flex-md-row justify-content-between align-items-center">
     <div>
-        <p>Mover</p>
+        <p class="fw-bold">Mover</p>
         <p>A webapp connecting users with local drivers for quick and secure over-sized item transport</p>
     </div>
     <div>
         <button>LEARN MORE</button>
     </div>
 </div>
+
+<footer class="mover-footer"></footer>
 
 {% endblock content %}

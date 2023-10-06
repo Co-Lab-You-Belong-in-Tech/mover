@@ -369,3 +369,83 @@ div#id_service_type {
     margin: 0;
     margin-bottom: 8px;
 }
+
+
+/* landing page  */
+
+.mover-hero {
+    color: #000;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.28px;
+}
+
+.mover-hero-span {
+    color: #359B86;
+    font-size: 64px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.28px;
+}
+
+.mover-hero-container {
+    padding: 100px 48px 0px 48px;
+    height: 500px;
+}
+
+.mover-hero-panel:hover {
+    border-left: 4px solid #104333;
+    padding: 20px;
+    margin-bottom: 8px;
+    transition: 0.5s;
+}
+
+.mover-detail-list:hover {
+    margin: 10px;
+    transition: 0.5s;
+}
+
+/* Mover footer */
+.mover-footer-card {
+    border-radius: 16px;
+    background: #E0F0EE;
+    box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08);
+    margin: 0px 112px;
+    padding: 30px;
+    margin-bottom: -70px;
+    z-index: 3;
+    position: relative;
+    margin-top: 30px;
+}
+
+.mover-footer {
+    background-color: #104333;
+    height: 200px;
+}
+
+@media (min-width: 992px) {
+    .mover-hero {
+        max-width: 65vw;
+    }
+
+    .mover-truck {
+        margin-top: 150px;
+        margin-left: -150px;
+    }
+}
+
+/* @media (min-width: 500px) {
+    .mover-hero {
+        width: 100%;
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: ;
+    }
+
+    .mover-hero-span {
+        font-size: 40px;
+    }
+} */
