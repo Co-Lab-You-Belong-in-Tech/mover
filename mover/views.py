@@ -25,10 +25,12 @@ def is_auth(user):
     """Decorator to handle views specific for drivers"""
     return user.is_authenticated
 
-def index2(request):
-    return render(request, "mover/index2.html", {})
 
-def index(request):
+def home(request):
+    return render(request, "mover/home.html", {})
+
+
+def request_mover(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
     This will allow to track all the bookings that they make.
     """
@@ -60,7 +62,7 @@ def index(request):
 
             return redirect("before_moving", tracking_id=tracking_id)
 
-    return render(request, "mover/landing_page.html", {"form": form, "tracking_id": tracking_id})
+    return render(request, "mover/request_mover.html", {"form": form, "tracking_id": tracking_id})
 
 
 def before_moving(request, tracking_id):

@@ -1,12 +1,12 @@
 from django.urls import path
 from .views import (document_verification, login, logout_view, fulfill_request,
-                    index, accept_request, select_mover, signup, application_status,
+                    request_mover, accept_request, select_mover, signup, application_status,
                     ready_to_move, vehicle_information, list_fulfilled_requests,
-                    ready_to_move_customer, before_moving, send_email, index2)
+                    ready_to_move_customer, before_moving, send_email, home)
 
 urlpatterns = [
-    path('', index, name="index"),
-    path('index2/', index2, name="index2"),
+    path('', home, name="home"),
+    path('request-mover', request_mover, name="index"),
     path('select-mover/<str:tracking_id>/', select_mover, name="select_mover"),
     path('accept-request/', accept_request, name="accept_request"),
     path('before-moving/<str:tracking_id>/',
