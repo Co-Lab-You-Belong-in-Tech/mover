@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block title %}
+    <title>Home</title>
+    {% endblock title %}
+
+    {% block style %}
+    {% endblock style %}
+
+    <!-- script -->
+    <script type='text/javascript'>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Loaded DOM content...");
+            const pickupInput = document.getElementById("id_pickup_location");
+            const dropoffInput = document.getElementById("id_dropoff_location");
+
+            const location = { pickup_location: "", dropoff_location: "" }
+
+            pickupInput.addEventListener("change", (e) => {
+                console.log("Changed pickup location", e.target.value);
+                localStorage.setItem("pickup_location", e.target.value);
+                updateWaypoints();
+            });
+
+            dropoffInput.addEventListener("change", (e) => {
+                console.log("Changed dropoff location", e.target.value);
+                localStorage.setItem("dropoff_location", e.target.value);
+                updateWaypoints();
+            });
+
+            // Function to update waypoints and recalculate directions
+            function updateWaypoints() {
+                var pickup = localStorage.getItem("pickup_location");
+                var dropoff = localStorage.getItem("dropoff_location");
+
+                // Check if both pickup and dropoff are set before updating waypoints
+                if (pickup && dropoff) {
+                    // Dispose of the existing directions manager
+                    if (directionsManager) {
+                        directionsManager.dispose();
+                    }
+
+                    // Create a new instance of the directions manager
+                    directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+                    var wayPoint1 = new Microsoft.Maps.Directions.Waypoint({ address: pickup });
+                    var wayPoint2 = new Microsoft.Maps.Directions.Waypoint({ address: dropoff });
+
+                    // Add the new waypoints
+                    directionsManager.addWaypoint(wayPoint1);
+                    directionsManager.addWaypoint(wayPoint2);
+
+                    // Set render options and calculate directions
+                    directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+                    directionsManager.calculateDirections();
+                    console.log("manger:", directionsManager.calculateDirections());
+
+                }
+            }
+
+            // Initialize the map and directions manager
+            GetMap();
+        });
+
+        var map;
+        var directionsManager;
+
+        function GetMap() {
+            map = new Microsoft.Maps.Map('#myMap', {});
+
+            // Load the directions module.
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                // Create an instance of the directions manager.
+                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+                // Set render options and calculate directions.
+                directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+                directionsManager.calculateDirections();
+            });
+        }
+
+
+    </script>
+    <script type='text/javascript'
+        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR'
+        async defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+
+<body>
+    {% include "mover/navbar.html" %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block script %}
+    {% endblock script %}
+
+</body>
+
+</html>

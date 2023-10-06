@@ -25,6 +25,8 @@ def is_auth(user):
     """Decorator to handle views specific for drivers"""
     return user.is_authenticated
 
+def index2(request):
+    return render(request, "mover/index2.html", {})
 
 def index(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.

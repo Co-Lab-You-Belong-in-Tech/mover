@@ -142,6 +142,12 @@ form>button {
     margin-top: 1em;
 }
 
+/* Small home buttons */
+.mover-btn-sm {
+    padding: 10px 24px;
+    font-size: 12px;
+}
+
 /* Add more styles as needed for your specific project */
 
 .small-text {
@@ -186,6 +192,11 @@ button a {
 .color-primary:hover {
     background-color: #196e53;
     color: white;
+}
+
+.color-primary-50:hover {
+    background-color: #82f1e4;
+    color: black;
 }
 
 .color-secondary {
