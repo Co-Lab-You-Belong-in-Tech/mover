@@ -6,7 +6,7 @@ from .views import (document_verification, login, logout_view, fulfill_request,
 
 urlpatterns = [
     path('', home, name="home"),
-    path('request-mover', request_mover, name="index"),
+    path('request-mover', request_mover, name="request_mover"),
     path('select-mover/<str:tracking_id>/', select_mover, name="select_mover"),
     path('accept-request/', accept_request, name="accept_request"),
     path('before-moving/<str:tracking_id>/',
