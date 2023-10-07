@@ -119,7 +119,8 @@ input[type="radio"]:checked {
     border: 6px solid #12B76A;
 }
 
-button {
+button,
+a.mover-btn {
     background-color: #104333;
     color: white;
     box-shadow: 0px 6px 2px -4px #0E0E2C1A;
@@ -127,6 +128,10 @@ button {
     border: none;
     border-radius: 100px;
     padding: 10px 16px;
+}
+
+a {
+    text-decoration: none;
 }
 
 button:hover {
@@ -185,8 +190,8 @@ button a {
 }
 
 .color-primary-50 {
-    background-color: #E0F0EE;
-    color: black;
+    background-color: #E0F0EE !important;
+    color: black !important;
 }
 
 .color-primary:hover {
