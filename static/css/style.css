@@ -437,6 +437,21 @@ div#id_service_type {
     }
 }
 
+@media screen and (max-width: 500px) {
+    .mover-hero {
+        font-size: 40px;
+    }
+
+    .mover-hero-span {
+        font-size: 40px;
+    }
+
+    .mover-footer-card {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
 /* @media (min-width: 500px) {
     .mover-hero {
         width: 100%;
