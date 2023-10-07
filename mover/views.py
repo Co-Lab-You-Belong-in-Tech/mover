@@ -29,6 +29,8 @@ def is_auth(user):
 def home(request):
     return render(request, "mover/home.html", {})
 
+def home_driver(request):
+    return render(request, "mover/home_driver.html", {})
 
 def request_mover(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.

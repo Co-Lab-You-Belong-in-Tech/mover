@@ -2,10 +2,11 @@ from django.urls import path
 from .views import (document_verification, login, logout_view, fulfill_request,
                     request_mover, accept_request, select_mover, signup, application_status,
                     ready_to_move, vehicle_information, list_fulfilled_requests,
-                    ready_to_move_customer, before_moving, send_email, home)
+                    ready_to_move_customer, before_moving, send_email, home, home_driver)
 
 urlpatterns = [
     path('', home, name="home"),
+    path('driver/', home_driver, name="home_driver"),
     path('request-mover', request_mover, name="request_mover"),
     path('select-mover/<str:tracking_id>/', select_mover, name="select_mover"),
     path('accept-request/', accept_request, name="accept_request"),

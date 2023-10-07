@@ -7,13 +7,13 @@
 
 {% block content %}
 <div class="d-flex flex-column flex-lg-row gap-4" style="padding: 100px 48px 0px 48px;">
-    <div>
+    <div class="animate__animated animate__fadeInLeft">
         <p class="mover-hero">Need help <span class="mover-hero-span">moving</span> large
             items? We've got you covered.
         </p>
         <div>
             <a href="{% url 'request_mover' %}" class="mover-btn mover-btn-sm">REQUEST A MOVER</a>
-            <a class="mover-btn mover-btn-sm color-primary-50">BECOME A MOVER</a>
+            <a href="{% url 'home_driver' %}" class="mover-btn mover-btn-sm color-primary-50">BECOME A MOVER</a>
         </div>
     </div>
     <div class="mover-truck">

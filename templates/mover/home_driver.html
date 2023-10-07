@@ -1,0 +1,71 @@
+{% extends "mover/_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Become Mover</title>
+{% endblock title %}
+
+{% block content %}
+<div class="d-flex flex-column flex-lg-row gap-4" style="padding: 100px 48px 0px 48px;">
+    <div class="animate__animated animate__fadeInLeft">
+        <p class="mover-hero">Start
+            <span class="mover-hero-span">earning</span> while making moving easy!
+        </p>
+        <div>
+            <a href="{% url 'request_mover' %}" class="mover-btn mover-btn-sm">BECOME A MOVER</a>
+        </div>
+    </div>
+    <div class="">
+        <img src="{% static 'images/Moneyboxes.png' %}" alt="Truck Image" class="img-fluid">
+    </div>
+</div>
+
+<div class="" style="padding: 0px 48px;">
+    <h3 class="fw-bold">How it Works</h3>
+    <p>Start your journey to earning while helping others move!</p>
+    <div class="d-flex flex-column flex-md-row gap-3">
+        <div>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Apply and Verify Your Information</h5>
+                <p>Fill out a quick application and share some necessary documents
+                    like your driver's license and insurance.
+                    We just want to make sure you're all set to help others move.
+                </p>
+            </div>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Set Your Availability</h5>
+                <p>Once you're verified, you're good to start accepting rides! Every time you log in,
+                    let us know how many items you're up for moving and what help you can provide.
+                </p>
+            </div>
+            <div class="mover-hero-panel">
+                <h5 class="fw-bold">Get paid!</h5>
+                <p>
+                    After completing a ride, the user will send you the payment via Venmo or PayPal.
+                    That's it! You're all set to make someone's move a breeze.
+                </p>
+            </div>
+            <div>
+                <a class="mover-btn mover-btn-sm" href="{% url 'request_mover' %}">SIGN UP</a>
+            </div>
+        </div>
+        <div>
+            <img src="{% static 'images/Iphone2.png' %}" alt="iphone mover image" class="img-fluid">
+        </div>
+    </div>
+</div>
+<!-- Footer page -->
+
+<div class="mover-footer-card d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div>
+        <p class="fw-bold">Mover</p>
+        <p>A webapp connecting users with local drivers for quick and secure over-sized item transport</p>
+    </div>
+    <div>
+        <button>LEARN MORE</button>
+    </div>
+</div>
+
+<footer class="mover-footer"></footer>
+
+{% endblock content %}
