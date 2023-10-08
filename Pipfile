@@ -9,6 +9,8 @@ django-jazzmin = "*"
 django-browser-reload = "*"
 pillow = "*"
 python-dotenv = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
