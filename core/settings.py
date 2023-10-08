@@ -35,7 +35,7 @@ DEBUG = os.getenv("DEBUG")
 # DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0",
-                 "127.0.0.1", "moveritems.pythonanywhere.com", "mover.onrender.com"]
+                 "127.0.0.1", "moveritems.pythonanywhere.com", "moverapp.onrender.com"]
 
 
 # Application definition
