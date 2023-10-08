@@ -27,6 +27,9 @@ def is_auth(user):
 
 
 def home(request):
+    debug = os.getenv("DEBUG")
+    print("Debug is on:", debug)
+    
     return render(request, "mover/home.html", {})
 
 def home_driver(request):
