@@ -1,11 +1,14 @@
 from django.urls import path
-from .views import (document_verification, login, logout_view, fulfill_request,
-                    request_mover, accept_request, select_mover, signup, application_status,
-                    ready_to_move, vehicle_information, list_fulfilled_requests,
+from .views import (document_verification, login, logout_view, fulfill_request, payment_success,
+                    request_mover, accept_request, select_mover, signup, application_status, payment_detail,
+                    ready_to_move, vehicle_information, list_fulfilled_requests, payment_failure,
                     ready_to_move_customer, before_moving, send_email, home, home_driver)
 
 urlpatterns = [
     path('', home, name="home"),
+    path('payment/success/', payment_success, name="payment_success"),
+    path('payment/failure/', payment_failure, name="payment_failure"),
+    path('payment/detail/<int:payment_id>', payment_detail, name="payment_detail"),
     path('driver/', home_driver, name="home_driver"),
     path('request-mover', request_mover, name="request_mover"),
     path('select-mover/<str:tracking_id>/', select_mover, name="select_mover"),

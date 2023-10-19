@@ -19,10 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler404 = "mover.views.custom_404"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("mover.urls")),
-    path("accounts/", include("django.contrib.auth.urls"))
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('payments/', include('payments.urls')),
 ]
 
 if settings.DEBUG:

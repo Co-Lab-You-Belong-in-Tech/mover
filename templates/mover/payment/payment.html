@@ -1,0 +1,16 @@
+{% extends 'mover/index.html' %}
+
+{% block title %}
+<title>Payment</title>
+{% endblock title %}
+
+{% block content %}
+<div>
+    This is the Payment.
+    <form action="{{ form.action }}" method="{{ form.method }}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><input type="submit" value="Proceed" /></p>
+    </form>
+</div>
+{% endblock content %}

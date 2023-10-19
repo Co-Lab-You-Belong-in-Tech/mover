@@ -6,6 +6,33 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.base_user import BaseUserManager
 from .utils import get_driving_data2, get_lat_long
 # Create your models here.
+from decimal import Decimal
+
+from payments import PurchasedItem
+from payments.models import BasePayment
+
+
+class Payment(BasePayment):
+
+    def get_failure_url(self) -> str:
+        # Return a URL where users are redirected after
+        # they fail to complete a payment:
+        return f"http://localhost:8000/payment/failure/"
+
+    def get_success_url(self) -> str:
+        # Return a URL where users are redirected after
+        # they successfully complete a payment:
+        return f"http://localhost:8000/payment/success/"
+
+    def get_purchased_items(self):
+        # Return items that will be included in this payment.
+        yield PurchasedItem(
+            name='The Hound of the Baskervilles',
+            sku='BSKV',
+            quantity=9,
+            price=Decimal(10),
+            currency='USD',
+        )
 
 
 class CustomUserManager(BaseUserManager):
@@ -155,6 +182,12 @@ class VehiclePhoto(models.Model):
 
 class Booking(models.Model):
 
+    MEDIUM_VEHICLE_BASE_FEE = 38
+    MEDIUM_VEHICLE_BASE_FEE_PER_MILE = 2.25
+
+    SMALL_VEHICLE_BASE_FEE = 26
+    SMALL_VEHICLE_BASE_FEE_PER_MILE = 1.95
+
     ITEM_CHOICES = (
         ('1-2', '1 - 2 items'),
         ('3-5', '3 - 5 items'),
@@ -171,13 +204,10 @@ class Booking(models.Model):
         ("BOTH", "Both"),
     )
     VEHICLE_TYPE_CHOICES = (
-        ('Truck', 'Truck'),
+        ('SUV', 'SUV'),
+        ('MiniVan', 'MiniVan'),
         ('Cargo Van', 'Cargo Van'),
-        ('Moving Van', 'Moving Van'),
-        ('Flatbed Truck', 'Flatbed Truck'),
-        ('Box Truck', 'Box Truck'),
-        ('Mini Van', 'Mini Van'),
-        ('Pick Up Truck', 'Pick Up Truck'),
+        ('Pickup Truck', 'Pickup Truck'),
     )
     HANDLE_LOADING = (
         ("1", "Carry up/down stairs"),
@@ -215,7 +245,7 @@ class Booking(models.Model):
     vehicle_type = models.CharField(
         max_length=50,
         choices=VEHICLE_TYPE_CHOICES,
-        default="Truck"
+        default="Pickup Truck"
     )
     service_type = models.CharField(
         max_length=100, choices=SERVICE_TYPE, null=True, default="LOAD")
@@ -231,7 +261,7 @@ class Booking(models.Model):
 
     def set_tracking_id(self):
         self.tracking_id = str(uuid.uuid4())
-    
+
     def get_cordinates(self):
         pickup = f"{self.pickup_latitude},{self.pickup_longitude}"
         dropoff = f"{self.dropoff_latitude},{self.dropoff_longitude}"
@@ -258,3 +288,16 @@ class Booking(models.Model):
 
     def get_driving_data(self):
         return f"{self.estimated_duration}, {self.total_distance}"
+
+    def calculate_fare(self, distance_miles: float) -> float:
+        # Base fare in dollars for SUV and MiniVan
+        base_fare: float = self.SMALL_VEHICLE_BASE_FEE
+        cost_per_mile: float = self.SMALL_VEHICLE_BASE_FEE_PER_MILE  # Cost per mile in dollars
+
+        if self.vehicle_type == "Cargo Van" or self.vehicle_type == "Pickup Truck":
+            base_fare = self.MEDIUM_VEHICLE_BASE_FEE
+            cost_per_mile = self.MEDIUM_VEHICLE_BASE_FEE_PER_MILE  # Cost per mile in dollars
+
+        fare = base_fare + (distance_miles * cost_per_mile)
+
+        return fare

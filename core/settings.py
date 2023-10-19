@@ -31,8 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", False)
-# DEBUG = True
+# DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0",
                  "127.0.0.1", "moveritems.pythonanywhere.com", "moverapp.onrender.com"]
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     # third party apps
     # 'django_browser_reload',
+    "payments",
 
 ]
 
@@ -186,3 +187,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+# Django Payments
+PAYMENT_MODEL = 'mover.Payment'
+
+PAYMENT_HOST = 'localhost:8000'
+
+PAYMENT_USES_SSL = False
+
+PAYMENT_VARIANTS = {
+    'dummy': ('payments.dummy.DummyProvider', {})
+}

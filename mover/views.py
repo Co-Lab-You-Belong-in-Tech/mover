@@ -13,6 +13,12 @@ from .utils import get_lat_long, get_driving_data
 import os
 from dotenv import load_dotenv
 
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
+from payments import get_payment_model, RedirectNeeded
+from decimal import Decimal
+
+
 # Load environment variables from the .env file
 load_dotenv()
 
@@ -26,14 +32,63 @@ def is_auth(user):
     return user.is_authenticated
 
 
+def test_payment(request):
+    Payment = get_payment_model()
+    payment = Payment.objects.create(
+        variant='default',  # this is the variant from PAYMENT_VARIANTS
+        description='Book purchase',
+        total=Decimal(120),
+        tax=Decimal(20),
+        currency='USD',
+        delivery=Decimal(10),
+        billing_first_name='Sherlock',
+        billing_last_name='Holmes',
+        billing_address_1='221B Baker Street',
+        billing_address_2='',
+        billing_city='London',
+        billing_postcode='NW1 6XE',
+        billing_country_code='GB',
+        billing_country_area='Greater London',
+        customer_ip_address='127.0.0.1',
+    )
+    return redirect("payment_detail", payment_id=payment.id)
+
+
+def payment_detail(request, payment_id):
+    payment = get_object_or_404(get_payment_model(), id=payment_id)
+
+    try:
+        form = payment.get_form(data=request.POST or None)
+    except RedirectNeeded as redirect_to:
+        return redirect(str(redirect_to))
+
+    return TemplateResponse(
+        request,
+        'mover/payment/payment.html',
+        {'form': form, 'payment': payment}
+    )
+
+
+def payment_success(request):
+    return render(request, "mover/payment/success.html", {})
+
+
+def payment_failure(request):
+    return render(request, "mover/payment/failure.html", {})
+# 404 Views
+
+
+def custom_404(request, exception):
+    return render(request, 'mover/404.html', status=404)
+
+
 def home(request):
-    debug = os.getenv("DEBUG")
-    print("Debug is on:", debug)
-    
     return render(request, "mover/home.html", {})
+
 
 def home_driver(request):
     return render(request, "mover/home_driver.html", {})
+
 
 def request_mover(request):
     """For anonyomous user once they land on the root url, set a cookie of unique id.
@@ -99,6 +154,8 @@ def before_moving(request, tracking_id):
 def select_mover(request, tracking_id):
     """
         This gets all drivers and list for the customer so they can select one to move with.
+        Get the booking; Get its pickup location; Cal distance from pickup to driver location;
+        Calculate
     """
     # Get a list of all the vehicles that are currently set to available
     # available_vehicles = get_list_or_404(Vehicle, is_available=True)
@@ -291,10 +348,18 @@ def signup(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         print(f"file: {request.FILES} post data: {request.POST}")
         if form.is_valid():
-            user = form.save()
+            # Get address long and lat and set them
+            address = form.cleaned_data.get("address")
+            (lat, long) = get_lat_long(address)
+
+            user = form.save(commit=False)
+            user.address_latitude = lat
+            user.address_longitude = long
+
+            user.save()
+
             print("valid user: ", user)
             auth_login(request, user)
-            print("Redirecting to homepage")
             # Move to the next step of vehicle verification
             return redirect("document_verification")
 

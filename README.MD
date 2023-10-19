@@ -26,10 +26,10 @@ Below are routes to the user auth:
 
 
 ### TODO DEV
-- Do a proper landing page.
+- Do a proper landing page. [DONE]
 - Add a latitude, longitude and estimated_time to db and use the utility function to calculate the distance for the booking model class [DONE]
 - Make the estimated time duration to appear on the select mover.
-- Make Screns responsive
+- Make Screns responsive [DONE]
 - Enable messages to show notifications on the front end:
 - Style the email templates to be better
 - Add placeholders to the input in customer and driver pages.
