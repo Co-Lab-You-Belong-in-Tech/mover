@@ -7,7 +7,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email', 'address', 'password1', 
+        fields = ('first_name', 'last_name', 'email', 'address', 'password1',
                   'password2', 'profile_picture', 'phone_number')
 
 
@@ -58,6 +58,7 @@ class BookingForm(forms.ModelForm):
             # 'selected_item': forms.RadioSelect,
             'service_type': forms.RadioSelect,
             'rate_type': forms.RadioSelect,
+            'email': forms.EmailInput()
         }
 
 
