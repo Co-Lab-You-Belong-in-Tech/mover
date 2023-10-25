@@ -13,6 +13,7 @@
             <label for="">Pick Location</label>
             <!-- <input type="text" placeholder="Enter Location"> -->
             {{ form.pickup_location }}
+            <ul id="autocomplete-list"></ul>
         </div>
         <div>
             <label for="">Drop Off Location</label>
@@ -42,3 +43,165 @@
 </div>
 
 {% endblock cardRight %}
+
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        let userLatitude;
+        let userLongitude;
+        const apiKey = "Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR"
+
+        //  Test geolocation --------------------------------
+
+        const getUserLocation = async () => {
+            return new Promise((resolve, reject) => {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const lat = position.coords.latitude;
+                            const long = position.coords.longitude;
+                            resolve({ lat, long });
+                        },
+                        (error) => {
+                            switch (error.code) {
+                                case error.PERMISSION_DENIED:
+                                    reject("User denied the request for Geolocation.");
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    reject("Location information is unavailable.");
+                                    break;
+                                case error.TIMEOUT:
+                                    reject("The request to get user location timed out.");
+                                    break;
+                                case error.UNKNOWN_ERROR:
+                                    reject("An unknown error occurred.");
+                                    break;
+                            }
+                        }
+                    );
+                } else {
+                    reject("Geolocation is not supported in this browser.");
+                }
+            });
+        }
+
+        // End ------------------------------------
+
+        // Get request ----------------------------------------
+        const getBingMapsAutosuggest = (query, userLocation, apiKey) => {
+            // Build the request URL
+            const baseUrl = 'https://dev.virtualearth.net/REST/v1/Autosuggest';
+            const queryParams = new URLSearchParams({
+                query: query,
+                userLocation: userLocation,
+                includeEntityTypes: "'Address,Place'",
+                key: apiKey,
+            });
+            const requestUrl = `${baseUrl}?${queryParams.toString()}`;
+
+            return fetch(requestUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Request failed with status ${response.status}`);
+                    }
+                    console.log(response.json());
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.resourceSets.length > 0) {
+                        return data.resourceSets[0].resources;
+                    } else {
+                        return [];
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    throw error;
+                });
+        };
+
+        // End -----------------------------
+
+        let { lat, long } = await getUserLocation()
+
+        console.log(`Location: ${lat},${long}`)
+
+        if (lat) {
+            // Making a mock request to test the endpoint
+            // const res = getBingMapsAutosuggest("323 Main", userLocation, apiKey)
+
+        }
+
+
+
+
+        const pickupLocationInput = document.getElementById('id_pickup_location');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+        // Add an event listener to detect changes in the input field
+        pickupLocationInput.addEventListener('input', function () {
+            const searchText = pickupLocationInput.value;
+
+            if (searchText.split(" ") > 2) {
+                // Make search request
+
+            }
+
+            // Clear the autocomplete list
+            autocompleteList.innerHTML = '';
+            const option = document.createElement('li');
+            option.textContent = "address1";
+            autocompleteList.appendChild(option);
+
+            // Perform a request to your endpoint (replace 'yourEndpoint' with the actual URL)
+            // fetch(`yourEndpoint?search=${searchText}`)
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.length > 0) {
+            //             // If there are suggestions, create a list of options
+            //             data.forEach(address => {
+            //                 const option = document.createElement('li');
+            //                 option.textContent = address;
+            //                 autocompleteList.appendChild(option);
+
+            //                 // Add a click event listener to populate the input field when an option is clicked
+            //                 option.addEventListener('click', function () {
+            //                     pickupLocationInput.value = address;
+            //                     autocompleteList.innerHTML = ''; // Clear the autocomplete list
+            //                 });
+            //             });
+            //         } else {
+            //             // If there are no suggestions, you can display a message or handle it in a way you prefer
+            //             const noResults = document.createElement('li');
+            //             noResults.textContent = 'No results found';
+            //             autocompleteList.appendChild(noResults);
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching data:', error);
+            //     });
+        });
+
+        // Handle edge cases such as pressing the Enter key to select the first suggestion
+        pickupLocationInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const firstOption = autocompleteList.querySelector('li');
+                if (firstOption) {
+                    pickupLocationInput.value = firstOption.textContent;
+                    autocompleteList.innerHTML = '';
+                    event.preventDefault(); // Prevent form submission if you're using a form
+                }
+            }
+        });
+
+        // Close the autocomplete list when clicking outside
+        document.addEventListener('click', function (event) {
+            if (event.target !== pickupLocationInput && event.target !== autocompleteList) {
+                autocompleteList.innerHTML = '';
+            }
+        });
+
+    })
+</script>
+{% endblock script %}
