@@ -108,12 +108,14 @@ def request_mover(request):
 
             booking = form.save(commit=False)
             booking.set_tracking_id()
+            # TODO: Create an api that handles this and get the cordinates from frontend
             # Calc the long and lat
-            booking.set_cordinates()
 
-            (pickup, dropoff) = booking.get_cordinates()
-            # Set driving data from cordinates
-            booking.set_driving_data(pickup, dropoff)
+            # booking.set_cordinates()
+
+            # (pickup, dropoff) = booking.get_cordinates()
+            # # Set driving data from cordinates
+            # booking.set_driving_data(pickup, dropoff)
             # Save booking
             booking.save()
 
