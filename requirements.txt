@@ -7,10 +7,13 @@ defusedxml==0.7.1
 Django==4.2.6
 django-browser-reload==1.11.0
 django-jazzmin==2.6.0
+django-payments==2.0.0
+django-phonenumber-field==7.2.0
 gunicorn==21.2.0
 idna==3.4
 oauthlib==3.2.2
 packaging==23.2
+phonenumberslite==8.13.23
 Pillow==10.0.1
 pycparser==2.21
 PyJWT==2.8.0
