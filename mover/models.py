@@ -200,7 +200,7 @@ class Booking(models.Model):
     )
     SERVICE_TYPE = (
         ("LOAD", "Load"),
-        ("UNLOAD", "UnLoad"),
+        ("UNLOAD", "Unload"),
         ("BOTH", "Both"),
     )
     VEHICLE_TYPE_CHOICES = (
