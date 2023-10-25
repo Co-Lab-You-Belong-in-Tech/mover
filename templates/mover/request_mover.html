@@ -52,6 +52,11 @@
         let userLongitude;
         const apiKey = "Aq8PnSeraxCE7_Otau4MHHbOBp9ZG4htMjXoXto8n8xtt1iyHlG2SZDigxz27riR"
 
+        // Get the inputs
+        const pickupLocationInput = document.getElementById('id_pickup_location');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+
         //  Test geolocation --------------------------------
 
         const getUserLocation = async () => {
@@ -98,13 +103,13 @@
                         query: query,
                         userLocation: userLocation,
                         includeEntityTypes: "Address,Place",
+                        maxResults: 5,
                         key: apiKey,
                     },
                 });
 
                 if (response.status === 200) {
                     const data = response.data;
-                    console.log(data);
                     if (data.resourceSets.length > 0) {
                         // Return a list of address objects
                         return data.resourceSets[0].resources[0].value;
@@ -122,74 +127,52 @@
 
         // End -----------------------------
 
-        let { lat, long } = await getUserLocation()
 
-        console.log(`Location: ${lat},${long}`)
-        let cords = `${lat},${long}`
-        if (lat) {
-            // Making a mock request to test the endpoint
-            const res = await getBingMapsAutosuggest("323 Main", cords, apiKey)
-
-        }
-
-
-
-
-        const pickupLocationInput = document.getElementById('id_pickup_location');
-        const autocompleteList = document.getElementById('autocomplete-list');
 
         // Add an event listener to detect changes in the input field
-        pickupLocationInput.addEventListener('input', function () {
+        pickupLocationInput.addEventListener('input', async () => {
+            let { lat, long } = await getUserLocation();
+            console.log(`Location: ${lat},${long}`);
+            let cords = `${lat},${long}`;
+
             const searchText = pickupLocationInput.value;
-
-            if (searchText.split(" ") > 2) {
-                // Make search request
-
-            }
-
             // Clear the autocomplete list
             autocompleteList.innerHTML = '';
-            const option = document.createElement('li');
-            option.textContent = "address1";
-            autocompleteList.appendChild(option);
+            const res = await getBingMapsAutosuggest(searchText, cords, apiKey);
+            console.log(res);
 
-            // Perform a request to your endpoint (replace 'yourEndpoint' with the actual URL)
-            // fetch(`yourEndpoint?search=${searchText}`)
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.length > 0) {
-            //             // If there are suggestions, create a list of options
-            //             data.forEach(address => {
-            //                 const option = document.createElement('li');
-            //                 option.textContent = address;
-            //                 autocompleteList.appendChild(option);
+            if (searchText.split(" ").length >= 2) { // Use `.length` to check the number of words
+                // Add a 2-second delay
+                setTimeout(async () => {
+                    console.log("8 secs reached!!");
+                    // Make search request after the delay
+                    res.map((suggested) => {
+                        console.log(suggested.address.formattedAddress)
+                        const option = document.createElement('li');
+                        const suggestedAddr = suggested.address.formattedAddress;
+                        console.log("The address", suggestedAddr);
+                        option.textContent = suggestedAddr;
+                        autocompleteList.appendChild(option);
 
-            //                 // Add a click event listener to populate the input field when an option is clicked
-            //                 option.addEventListener('click', function () {
-            //                     pickupLocationInput.value = address;
-            //                     autocompleteList.innerHTML = ''; // Clear the autocomplete list
-            //                 });
-            //             });
-            //         } else {
-            //             // If there are no suggestions, you can display a message or handle it in a way you prefer
-            //             const noResults = document.createElement('li');
-            //             noResults.textContent = 'No results found';
-            //             autocompleteList.appendChild(noResults);
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching data:', error);
-            //     });
+                        // Add a click event listener to populate the input field when an option is clicked
+                        // option.addEventListener('click', () => {
+                        //     pickupLocationInput.value = address;
+                        //     autocompleteList.innerHTML = ''; // Clear the autocomplete list
+                        // });
+                    });
+                }, 8000); // 2-second delay (2000 milliseconds)
+            }
         });
 
         // Handle edge cases such as pressing the Enter key to select the first suggestion
+
         pickupLocationInput.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 const firstOption = autocompleteList.querySelector('li');
                 if (firstOption) {
                     pickupLocationInput.value = firstOption.textContent;
                     autocompleteList.innerHTML = '';
-                    event.preventDefault(); // Prevent form submission if you're using a form
+                    // event.preventDefault(); // Prevent form submission if you're using a form
                 }
             }
         });
@@ -200,7 +183,8 @@
                 autocompleteList.innerHTML = '';
             }
         });
+    });
 
-    })
+
 </script>
 {% endblock script %}
