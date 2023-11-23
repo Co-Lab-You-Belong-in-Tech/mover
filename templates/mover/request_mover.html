@@ -127,7 +127,42 @@
 
         // End -----------------------------
 
+        // -------------------------------- Object Data
 
+        const data = [
+            {
+                "__type": "Place",
+                "address": {
+                    "countryRegion": "United States",
+                    "locality": "Las Vegas",
+                    "adminDistrict": "Nevada",
+                    "adminDistrict2": "Clark County",
+                    "countryRegionIso2": "US",
+                    "formattedAddress": "Las Vegas, Nevada"
+                }
+            },
+            {
+                "__type": "Place",
+                "address": {
+                    "countryRegion": "United States",
+                    "locality": "Las Vegas",
+                    "adminDistrict": "New Mexico",
+                    "adminDistrict2": "San Miguel County",
+                    "countryRegionIso2": "US",
+                    "formattedAddress": "Las Vegas, New Mexico"
+                }
+            },
+            {
+                "__type": "Place",
+                "address": {
+                    "countryRegion": "United States",
+                    "adminDistrict": "Nevada",
+                    "countryRegionIso2": "US",
+                    "formattedAddress": "Nevada"
+                },
+                "name": "Las Vegas Motor Speedway"
+            },
+        ]
 
         // Add an event listener to detect changes in the input field
         pickupLocationInput.addEventListener('input', async () => {
@@ -138,29 +173,35 @@
             const searchText = pickupLocationInput.value;
             // Clear the autocomplete list
             autocompleteList.innerHTML = '';
-            const res = await getBingMapsAutosuggest(searchText, cords, apiKey);
-            console.log(res);
+            // const res = await getBingMapsAutosuggest(searchText, cords, apiKey);
+            // console.log(res);
 
             if (searchText.split(" ").length >= 2) { // Use `.length` to check the number of words
                 // Add a 2-second delay
                 setTimeout(async () => {
-                    console.log("8 secs reached!!");
+                    console.log("4 secs reached!!");
                     // Make search request after the delay
-                    res.map((suggested) => {
+                    data.map((suggested, index) => {
                         console.log(suggested.address.formattedAddress)
-                        const option = document.createElement('li');
-                        const suggestedAddr = suggested.address.formattedAddress;
-                        console.log("The address", suggestedAddr);
-                        option.textContent = suggestedAddr;
-                        autocompleteList.appendChild(option);
 
-                        // Add a click event listener to populate the input field when an option is clicked
-                        // option.addEventListener('click', () => {
-                        //     pickupLocationInput.value = address;
-                        //     autocompleteList.innerHTML = ''; // Clear the autocomplete list
-                        // });
+                        if (index <= 3) {
+                            const option = document.createElement('li');
+                            const suggestedAddr = suggested.address.formattedAddress;
+                            console.log("The address", suggestedAddr);
+                            option.textContent = suggestedAddr;
+                            autocompleteList.appendChild(option);
+                            // Add a click event listener to populate the input field when an option is clicked
+                            option.addEventListener('click', (e) => {
+                                pickupLocationInput.value = option.textContent;
+                                autocompleteList.innerHTML = ''; // Clear the autocomplete list
+                            });
+
+                        }
                     });
-                }, 8000); // 2-second delay (2000 milliseconds)
+                }, 4000);
+            }
+            else {
+                autocompleteList.innerHTML = '';
             }
         });
 

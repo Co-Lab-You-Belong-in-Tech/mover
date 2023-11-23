@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'mover',
 
     # third party apps
-    # 'django_browser_reload',
     "payments",
+    'rest_framework',
 
 ]
 
