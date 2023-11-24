@@ -1,10 +1,11 @@
 {% extends "mover/index.html" %}
 {% load static %}
 {% block title %}
+
 <style>
-    /* div.driver-onboarding-panel > div{
-            margin-bottom: 1em;
-        } */
+    .ui-autocomplete-loading {
+        background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
 </style>
 {% endblock title %}
 
@@ -98,6 +99,19 @@
         </div>
         <div class="row">
             <div class="col">
+                <div class="ui-widget">
+                    <label for="birds">Birds: </label>
+                    <input id="birds">
+                </div>
+
+                <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+                    Result:
+                    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <button class="w-100" type="submit">Continue</button>
             </div>
         </div>
@@ -106,3 +120,24 @@
 </div>
 
 {% endblock content %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script defer>
+    $(function () {
+        function log(message) {
+            $("<div>").text(message).prependTo("#log");
+            $("#log").scrollTop(0);
+        }
+
+        $("#birds").autocomplete({
+            source: "https://jsonplaceholder.typicode.com/todos",
+            minLength: 2,
+            select: function (event, ui) {
+                log("Selected: " + ui.item.value + " aka " + ui.item.id);
+            }
+        });
+    });
+</script>
+{% endblock script %}

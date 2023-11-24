@@ -469,3 +469,13 @@ div#id_service_type {
         font-size: 40px;
     }
 } */
+
+
+/* sample */
+
+div#myInputautocomplete-list {
+    position: absolute;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 4px;
+}
