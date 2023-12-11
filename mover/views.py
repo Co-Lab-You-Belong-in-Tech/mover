@@ -353,7 +353,7 @@ def signup(request):
             # Get address long and lat and set them
             address = form.cleaned_data.get("address")
             (lat, long) = get_lat_long(address)
-
+            print(f"Lat: {lat}, Ling: {long}")
             user = form.save(commit=False)
             user.address_latitude = lat
             user.address_longitude = long

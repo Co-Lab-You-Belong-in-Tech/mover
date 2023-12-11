@@ -33,7 +33,7 @@ class DocumentVerificationForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('drivers_license_number', 'license_expiration', 'license_state',
-                  'license_zipcode', 'drivers_license')
+                  'license_zipcode', 'drivers_license_front', "drivers_license_back")
 
 
 class VehicleInformationForm(forms.ModelForm):
@@ -41,7 +41,8 @@ class VehicleInformationForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = ('license_plate', 'year', 'make', 'model',
-                  'vehicle_insurance', 'vehicle_photo')
+                  'vehicle_insurance', 'interior_vehicle_photo' , 'exterior_front_vehicle_photo',
+                  'exterior_back_vehicle_photo', 'exterior_side_vehicle_photo')
 
 
 class BookingForm(forms.ModelForm):

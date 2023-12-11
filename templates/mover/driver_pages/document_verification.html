@@ -76,8 +76,17 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex flex-column">
-                    <label for="">Upload a photo of your Driver's License</label>
-                    {{ form.drivers_license }}
+                    <label for="">Upload a front photo of your Driver's License</label>
+                    {{ form.drivers_license_front }}
+                    <!-- <input type="file" name="" id=""> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex flex-column">
+                    <label for="">Upload a back photo of your Driver's License</label>
+                    {{ form.drivers_license_back }}
                     <!-- <input type="file" name="" id=""> -->
                 </div>
             </div>

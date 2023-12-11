@@ -100,7 +100,9 @@ class CustomUser(AbstractUser):
     license_expiration = models.DateField(null=True, blank=True)
     license_state = models.CharField(max_length=200, null=True, blank=True)
     license_zipcode = models.CharField(max_length=200, null=True, blank=True)
-    drivers_license = models.FileField(null=True, blank=True)
+    # drivers_license = models.FileField(null=True, blank=True)
+    drivers_license_front = models.ImageField(upload_to="images/", null=True)
+    drivers_license_back = models.ImageField(upload_to="images/", null=True)
 
     def __str__(self):
         return self.first_name
@@ -163,7 +165,11 @@ class Vehicle(models.Model):
     is_loading = models.BooleanField(default=True)
     is_unloading = models.BooleanField(default=True)
     vehicle_insurance = models.FileField(upload_to="documents/")
-    vehicle_photo = models.ImageField(upload_to="images/")
+    # vehicle_photo = models.ImageField(upload_to="images/")
+    interior_vehicle_photo = models.ImageField(upload_to="images/", null=True)
+    exterior_front_vehicle_photo = models.ImageField(upload_to="images/", null=True)
+    exterior_back_vehicle_photo = models.ImageField(upload_to="images/", null=True)
+    exterior_side_vehicle_photo = models.ImageField(upload_to="images/", null=True)
     driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     vehicle_type = models.CharField(
         max_length=200, null=True, choices=VEHICLE_TYPE)
