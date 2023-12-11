@@ -1,11 +1,7 @@
 {% extends "mover/index.html" %}
 {% load static %}
 {% block title %}
-<style>
-    /* div.driver-onboarding-panel > div{
-            margin-bottom: 1em;
-        } */
-</style>
+<title>Vehicle Information</title>
 {% endblock title %}
 
 {% block content %}
@@ -42,10 +38,16 @@
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">
-                <div class="d-flex flex-column">
-                    <label for="">Year</label>
-                    <!-- <input type="text" name="firstname" id="" placeholder="Year"> -->
-                    {{ form.year }}
+                <div class="d-flex flex-column dropdown-container">
+                    <!-- {{ form.year }} -->
+                    <label for="id_year">Year</label>
+                    <input type="number" name="year" id="id_year" required list="year_list" max="2023">
+                    <datalist id="year_list">
+                        <!-- Generate options for years from 2000 to 2023 -->
+                        {% for year in year_list %}
+                        <option value="{{ year }}">
+                            {% endfor %}
+                    </datalist>
                 </div>
             </div>
         </div>
@@ -116,3 +118,36 @@
 </div>
 
 {% endblock content %}
+
+{% block style %}
+<!-- <style>
+    /* Style the dropdown container */
+    .dropdown-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style the input field */
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    /* Style the datalist */
+    datalist {
+        position: absolute;
+        z-index: 1;
+        background-color: #fff;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Style the options within the datalist */
+    datalist option {
+        padding: 8px;
+    }
+</style> -->
+{% endblock style %}

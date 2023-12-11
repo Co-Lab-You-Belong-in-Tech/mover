@@ -412,6 +412,8 @@ def document_verification(request):
 @user_passes_test(is_auth, login_url='login')
 def vehicle_information(request):
 
+    year_list = [x for x in range(2000, 2024)]
+    
     if request.method == "POST":
         print(f"file: {request.FILES} post data: {request.POST}")
         print("Current user: ", request.user)
@@ -428,7 +430,7 @@ def vehicle_information(request):
             return redirect("application_status")
 
     form = VehicleInformationForm()
-    return render(request, "mover/driver_pages/vehicle_information.html", {"form": form})
+    return render(request, "mover/driver_pages/vehicle_information.html", {"form": form, "year_list": year_list})
 
 
 @user_passes_test(is_auth, login_url='login')

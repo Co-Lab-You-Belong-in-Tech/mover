@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django import forms
 from .models import CustomUser, Vehicle, Booking
+from django.core.validators import MaxValueValidator
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -36,12 +37,28 @@ class DocumentVerificationForm(UserChangeForm):
                   'license_zipcode', 'drivers_license_front', "drivers_license_back")
 
 
+# class VehicleInformationForm(forms.ModelForm):
+
+#     class Meta:
+#         model = Vehicle
+#         fields = ('license_plate', 'year', 'make', 'model',
+#                   'vehicle_insurance', 'interior_vehicle_photo', 'exterior_front_vehicle_photo',
+#                   'exterior_back_vehicle_photo', 'exterior_side_vehicle_photo')
+#         widgets = {
+#             'year': forms.NumberInput(attrs={'type': 'number'}),
+#         }
+
 class VehicleInformationForm(forms.ModelForm):
+    # Add validators to the 'year' field
+    year = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'type': 'number'}),
+        validators=[MaxValueValidator(9999)]
+    )
 
     class Meta:
         model = Vehicle
         fields = ('license_plate', 'year', 'make', 'model',
-                  'vehicle_insurance', 'interior_vehicle_photo' , 'exterior_front_vehicle_photo',
+                  'vehicle_insurance', 'interior_vehicle_photo', 'exterior_front_vehicle_photo',
                   'exterior_back_vehicle_photo', 'exterior_side_vehicle_photo')
 
 
